@@ -9,6 +9,7 @@
   display: flex;
   flex: 1;
   padding-top: 68px; /* Offset for fixed header */
+  position: relative;
 }
 
 .ubs-main-content {
@@ -18,7 +19,12 @@
   flex-direction: column;
   min-height: calc(100vh - 68px);
   background-color: var(--ubs-ash-bg);
-  transition: margin-left 0.25s ease;
+  transition: margin-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Desktop Collapsed Sidebar State (Website Toggler) */
+.ubs-workspace-layout.sidebar-collapsed .ubs-main-content {
+  margin-left: 0px;
 }
 
 .ubs-content-viewport {
@@ -36,9 +42,31 @@
   background-color: var(--ubs-ash-bg);
 }
 
+/* Mobile Drawer Backdrop */
+.ubs-sidebar-backdrop {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(3px);
+  z-index: 95;
+  animation: backdropFadeIn 0.2s ease-out;
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 1024px) {
   .ubs-main-content {
-    margin-left: 0;
+    margin-left: 0 !important;
   }
   .ubs-content-viewport {
     padding: 20px;

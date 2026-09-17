@@ -8,6 +8,17 @@
   border-right: 1px solid var(--ubs-ash-border);
   z-index: 90;
   overflow-y: auto;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+/* Website Desktop Collapsed Mode */
+.ubs-sidebar.sidebar-collapsed {
+  transform: translateX(-100%);
+}
+
+/* Mobile Header inside Sidebar (Hidden by default on Desktop) */
+.ubs-sidebar-mobile-header {
+  display: none;
 }
 
 .ubs-sidebar-inner {
@@ -146,8 +157,80 @@
   text-decoration: underline;
 }
 
+/* ==========================================================================
+   MOBILE OFF-CANVAS DRAWER RESPONSIVE RULES (<= 1024px)
+   ========================================================================== */
+
 @media (max-width: 1024px) {
   .ubs-sidebar {
-    display: none;
+    top: 0;
+    width: 290px;
+    z-index: 1000;
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .ubs-sidebar.mobile-open {
+    transform: translateX(0);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Mobile Drawer Header */
+  .ubs-sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--ubs-ash-border);
+    background-color: var(--ubs-white);
+  }
+
+  .ubs-sidebar-mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .ubs-sidebar-mobile-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--ubs-black) 0%, var(--ubs-blue-700) 100%);
+    color: var(--ubs-white);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ubs-sidebar-mobile-title {
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--ubs-black);
+  }
+
+  .ubs-sidebar-mobile-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--ubs-ash-subtle);
+    border: 1px solid var(--ubs-ash-border);
+    color: var(--ubs-black);
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .ubs-sidebar-mobile-close:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fca5a5;
+  }
+
+  .ubs-sidebar-inner {
+    min-height: calc(100vh - 65px);
   }
 }

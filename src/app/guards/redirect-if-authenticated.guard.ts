@@ -5,7 +5,10 @@ export const redirectIfAuthenticatedGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   // Synchronous check: MUST match the check in app.component.ts
-  const isAuthenticated = localStorage.getItem('auth_token') !== null;
+  const isAuthenticated =
+    typeof window !== 'undefined' &&
+    (localStorage.getItem('auth_token') !== null ||
+      localStorage.getItem('ubs_auth_token') !== null);
 
   if (isAuthenticated) {
     // Bounce already logged-in users straight to the dashboard

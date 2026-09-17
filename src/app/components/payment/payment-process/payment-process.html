@@ -17,13 +17,9 @@
     <div class="ubs-card ubs-pay-card">
       <div class="ubs-form-group mb-4">
         <label class="ubs-label">Select Outstanding Invoice</label>
-        <select
-          [ngModel]="selectedBillId"
-          (ngModelChange)="selectBill($event)"
-          class="ubs-select"
-        >
+        <select [ngModel]="selectedBillId" (ngModelChange)="selectBill($event)" class="ubs-select">
           <option *ngFor="let b of unpaidBills" [value]="b.id">
-            #{{ b.id }} - {{ b.customerName }} (${{ b.total | number:'1.2-2' }}) [{{ b.status }}]
+            #{{ b.id }} - {{ b.customerName }} (${{ b.total | number: '1.2-2' }}) [{{ b.status }}]
           </option>
         </select>
       </div>
@@ -33,7 +29,7 @@
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ 'active': paymentMethod === 'CREDIT_CARD' }"
+          [ngClass]="{ active: paymentMethod === 'CREDIT_CARD' }"
           (click)="paymentMethod = 'CREDIT_CARD'"
         >
           💳 Credit Card
@@ -41,7 +37,7 @@
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ 'active': paymentMethod === 'BANK_TRANSFER' }"
+          [ngClass]="{ active: paymentMethod === 'BANK_TRANSFER' }"
           (click)="paymentMethod = 'BANK_TRANSFER'"
         >
           🏦 Wire Transfer
@@ -49,7 +45,7 @@
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ 'active': paymentMethod === 'PAYPAL' }"
+          [ngClass]="{ active: paymentMethod === 'PAYPAL' }"
           (click)="paymentMethod = 'PAYPAL'"
         >
           🅿️ PayPal
@@ -60,42 +56,22 @@
       <form (ngSubmit)="processPayment()" class="ubs-payment-form">
         <div class="ubs-form-group">
           <label class="ubs-label">Cardholder Name</label>
-          <input
-            type="text"
-            [(ngModel)]="cardHolder"
-            name="cardHolder"
-            class="ubs-input"
-          />
+          <input type="text" [(ngModel)]="cardHolder" name="cardHolder" class="ubs-input" />
         </div>
 
         <div class="ubs-form-group">
           <label class="ubs-label">Card Number</label>
-          <input
-            type="text"
-            [(ngModel)]="cardNumber"
-            name="cardNumber"
-            class="ubs-input"
-          />
+          <input type="text" [(ngModel)]="cardNumber" name="cardNumber" class="ubs-input" />
         </div>
 
         <div class="ubs-grid-2">
           <div class="ubs-form-group">
             <label class="ubs-label">Expiry (MM/YY)</label>
-            <input
-              type="text"
-              [(ngModel)]="cardExpiry"
-              name="cardExpiry"
-              class="ubs-input"
-            />
+            <input type="text" [(ngModel)]="cardExpiry" name="cardExpiry" class="ubs-input" />
           </div>
           <div class="ubs-form-group">
             <label class="ubs-label">Security CVC</label>
-            <input
-              type="text"
-              [(ngModel)]="cardCvc"
-              name="cardCvc"
-              class="ubs-input"
-            />
+            <input type="text" [(ngModel)]="cardCvc" name="cardCvc" class="ubs-input" />
           </div>
         </div>
 
@@ -105,7 +81,7 @@
           [disabled]="isProcessing || !selectedBill"
         >
           <span *ngIf="!isProcessing && selectedBill">
-            Authorize & Pay ${{ selectedBill.total | number:'1.2-2' }}
+            Authorize & Pay ${{ selectedBill.total | number: '1.2-2' }}
           </span>
           <span *ngIf="isProcessing">Transacting Settlement...</span>
           <span *ngIf="!selectedBill">No Pending Invoice Selected</span>
@@ -134,7 +110,7 @@
 
       <div class="ubs-summary-total-row">
         <span class="ubs-total-label">Total Charge</span>
-        <span class="ubs-total-val">${{ selectedBill.total | number:'1.2-2' }}</span>
+        <span class="ubs-total-val">${{ selectedBill.total | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-secure-badge">

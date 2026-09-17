@@ -1,114 +1,855 @@
-.ubs-auth-page {
+/* ==========================================================================
+   YONO SBI-INSPIRED AUTHENTICATION THEME
+   Deep Royal Purple (#5c186e / #440f57), Crisp High-Contrast Visible Elements
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  --yono-purple-primary: #5c186e;
+  --yono-purple-dark: #440f57;
+  --yono-purple-light: #7c2d94;
+  --yono-purple-subtle: #f3eaf8;
+  --yono-text-dark: #111827;
+  --yono-text-muted: #4b5563;
+  --yono-border-line: #9ca3af;
+}
+
+.yono-page-wrapper {
+  position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background-color: var(--ubs-ash-bg);
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f8f7fb;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
-.ubs-auth-card {
+/* Organic Background Wavy Blobs */
+.yono-bg-curve-top {
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, #ece4f5 0%, rgba(236, 228, 245, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.yono-bg-curve-mid {
+  position: absolute;
+  top: 10%;
+  right: -80px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #f2e9f7 0%, rgba(242, 233, 247, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Main Container */
+.yono-content-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
   width: 100%;
-  max-width: 440px;
-  padding: 38px 34px;
-  background-color: var(--ubs-white);
-}
-
-.ubs-auth-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-.ubs-auth-logo {
-  width: 46px;
-  height: 46px;
-  background: linear-gradient(135deg, var(--ubs-black) 0%, var(--ubs-blue-700) 100%);
-  color: var(--ubs-white);
-  border-radius: 12px;
-  display: inline-flex;
+  margin: 0 auto;
+  padding: 44px 28px 24px 28px;
+  flex: 1;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.ubs-auth-title {
-  font-size: 1.375rem;
+.yono-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: 52px;
+  align-items: center;
+  width: 100%;
+}
+
+/* ==========================================================================
+   LEFT HERO SECTION
+   ========================================================================== */
+
+.yono-left-col {
+  padding-right: 16px;
+}
+
+.yono-hero-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.yono-greeting {
+  font-size: 3.85rem;
   font-weight: 800;
-  color: var(--ubs-black);
-  margin: 0 0 6px 0;
+  color: #631d76;
+  margin: 0 0 10px 0;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.yono-welcome-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 28px 0;
   letter-spacing: -0.02em;
 }
 
-.ubs-auth-subtitle {
-  font-size: 0.825rem;
-  color: var(--ubs-ash-muted);
-  margin: 0;
+.yono-newuser-block {
+  margin-bottom: 30px;
 }
 
-.ubs-demo-pill {
+.yono-newuser-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #5c186e;
+  margin: 0 0 6px 0;
+}
+
+.yono-newuser-desc {
+  font-size: 0.925rem;
+  color: #4b5563;
+  margin: 0 0 18px 0;
+}
+
+.yono-action-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* 1. Solid Purple Register Button (Always 100% visible) */
+.yono-btn-register {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px !important;
+  background-color: #5c186e !important;
+  color: #ffffff !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  border: 2px solid #5c186e !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(92, 24, 110, 0.3) !important;
+}
+
+.yono-btn-register:hover {
+  background-color: #440f57 !important;
+  border-color: #440f57 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(92, 24, 110, 0.4) !important;
+}
+
+/* 2. Outlined Purple Activate Button (Always 100% visible) */
+.yono-btn-activate {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 28px !important;
+  background-color: #ffffff !important;
+  color: #5c186e !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  border-radius: 9999px !important;
+  border: 2px solid #5c186e !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.yono-btn-activate:hover {
+  background-color: #f3eaf8 !important;
+  transform: translateY(-2px);
+}
+
+.yono-account-check {
+  font-size: 0.925rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.yono-open-now-link {
+  color: #5c186e !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+}
+
+.yono-open-now-link:hover {
+  color: #3b0a47 !important;
+}
+
+/* ==========================================================================
+   RIGHT LOGIN CARD
+   ========================================================================== */
+
+.yono-right-col {
+  display: flex;
+  justify-content: center;
+}
+
+.yono-login-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 35px -5px rgba(68, 15, 87, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+  padding: 34px 36px;
+  position: relative;
+}
+
+.yono-card-tab {
+  text-align: center;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f3eaf8;
+}
+
+.yono-tab-text {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #5c186e;
+  letter-spacing: -0.01em;
+}
+
+/* Demo Helper Banner */
+.yono-demo-banner {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
-  background-color: var(--ubs-blue-50);
-  border: 1px solid var(--ubs-blue-200);
-  border-radius: var(--ubs-radius-md);
-  margin-bottom: 22px;
-  font-size: 0.75rem;
-  color: var(--ubs-blue-700);
+  background-color: #f7f2fc;
+  border: 1px solid #e5d1f5;
+  border-radius: 8px;
+  font-size: 0.775rem;
+  color: #5c186e;
+  font-weight: 500;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.ubs-demo-badge {
-  background-color: var(--ubs-blue-600);
-  color: var(--ubs-white);
+.yono-demo-banner:hover {
+  background-color: #efe3f8;
+}
+
+.yono-demo-pill {
+  background-color: #5c186e;
+  color: #ffffff;
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: 700;
   font-size: 0.68rem;
 }
 
-.ubs-auth-form {
+.yono-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Form Styles */
+.yono-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
-.ubs-password-header {
+.yono-field-wrap {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.ubs-forgot-link {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--ubs-blue-600);
-}
-
-.ubs-auth-submit {
+/* High Contrast Underline Inputs */
+.yono-underline-input {
   width: 100%;
-  padding: 12px;
-  font-size: 0.925rem;
+  border: none !important;
+  border-bottom: 1.8px solid #9ca3af !important;
+  background: transparent !important;
+  padding: 10px 2px !important;
+  font-size: 1rem !important;
+  font-family: inherit;
+  color: #111827 !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  transition: border-color 0.2s ease;
+}
+
+.yono-underline-input:focus {
+  border-bottom-color: #5c186e !important;
+  border-bottom-width: 2.2px !important;
+}
+
+.yono-underline-input::placeholder {
+  color: #6b7280 !important;
+  font-size: 0.95rem;
+}
+
+.yono-link-row {
+  display: flex;
+  justify-content: flex-start;
   margin-top: 6px;
 }
 
-.ubs-auth-footer {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--ubs-ash-border);
-  text-align: center;
-  font-size: 0.8125rem;
-  color: var(--ubs-ash-muted);
+.yono-sub-link {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: #5c186e !important;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.yono-sub-link:hover {
+  color: #3b0a47 !important;
+}
+
+/* Password Input & Action Buttons */
+.yono-password-input-group {
+  position: relative;
   display: flex;
+  align-items: center;
+}
+
+.yono-password-input-group .yono-underline-input {
+  padding-right: 80px !important;
+}
+
+.yono-field-tools {
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yono-tool-btn {
+  background: transparent;
+  border: none;
+  color: #374151;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.yono-tool-btn:hover {
+  color: #5c186e;
+}
+
+.yono-kbd-icon-btn {
+  border: 1.5px solid #5c186e;
+  color: #5c186e;
+  border-radius: 6px;
+  padding: 3px 7px;
+  font-size: 1rem;
+}
+
+.yono-kbd-icon-btn.active {
+  background-color: #5c186e;
+  color: #ffffff;
+}
+
+/* Virtual On-Screen Keypad */
+.yono-virtual-keyboard-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-top: -6px;
+}
+
+.yono-vkey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.yono-vkey-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.yono-vkey-rows {
+  display: flex;
+  flex-direction: column;
   gap: 6px;
 }
 
-.ubs-link-bold {
-  font-weight: 700;
-  color: var(--ubs-blue-600);
+.yono-vkey-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
 }
-.ubs-link-bold:hover {
-  text-decoration: underline;
+
+.yono-key-btn {
+  min-width: 28px;
+  height: 32px;
+  padding: 2px 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+}
+
+.yono-key-btn:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.yono-key-modifier {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  background-color: #e2e8f0;
+}
+
+.yono-key-modifier.active {
+  background-color: #5c186e;
+  color: #ffffff;
+  border-color: #5c186e;
+}
+
+.yono-key-space {
+  flex: 1;
+  max-width: 140px;
+}
+
+/* Captcha Cluster */
+.yono-captcha-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.yono-captcha-input-box {
+  width: 100%;
+}
+
+.yono-captcha-display-cluster {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yono-captcha-card {
+  position: relative;
+  width: 128px;
+  height: 38px;
+  background: #f4f4f5;
+  border: 1.5px solid #a1a1aa;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.yono-captcha-bg-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.05) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  pointer-events: none;
+}
+
+.yono-captcha-code-text {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: #090d16;
+  position: relative;
+  z-index: 2;
+  transform: skewX(-7deg);
+}
+
+.yono-captcha-strike {
+  position: absolute;
+  width: 110%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.45);
+  transform: rotate(-12deg);
+  z-index: 3;
+}
+
+.yono-captcha-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.yono-captcha-icon-btn {
+  background: #ffffff;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  width: 24px;
+  height: 19px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.yono-captcha-icon-btn:hover {
+  color: #5c186e;
+  border-color: #5c186e;
+  background-color: #f7f2fc;
+}
+
+/* ==========================================================================
+   LOGIN BUTTON (ALWAYS FULLY VISIBLE & HIGH CONTRAST)
+   ========================================================================== */
+
+.yono-submit-box {
+  margin-top: 10px;
+}
+
+.yono-login-submit-btn {
+  width: 100% !important;
+  height: 46px !important;
+  border-radius: 9999px !important;
+  background-color: #5c186e !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(92, 24, 110, 0.35) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yono-login-submit-btn:hover {
+  background-color: #440f57 !important;
+  box-shadow: 0 6px 18px rgba(92, 24, 110, 0.45) !important;
+  transform: translateY(-1px);
+}
+
+.yono-login-submit-btn:disabled {
+  opacity: 0.85 !important;
+  cursor: wait !important;
+}
+
+.yono-spinner-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff !important;
+}
+
+/* Lock/Unlock Footer Link */
+.yono-footer-link-box {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.yono-lock-link {
+  font-size: 0.825rem !important;
+  font-weight: 600 !important;
+  color: #5c186e !important;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.yono-lock-link:hover {
+  color: #3b0a47 !important;
+}
+
+/* ==========================================================================
+   BOTTOM WAVE BANNER WITH QUICK ACTIONS
+   ========================================================================== */
+
+.yono-bottom-wave-section {
+  position: relative;
+  width: 100%;
+  margin-top: auto;
+  z-index: 1;
+}
+
+.yono-wave-svg-wrap {
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.yono-wave-svg-wrap svg {
+  width: 100%;
+  height: 60px;
+  display: block;
+}
+
+.yono-quick-actions-bar {
+  background-color: #440f57;
+  padding: 16px 24px 24px 24px;
+}
+
+.yono-quick-actions-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.yono-quick-actions-title {
+  color: #ffffff !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.yono-quick-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.yono-quick-pill {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px !important;
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  border-radius: 9999px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.yono-quick-pill:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  transform: translateY(-1px);
+  color: #ffffff !important;
+}
+
+.yono-quick-pill i {
+  font-size: 1rem;
+  color: #f3caff;
+}
+
+/* ==========================================================================
+   MODAL DIALOGS
+   ========================================================================== */
+
+.yono-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.yono-modal-card {
+  background: #ffffff;
+  border-radius: 14px;
+  max-width: 460px;
+  width: 100%;
+  padding: 26px 28px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+}
+
+.yono-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.yono-modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #5c186e;
+  margin: 0;
+}
+
+.yono-modal-close {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.yono-modal-close:hover {
+  color: #0f172a;
+  background: #f1f5f9;
+}
+
+.yono-modal-desc {
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.yono-modal-label {
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.yono-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.yono-btn-modal-submit {
+  width: 100%;
+  padding: 11px 16px;
+  background-color: #5c186e;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.925rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.yono-btn-modal-submit:hover {
+  background-color: #440f57;
+}
+
+.yono-modal-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  color: #065f46;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADAPTATIONS
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .yono-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .yono-left-col {
+    padding-right: 0;
+    text-align: center;
+  }
+
+  .yono-hero-content {
+    align-items: center;
+  }
+
+  .yono-action-buttons {
+    justify-content: center;
+  }
+
+  .yono-greeting {
+    font-size: 3.2rem;
+  }
+
+  .yono-welcome-title {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .yono-content-container {
+    padding: 32px 16px 24px 16px;
+  }
+
+  .yono-login-card {
+    padding: 24px 20px;
+  }
+
+  .yono-greeting {
+    font-size: 2.75rem;
+  }
+
+  .yono-action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .yono-btn-register,
+  .yono-btn-activate {
+    width: 100%;
+  }
+
+  .yono-quick-pills {
+    justify-content: center;
+  }
 }

@@ -1,4 +1,41 @@
-<aside class="ubs-sidebar">
+<aside
+  class="ubs-sidebar"
+  [ngClass]="{
+    'sidebar-collapsed': (layoutService.isSidebarCollapsed$ | async),
+    'mobile-open': (layoutService.isMobileSidebarOpen$ | async),
+  }"
+>
+  <!-- Mobile Drawer Header with Close Button -->
+  <div class="ubs-sidebar-mobile-header">
+    <div class="ubs-sidebar-mobile-brand">
+      <div class="ubs-sidebar-mobile-icon">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+          <line x1="6" y1="10" x2="18" y2="10"></line>
+          <line x1="6" y1="14" x2="14" y2="14"></line>
+        </svg>
+      </div>
+      <span class="ubs-sidebar-mobile-title">UNIVERSAL BILLING</span>
+    </div>
+    <button
+      type="button"
+      class="ubs-sidebar-mobile-close"
+      (click)="closeMobileSidebar()"
+      title="Close menu"
+    >
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
   <div class="ubs-sidebar-inner">
     <nav class="ubs-nav-menu">
       <div *ngFor="let section of navSections" class="ubs-nav-group">
@@ -10,6 +47,7 @@
               routerLinkActive="ubs-nav-active"
               [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
               class="ubs-nav-link"
+              (click)="closeMobileSidebar()"
             >
               <span class="ubs-nav-icon" [innerHTML]="item.iconSvg"></span>
               <span class="ubs-nav-label">{{ item.label }}</span>
@@ -23,8 +61,10 @@
     <!-- Quick Help / Support Widget -->
     <div class="ubs-sidebar-footer-widget">
       <div class="ubs-widget-title">Universal Billing v2.4</div>
-      <p class="ubs-widget-desc">Static Mock Environment active with 100% simulated transactions.</p>
-      <a routerLink="/share/link" class="ubs-widget-btn">View Shareable Links</a>
+      <p class="ubs-widget-desc">Enterprise Billing & Financial Pipeline Active.</p>
+      <a routerLink="/share/link" class="ubs-widget-btn" (click)="closeMobileSidebar()">
+        View Shareable Links
+      </a>
     </div>
   </div>
 </aside>

@@ -9,12 +9,8 @@
       <h1 class="ubs-page-title">Invoice Audit & Details</h1>
     </div>
     <div class="ubs-page-actions">
-      <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-primary">
-        Full Printable Sheet
-      </a>
-      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary">
-        Edit
-      </a>
+      <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-primary"> Full Printable Sheet </a>
+      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
     </div>
   </div>
 
@@ -36,7 +32,7 @@
             [ngClass]="{
               'ubs-badge-paid': bill.status === 'PAID',
               'ubs-badge-pending': bill.status === 'PENDING',
-              'ubs-badge-overdue': bill.status === 'OVERDUE'
+              'ubs-badge-overdue': bill.status === 'OVERDUE',
             }"
           >
             {{ bill.status }}
@@ -45,7 +41,7 @@
       </div>
       <div class="ubs-details-item">
         <span class="ubs-label">Total Amount</span>
-        <span class="ubs-value-amount">${{ bill.total | number:'1.2-2' }}</span>
+        <span class="ubs-value-amount">${{ bill.total | number: '1.2-2' }}</span>
       </div>
     </div>
   </div>

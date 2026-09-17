@@ -10,12 +10,21 @@
         <span class="ubs-current">Edit</span>
       </div>
       <h1 class="ubs-form-title">Edit Invoice #{{ bill.id }}</h1>
-      <p class="ubs-form-subtitle">Update deliverables, line item pricing, or extended payment terms</p>
+      <p class="ubs-form-subtitle">
+        Update deliverables, line item pricing, or extended payment terms
+      </p>
     </div>
     <div class="ubs-form-actions">
       <button (click)="cancel()" class="ubs-btn-secondary">Cancel</button>
       <button (click)="saveBill()" class="ubs-btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
         <span>Save Changes</span>
@@ -31,20 +40,12 @@
         <div class="ubs-grid-2">
           <div class="ubs-form-group">
             <label class="ubs-label">Customer Name</label>
-            <input
-              type="text"
-              [(ngModel)]="bill.customerName"
-              class="ubs-input"
-            />
+            <input type="text" [(ngModel)]="bill.customerName" class="ubs-input" />
           </div>
 
           <div class="ubs-form-group">
             <label class="ubs-label">Due Date</label>
-            <input
-              type="date"
-              [(ngModel)]="bill.dueDate"
-              class="ubs-input"
-            />
+            <input type="date" [(ngModel)]="bill.dueDate" class="ubs-input" />
           </div>
 
           <div class="ubs-form-group">
@@ -58,11 +59,7 @@
 
           <div class="ubs-form-group">
             <label class="ubs-label">Public Link Slug</label>
-            <input
-              type="text"
-              [(ngModel)]="bill.uniqueLink"
-              class="ubs-input"
-            />
+            <input type="text" [(ngModel)]="bill.uniqueLink" class="ubs-input" />
           </div>
         </div>
       </div>
@@ -83,42 +80,28 @@
           <table class="ubs-items-table">
             <thead>
               <tr>
-                <th style="width: 52%;">Item Description</th>
-                <th style="width: 15%;">Quantity</th>
-                <th style="width: 18%;">Price ($)</th>
-                <th style="width: 15%; text-align: right;">Amount</th>
-                <th style="width: 5%;"></th>
+                <th style="width: 52%">Item Description</th>
+                <th style="width: 15%">Quantity</th>
+                <th style="width: 18%">Price ($)</th>
+                <th style="width: 15%; text-align: right">Amount</th>
+                <th style="width: 5%"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of bill.items; let i = index">
                 <td>
-                  <input
-                    type="text"
-                    [(ngModel)]="item.name"
-                    class="ubs-input"
-                  />
+                  <input type="text" [(ngModel)]="item.name" class="ubs-input" />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    min="1"
-                    [(ngModel)]="item.quantity"
-                    class="ubs-input"
-                  />
+                  <input type="number" min="1" [(ngModel)]="item.quantity" class="ubs-input" />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    min="0"
-                    [(ngModel)]="item.price"
-                    class="ubs-input"
-                  />
+                  <input type="number" min="0" [(ngModel)]="item.price" class="ubs-input" />
                 </td>
-                <td style="text-align: right; font-weight: 700; color: var(--ubs-black);">
-                  ${{ ((item.quantity || 0) * (item.price || 0)) | number:'1.2-2' }}
+                <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
+                  ${{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   <button
                     type="button"
                     (click)="removeItem(i)"
@@ -136,13 +119,9 @@
       </div>
 
       <!-- Notes Section -->
-      <div class="ubs-form-section" style="border-bottom: none;">
+      <div class="ubs-form-section" style="border-bottom: none">
         <label class="ubs-label">Invoice Notes</label>
-        <textarea
-          [(ngModel)]="bill.notes"
-          rows="3"
-          class="ubs-textarea"
-        ></textarea>
+        <textarea [(ngModel)]="bill.notes" rows="3" class="ubs-textarea"></textarea>
       </div>
     </div>
 
@@ -152,19 +131,19 @@
 
       <div class="ubs-summary-row">
         <span class="ubs-summary-label">Subtotal</span>
-        <span class="ubs-summary-val">${{ calculateSubtotal() | number:'1.2-2' }}</span>
+        <span class="ubs-summary-val">${{ calculateSubtotal() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-row">
         <span class="ubs-summary-label">Tax (10%)</span>
-        <span class="ubs-summary-val">${{ calculateTax() | number:'1.2-2' }}</span>
+        <span class="ubs-summary-val">${{ calculateTax() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
         <span class="ubs-total-label">New Total</span>
-        <span class="ubs-total-val">${{ calculateTotal() | number:'1.2-2' }}</span>
+        <span class="ubs-total-val">${{ calculateTotal() | number: '1.2-2' }}</span>
       </div>
 
       <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit">

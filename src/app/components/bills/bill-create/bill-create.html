@@ -8,12 +8,21 @@
         <span class="ubs-current">New Invoice</span>
       </div>
       <h1 class="ubs-form-title">Create New Invoice</h1>
-      <p class="ubs-form-subtitle">Issue an invoice, customize line items, and generate a secure client payment link</p>
+      <p class="ubs-form-subtitle">
+        Issue an invoice, customize line items, and generate a secure client payment link
+      </p>
     </div>
     <div class="ubs-form-actions">
       <a routerLink="/bills" class="ubs-btn-secondary">Cancel</a>
       <button (click)="saveBill()" class="ubs-btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
         <span>Generate & Issue Invoice</span>
@@ -53,11 +62,7 @@
 
           <div class="ubs-form-group">
             <label class="ubs-label">Due Date</label>
-            <input
-              type="date"
-              [(ngModel)]="dueDate"
-              class="ubs-input"
-            />
+            <input type="date" [(ngModel)]="dueDate" class="ubs-input" />
           </div>
 
           <div class="ubs-form-group">
@@ -75,7 +80,9 @@
         <div class="ubs-items-header">
           <div>
             <h2 class="ubs-section-title">Line Items & Services</h2>
-            <p class="ubs-section-subtitle">Specify individual deliverables, quantities, and unit rates</p>
+            <p class="ubs-section-subtitle">
+              Specify individual deliverables, quantities, and unit rates
+            </p>
           </div>
           <button type="button" (click)="addItem()" class="ubs-btn-secondary ubs-btn-sm">
             + Add Row
@@ -86,11 +93,11 @@
           <table class="ubs-items-table">
             <thead>
               <tr>
-                <th style="width: 52%;">Item Description</th>
-                <th style="width: 15%;">Quantity</th>
-                <th style="width: 18%;">Unit Price ($)</th>
-                <th style="width: 15%; text-align: right;">Amount</th>
-                <th style="width: 5%;"></th>
+                <th style="width: 52%">Item Description</th>
+                <th style="width: 15%">Quantity</th>
+                <th style="width: 18%">Unit Price ($)</th>
+                <th style="width: 15%; text-align: right">Amount</th>
+                <th style="width: 5%"></th>
               </tr>
             </thead>
             <tbody>
@@ -104,25 +111,15 @@
                   />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    min="1"
-                    [(ngModel)]="item.quantity"
-                    class="ubs-input"
-                  />
+                  <input type="number" min="1" [(ngModel)]="item.quantity" class="ubs-input" />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    min="0"
-                    [(ngModel)]="item.price"
-                    class="ubs-input"
-                  />
+                  <input type="number" min="0" [(ngModel)]="item.price" class="ubs-input" />
                 </td>
-                <td style="text-align: right; font-weight: 700; color: var(--ubs-black);">
-                  ${{ ((item.quantity || 0) * (item.price || 0)) | number:'1.2-2' }}
+                <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
+                  ${{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   <button
                     type="button"
                     (click)="removeItem(i)"
@@ -140,7 +137,7 @@
       </div>
 
       <!-- Section 3: Notes -->
-      <div class="ubs-form-section" style="border-bottom: none;">
+      <div class="ubs-form-section" style="border-bottom: none">
         <label class="ubs-label">Invoice Notes & Wire Details</label>
         <textarea
           [(ngModel)]="notes"
@@ -157,25 +154,28 @@
 
       <div class="ubs-summary-row">
         <span class="ubs-summary-label">Subtotal</span>
-        <span class="ubs-summary-val">${{ calculateSubtotal() | number:'1.2-2' }}</span>
+        <span class="ubs-summary-val">${{ calculateSubtotal() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-row">
         <span class="ubs-summary-label">Tax (10% standard)</span>
-        <span class="ubs-summary-val">${{ calculateTax() | number:'1.2-2' }}</span>
+        <span class="ubs-summary-val">${{ calculateTax() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
         <span class="ubs-total-label">Total Due</span>
-        <span class="ubs-total-val">${{ calculateTotal() | number:'1.2-2' }}</span>
+        <span class="ubs-total-val">${{ calculateTotal() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-pills">
         <div class="ubs-info-box">
           <span class="ubs-info-icon">ℹ️</span>
-          <span>A public client URL will be instantly generated for sharing and mock credit card checkout.</span>
+          <span
+            >A public client URL will be instantly generated for sharing and mock credit card
+            checkout.</span
+          >
         </div>
       </div>
 

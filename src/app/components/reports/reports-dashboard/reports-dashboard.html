@@ -2,15 +2,13 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Executive Revenue Reports</h1>
-      <p class="ubs-page-subtitle">Fiscal performance metrics, billing cadence, and recovery efficiency</p>
+      <p class="ubs-page-subtitle">
+        Fiscal performance metrics, billing cadence, and recovery efficiency
+      </p>
     </div>
     <div class="ubs-page-actions">
-      <a routerLink="/reports/analytics" class="ubs-btn-secondary">
-        Channel Analytics →
-      </a>
-      <a routerLink="/pdf/generator" class="ubs-btn-primary">
-        Generate PDF Summary
-      </a>
+      <a routerLink="/reports/analytics" class="ubs-btn-secondary"> Channel Analytics → </a>
+      <a routerLink="/pdf/generator" class="ubs-btn-primary"> Generate PDF Summary </a>
     </div>
   </div>
 
@@ -18,7 +16,7 @@
   <div class="ubs-metrics-grid">
     <div class="ubs-card ubs-metric-card ubs-metric-blue">
       <span class="ubs-metric-label">YTD Settled Revenue</span>
-      <div class="ubs-metric-value">${{ totalRevenueYTD | number:'1.0-0' }}</div>
+      <div class="ubs-metric-value">${{ totalRevenueYTD | number: '1.0-0' }}</div>
       <span class="ubs-trend-up">↑ +24% YoY Growth</span>
     </div>
 

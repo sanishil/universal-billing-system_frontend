@@ -7,7 +7,14 @@
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/pdf/generator" class="ubs-btn-secondary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -15,7 +22,14 @@
         <span>Export PDF</span>
       </a>
       <a routerLink="/bills/create" class="ubs-btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
@@ -27,7 +41,15 @@
   <!-- Filter & Search Controls Bar -->
   <div class="ubs-card ubs-filters-bar">
     <div class="ubs-search-filter-box">
-      <svg class="ubs-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg
+        class="ubs-search-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
@@ -44,28 +66,28 @@
     <div class="ubs-status-tabs">
       <button
         class="ubs-status-tab"
-        [ngClass]="{ 'active': selectedStatus === 'ALL' }"
+        [ngClass]="{ active: selectedStatus === 'ALL' }"
         (click)="onStatusChange('ALL')"
       >
         All ({{ allBills.length }})
       </button>
       <button
         class="ubs-status-tab"
-        [ngClass]="{ 'active': selectedStatus === 'PAID' }"
+        [ngClass]="{ active: selectedStatus === 'PAID' }"
         (click)="onStatusChange('PAID')"
       >
         Paid
       </button>
       <button
         class="ubs-status-tab"
-        [ngClass]="{ 'active': selectedStatus === 'PENDING' }"
+        [ngClass]="{ active: selectedStatus === 'PENDING' }"
         (click)="onStatusChange('PENDING')"
       >
         Pending
       </button>
       <button
         class="ubs-status-tab"
-        [ngClass]="{ 'active': selectedStatus === 'OVERDUE' }"
+        [ngClass]="{ active: selectedStatus === 'OVERDUE' }"
         (click)="onStatusChange('OVERDUE')"
       >
         Overdue
@@ -85,15 +107,13 @@
             <th>Due Date</th>
             <th>Total Amount</th>
             <th>Status</th>
-            <th style="text-align: right;">Actions</th>
+            <th style="text-align: right">Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let bill of filteredBills">
             <td>
-              <a [routerLink]="['/bills/view', bill.id]" class="ubs-bill-link">
-                #{{ bill.id }}
-              </a>
+              <a [routerLink]="['/bills/view', bill.id]" class="ubs-bill-link"> #{{ bill.id }} </a>
             </td>
             <td>
               <div class="ubs-client-info">
@@ -104,7 +124,7 @@
             <td>{{ bill.createdAt }}</td>
             <td>{{ bill.dueDate }}</td>
             <td>
-              <span class="ubs-bill-total">${{ bill.total | number:'1.2-2' }}</span>
+              <span class="ubs-bill-total">${{ bill.total | number: '1.2-2' }}</span>
             </td>
             <td>
               <span
@@ -112,24 +132,41 @@
                 [ngClass]="{
                   'ubs-badge-paid': bill.status === 'PAID',
                   'ubs-badge-pending': bill.status === 'PENDING',
-                  'ubs-badge-overdue': bill.status === 'OVERDUE'
+                  'ubs-badge-overdue': bill.status === 'OVERDUE',
                 }"
               >
                 {{ bill.status }}
               </span>
             </td>
-            <td style="text-align: right;">
+            <td style="text-align: right">
               <div class="ubs-row-actions">
-                <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-table" title="View Full Invoice">
+                <a
+                  [routerLink]="['/bills/view', bill.id]"
+                  class="ubs-btn-table"
+                  title="View Full Invoice"
+                >
                   View
                 </a>
-                <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-table" title="Edit Invoice">
+                <a
+                  [routerLink]="['/bills/edit', bill.id]"
+                  class="ubs-btn-table"
+                  title="Edit Invoice"
+                >
                   Edit
                 </a>
-                <a [routerLink]="['/bill/view', bill.uniqueLink]" target="_blank" class="ubs-btn-table ubs-btn-blue" title="Open Public Link">
+                <a
+                  [routerLink]="['/bill/view', bill.uniqueLink]"
+                  target="_blank"
+                  class="ubs-btn-table ubs-btn-blue"
+                  title="Open Public Link"
+                >
                   Public
                 </a>
-                <button (click)="deleteBill(bill.id)" class="ubs-btn-table ubs-btn-del" title="Delete">
+                <button
+                  (click)="deleteBill(bill.id)"
+                  class="ubs-btn-table ubs-btn-del"
+                  title="Delete"
+                >
                   ✕
                 </button>
               </div>
@@ -140,7 +177,9 @@
             <td colspan="7" class="ubs-empty-state">
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No bills found</p>
-                <p class="ubs-empty-desc">Try clearing your search query or change the status filter.</p>
+                <p class="ubs-empty-desc">
+                  Try clearing your search query or change the status filter.
+                </p>
               </div>
             </td>
           </tr>

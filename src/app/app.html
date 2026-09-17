@@ -2,7 +2,20 @@
   <!-- Authenticated Shell Layout -->
   <ng-container *ngIf="!hideLayout">
     <app-header></app-header>
-    <div class="ubs-workspace-layout">
+    <div
+      class="ubs-workspace-layout"
+      [ngClass]="{
+        'sidebar-collapsed': isSidebarCollapsed,
+        'sidebar-mobile-open': isMobileSidebarOpen,
+      }"
+    >
+      <!-- Mobile Drawer Backdrop -->
+      <div
+        class="ubs-sidebar-backdrop"
+        *ngIf="isMobileSidebarOpen"
+        (click)="closeMobileSidebar()"
+      ></div>
+
       <app-sidebar></app-sidebar>
       <main class="ubs-main-content">
         <div class="ubs-content-viewport">

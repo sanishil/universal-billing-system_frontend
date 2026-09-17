@@ -8,15 +8,13 @@
         <span class="ubs-current">{{ customer.name }}</span>
       </div>
       <h1 class="ubs-page-title">{{ customer.name }}</h1>
-      <p class="ubs-page-subtitle">{{ customer.company || 'Private Account' }} • Client ID: {{ customer.id }}</p>
+      <p class="ubs-page-subtitle">
+        {{ customer.company || 'Private Account' }} • Client ID: {{ customer.id }}
+      </p>
     </div>
     <div class="ubs-page-actions">
-      <a routerLink="/bills/create" class="ubs-btn-primary">
-        + Create Invoice for Client
-      </a>
-      <a routerLink="/customers" class="ubs-btn-secondary">
-        ← Back to Directory
-      </a>
+      <a routerLink="/bills/create" class="ubs-btn-primary"> + Create Invoice for Client </a>
+      <a routerLink="/customers" class="ubs-btn-secondary"> ← Back to Directory </a>
     </div>
   </div>
 
@@ -37,7 +35,9 @@
       </div>
       <div class="ubs-profile-item">
         <span class="ubs-label">Lifetime Value</span>
-        <span class="ubs-profile-val ubs-spent-val">${{ (customer.totalSpent || 12850) | number:'1.2-2' }}</span>
+        <span class="ubs-profile-val ubs-spent-val"
+          >${{ customer.totalSpent || 12850 | number: '1.2-2' }}</span
+        >
       </div>
     </div>
   </div>
@@ -57,19 +57,17 @@
             <th>Due Date</th>
             <th>Amount</th>
             <th>Status</th>
-            <th style="text-align: right;">Action</th>
+            <th style="text-align: right">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let b of customerBills">
             <td>
-              <a [routerLink]="['/bills/view', b.id]" class="ubs-bill-link">
-                #{{ b.id }}
-              </a>
+              <a [routerLink]="['/bills/view', b.id]" class="ubs-bill-link"> #{{ b.id }} </a>
             </td>
             <td>{{ b.dueDate }}</td>
             <td>
-              <strong>${{ b.total | number:'1.2-2' }}</strong>
+              <strong>${{ b.total | number: '1.2-2' }}</strong>
             </td>
             <td>
               <span
@@ -77,21 +75,19 @@
                 [ngClass]="{
                   'ubs-badge-paid': b.status === 'PAID',
                   'ubs-badge-pending': b.status === 'PENDING',
-                  'ubs-badge-overdue': b.status === 'OVERDUE'
+                  'ubs-badge-overdue': b.status === 'OVERDUE',
                 }"
               >
                 {{ b.status }}
               </span>
             </td>
-            <td style="text-align: right;">
-              <a [routerLink]="['/bills/view', b.id]" class="ubs-btn-table">
-                View Invoice
-              </a>
+            <td style="text-align: right">
+              <a [routerLink]="['/bills/view', b.id]" class="ubs-btn-table"> View Invoice </a>
             </td>
           </tr>
 
           <tr *ngIf="customerBills.length === 0">
-            <td colspan="5" style="text-align: center; padding: 28px; color: var(--ubs-ash-muted);">
+            <td colspan="5" style="text-align: center; padding: 28px; color: var(--ubs-ash-muted)">
               No invoices generated for this client yet.
             </td>
           </tr>

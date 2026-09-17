@@ -2,11 +2,20 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Settlement & Payment History</h1>
-      <p class="ubs-page-subtitle">Real-time ledger of processed client transactions and payment methods</p>
+      <p class="ubs-page-subtitle">
+        Real-time ledger of processed client transactions and payment methods
+      </p>
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/payments/process" class="ubs-btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <rect x="2" y="5" width="20" height="14" rx="2"></rect>
           <line x1="2" y1="10" x2="22" y2="10"></line>
         </svg>
@@ -47,7 +56,7 @@
               <span class="ubs-badge ubs-badge-ash">{{ p.method }}</span>
             </td>
             <td>
-              <span class="ubs-pay-amount-green">+${{ p.amount | number:'1.2-2' }}</span>
+              <span class="ubs-pay-amount-green">+${{ p.amount | number: '1.2-2' }}</span>
             </td>
             <td>
               <span

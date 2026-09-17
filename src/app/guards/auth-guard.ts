@@ -1,11 +1,14 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = (_route, _state) => {
   const router = inject(Router);
 
-  // Synchronous check: MUST match the check in app.component.ts
-  const isAuthenticated = localStorage.getItem('auth_token') !== null;
+  // Synchronous check: checks if either token exists
+  const isAuthenticated =
+    typeof window !== 'undefined' &&
+    (localStorage.getItem('auth_token') !== null ||
+      localStorage.getItem('ubs_auth_token') !== null);
 
   if (isAuthenticated) {
     return true;

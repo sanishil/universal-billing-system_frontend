@@ -3,18 +3,34 @@
   <div class="ubs-dash-header">
     <div>
       <h1 class="ubs-dash-title">Financial Overview & Dashboard</h1>
-      <p class="ubs-dash-subtitle">Enterprise billing analytics, invoice pipeline, and real-time cash flow status.</p>
+      <p class="ubs-dash-subtitle">
+        Enterprise billing analytics, invoice pipeline, and real-time cash flow status.
+      </p>
     </div>
     <div class="ubs-dash-actions">
       <a routerLink="/bills/create" class="ubs-btn-primary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
         <span>Generate Bill</span>
       </a>
       <a routerLink="/customers/create" class="ubs-btn-secondary">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="8.5" cy="7" r="4"></circle>
           <line x1="20" y1="8" x2="20" y2="14"></line>
@@ -32,13 +48,20 @@
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Settled Revenue</span>
         <div class="ubs-metric-icon-box ubs-icon-blue">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <line x1="12" y1="1" x2="12" y2="23"></line>
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
           </svg>
         </div>
       </div>
-      <div class="ubs-metric-value">${{ stats.totalRevenue | number:'1.2-2' }}</div>
+      <div class="ubs-metric-value">${{ stats.totalRevenue | number: '1.2-2' }}</div>
       <div class="ubs-metric-trend">
         <span class="ubs-trend-up">↑ +18.4%</span>
         <span class="ubs-trend-sub">vs last billing cycle</span>
@@ -50,12 +73,21 @@
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Paid Invoices</span>
         <div class="ubs-metric-icon-box ubs-icon-green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
       </div>
-      <div class="ubs-metric-value">{{ stats.paidCount }} <span class="ubs-metric-unit">Invoices</span></div>
+      <div class="ubs-metric-value">
+        {{ stats.paidCount }} <span class="ubs-metric-unit">Invoices</span>
+      </div>
       <div class="ubs-metric-trend">
         <span class="ubs-trend-up">100% Verified</span>
         <span class="ubs-trend-sub">funds received</span>
@@ -67,13 +99,22 @@
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Pending Invoices</span>
         <div class="ubs-metric-icon-box ubs-icon-amber">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
         </div>
       </div>
-      <div class="ubs-metric-value">{{ stats.pendingCount }} <span class="ubs-metric-unit">Awaiting</span></div>
+      <div class="ubs-metric-value">
+        {{ stats.pendingCount }} <span class="ubs-metric-unit">Awaiting</span>
+      </div>
       <div class="ubs-metric-trend">
         <span class="ubs-trend-warn">Within due window</span>
         <span class="ubs-trend-sub">automatic reminders on</span>
@@ -85,14 +126,25 @@
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Overdue Alerts</span>
         <div class="ubs-metric-icon-box ubs-icon-red">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+            ></path>
             <line x1="12" y1="9" x2="12" y2="13"></line>
             <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>
         </div>
       </div>
-      <div class="ubs-metric-value">{{ stats.overdueCount }} <span class="ubs-metric-unit">Critical</span></div>
+      <div class="ubs-metric-value">
+        {{ stats.overdueCount }} <span class="ubs-metric-unit">Critical</span>
+      </div>
       <div class="ubs-metric-trend">
         <span class="ubs-trend-danger">Action required</span>
         <span class="ubs-trend-sub">follow-up dispatched</span>
@@ -111,9 +163,7 @@
             <h2 class="ubs-panel-title">Revenue Trajectory</h2>
             <p class="ubs-panel-subtitle">Monthly billed volumes across fiscal 2026</p>
           </div>
-          <div class="ubs-chart-pill">
-            <span class="ubs-dot-blue"></span> Current Year
-          </div>
+          <div class="ubs-chart-pill"><span class="ubs-dot-blue"></span> Current Year</div>
         </div>
 
         <div class="ubs-bars-container">
@@ -146,7 +196,7 @@
                 <th>Due Date</th>
                 <th>Amount</th>
                 <th>Status</th>
-                <th style="text-align: right;">Action</th>
+                <th style="text-align: right">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -162,7 +212,7 @@
                 </td>
                 <td>{{ bill.dueDate }}</td>
                 <td>
-                  <span class="ubs-amount-bold">${{ bill.total | number:'1.2-2' }}</span>
+                  <span class="ubs-amount-bold">${{ bill.total | number: '1.2-2' }}</span>
                 </td>
                 <td>
                   <span
@@ -170,22 +220,44 @@
                     [ngClass]="{
                       'ubs-badge-paid': bill.status === 'PAID',
                       'ubs-badge-pending': bill.status === 'PENDING',
-                      'ubs-badge-overdue': bill.status === 'OVERDUE'
+                      'ubs-badge-overdue': bill.status === 'OVERDUE',
                     }"
                   >
                     {{ bill.status }}
                   </span>
                 </td>
-                <td style="text-align: right;">
+                <td style="text-align: right">
                   <div class="ubs-action-buttons">
-                    <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-icon" title="View details">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a
+                      [routerLink]="['/bills/view', bill.id]"
+                      class="ubs-btn-icon"
+                      title="View details"
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                         <circle cx="12" cy="12" r="3"></circle>
                       </svg>
                     </a>
-                    <a [routerLink]="['/bill/view', bill.uniqueLink]" class="ubs-btn-icon ubs-btn-icon-blue" title="Public client link">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a
+                      [routerLink]="['/bill/view', bill.uniqueLink]"
+                      class="ubs-btn-icon ubs-btn-icon-blue"
+                      title="Public client link"
+                    >
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                         <polyline points="15 3 21 3 21 9"></polyline>
                         <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -211,8 +283,18 @@
 
         <div class="ubs-payments-list">
           <div *ngFor="let p of recentPayments" class="ubs-payment-item">
-            <div class="ubs-pay-icon" [ngClass]="p.status === 'SUCCESS' ? 'ubs-pay-success' : 'ubs-pay-pending'">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <div
+              class="ubs-pay-icon"
+              [ngClass]="p.status === 'SUCCESS' ? 'ubs-pay-success' : 'ubs-pay-pending'"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <rect x="2" y="5" width="20" height="14" rx="2"></rect>
                 <line x1="2" y1="10" x2="22" y2="10"></line>
               </svg>
@@ -221,9 +303,7 @@
               <span class="ubs-pay-name">{{ p.customerName }}</span>
               <span class="ubs-pay-date">{{ p.date }} • {{ p.method }}</span>
             </div>
-            <div class="ubs-pay-amount">
-              +${{ p.amount | number:'1.2-2' }}
-            </div>
+            <div class="ubs-pay-amount">+${{ p.amount | number: '1.2-2' }}</div>
           </div>
         </div>
 

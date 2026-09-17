@@ -14,7 +14,7 @@
           [ngClass]="{
             'ubs-badge-paid': bill.status === 'PAID',
             'ubs-badge-pending': bill.status === 'PENDING',
-            'ubs-badge-overdue': bill.status === 'OVERDUE'
+            'ubs-badge-overdue': bill.status === 'OVERDUE',
           }"
         >
           {{ bill.status }}
@@ -26,19 +26,30 @@
       <button *ngIf="bill.status !== 'PAID'" (click)="markPaid()" class="ubs-btn-secondary">
         Mark as Paid
       </button>
-      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary">
-        Edit
-      </a>
+      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
       <button (click)="copyPublicLink()" class="ubs-btn-secondary">
         {{ copied ? 'Link Copied!' : 'Copy Client Link' }}
       </button>
-      <a [routerLink]="['/bill/view', bill.uniqueLink]" target="_blank" class="ubs-btn-outline-blue">
+      <a
+        [routerLink]="['/bill/view', bill.uniqueLink]"
+        target="_blank"
+        class="ubs-btn-outline-blue"
+      >
         Public View
       </a>
       <button (click)="printInvoice()" class="ubs-btn-primary">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
           <polyline points="6 9 6 2 18 2 18 9"></polyline>
-          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <path
+            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          ></path>
           <rect x="6" y="14" width="12" height="8"></rect>
         </svg>
         <span>Print / PDF</span>
@@ -52,7 +63,14 @@
     <div class="ubs-sheet-header">
       <div class="ubs-sheet-brand">
         <div class="ubs-logo-mark">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
             <rect x="2" y="4" width="20" height="16" rx="3"></rect>
             <line x1="6" y1="10" x2="18" y2="10"></line>
             <line x1="6" y1="14" x2="14" y2="14"></line>
@@ -97,10 +115,10 @@
       <table class="ubs-sheet-table">
         <thead>
           <tr>
-            <th style="width: 50%;">Deliverable / Line Item</th>
-            <th style="width: 15%; text-align: center;">Qty</th>
-            <th style="width: 15%; text-align: right;">Unit Price</th>
-            <th style="width: 20%; text-align: right;">Total</th>
+            <th style="width: 50%">Deliverable / Line Item</th>
+            <th style="width: 15%; text-align: center">Qty</th>
+            <th style="width: 15%; text-align: right">Unit Price</th>
+            <th style="width: 20%; text-align: right">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -108,10 +126,10 @@
             <td>
               <span class="ubs-item-name">{{ item.name }}</span>
             </td>
-            <td style="text-align: center;">{{ item.quantity }}</td>
-            <td style="text-align: right;">${{ item.price | number:'1.2-2' }}</td>
-            <td style="text-align: right; font-weight: 700; color: var(--ubs-black);">
-              ${{ (item.quantity * item.price) | number:'1.2-2' }}
+            <td style="text-align: center">{{ item.quantity }}</td>
+            <td style="text-align: right">${{ item.price | number: '1.2-2' }}</td>
+            <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
+              ${{ item.quantity * item.price | number: '1.2-2' }}
             </td>
           </tr>
         </tbody>
@@ -122,22 +140,26 @@
     <div class="ubs-sheet-bottom">
       <div class="ubs-sheet-notes">
         <span class="ubs-block-label">NOTES & WIRE INSTRUCTIONS</span>
-        <p class="ubs-notes-content">{{ bill.notes || 'Thank you for choosing Universal Billing.' }}</p>
-        <p class="ubs-wire-info">Bank: Silicon Horizon Bank | Routing: #021000089 | Account: #9948-2810-UB</p>
+        <p class="ubs-notes-content">
+          {{ bill.notes || 'Thank you for choosing Universal Billing.' }}
+        </p>
+        <p class="ubs-wire-info">
+          Bank: Silicon Horizon Bank | Routing: #021000089 | Account: #9948-2810-UB
+        </p>
       </div>
 
       <div class="ubs-sheet-totals">
         <div class="ubs-total-line">
           <span>Subtotal</span>
-          <span>${{ bill.subtotal | number:'1.2-2' }}</span>
+          <span>${{ bill.subtotal | number: '1.2-2' }}</span>
         </div>
         <div class="ubs-total-line">
           <span>Tax (10%)</span>
-          <span>${{ bill.tax | number:'1.2-2' }}</span>
+          <span>${{ bill.tax | number: '1.2-2' }}</span>
         </div>
         <div class="ubs-grand-total">
           <span>Total Amount</span>
-          <span>${{ bill.total | number:'1.2-2' }}</span>
+          <span>${{ bill.total | number: '1.2-2' }}</span>
         </div>
       </div>
     </div>

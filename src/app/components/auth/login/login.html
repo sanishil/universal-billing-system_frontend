@@ -1,60 +1,350 @@
-<div class="ubs-auth-page">
-  <div class="ubs-auth-card ubs-card">
-    <div class="ubs-auth-header">
-      <div class="ubs-auth-logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-          <line x1="6" y1="10" x2="18" y2="10"></line>
-          <line x1="6" y1="14" x2="14" y2="14"></line>
-        </svg>
-      </div>
-      <h1 class="ubs-auth-title">Sign in to Universal Billing</h1>
-      <p class="ubs-auth-subtitle">Access your billing workspace & revenue dashboard</p>
-    </div>
+<div class="yono-page-wrapper">
+  <!-- Subtle organic background curves -->
+  <div class="yono-bg-curve-top"></div>
+  <div class="yono-bg-curve-mid"></div>
 
-    <!-- Quick Demo Notice -->
-    <div class="ubs-demo-pill">
-      <span class="ubs-demo-badge">Static Demo</span>
-      <span>Credentials prefilled. Click Sign In to enter.</span>
-    </div>
+  <div class="yono-content-container">
+    <div class="yono-grid">
+      <!-- LEFT HERO COLUMN -->
+      <div class="yono-left-col">
+        <div class="yono-hero-content">
+          <h1 class="yono-greeting">Hello!</h1>
+          <h2 class="yono-welcome-title">Welcome to the world of Universal Billing</h2>
 
-    <form (ngSubmit)="onLogin()" class="ubs-auth-form">
-      <div class="ubs-form-group">
-        <label class="ubs-label">Work Email Address</label>
-        <input
-          [(ngModel)]="email"
-          name="email"
-          type="email"
-          required
-          class="ubs-input"
-          placeholder="name@company.com"
-        />
-      </div>
+          <div class="yono-newuser-block">
+            <h3 class="yono-newuser-title">Are you a new user?</h3>
+            <p class="yono-newuser-desc">
+              Choose one of the following options if you are a new user
+            </p>
 
-      <div class="ubs-form-group">
-        <div class="ubs-password-header">
-          <label class="ubs-label">Password</label>
-          <a href="javascript:void(0)" class="ubs-forgot-link">Forgot password?</a>
+            <div class="yono-action-buttons">
+              <a routerLink="/register" class="yono-btn-register">Register Now</a>
+              <button type="button" (click)="openModal('activate')" class="yono-btn-activate">
+                Activate Username
+              </button>
+            </div>
+          </div>
+
+          <div class="yono-account-check">
+            <span>Don't have an account with Universal Billing? </span>
+            <a routerLink="/register" class="yono-open-now-link">Open Now</a>
+          </div>
         </div>
-        <input
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          required
-          class="ubs-input"
-          placeholder="••••••••"
-        />
       </div>
 
-      <button type="submit" class="ubs-btn-dark ubs-auth-submit" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Sign In to Dashboard</span>
-        <span *ngIf="isLoading">Authenticating...</span>
-      </button>
-    </form>
+      <!-- RIGHT LOGIN CARD COLUMN -->
+      <div class="yono-right-col">
+        <div class="yono-login-card">
+          <!-- Card Tab Header -->
+          <div class="yono-card-tab">
+            <span class="yono-tab-text">Username / Password</span>
+          </div>
 
-    <div class="ubs-auth-footer">
-      <span>Don't have an enterprise account?</span>
-      <a routerLink="/register" class="ubs-link-bold">Create an account</a>
+          <!-- Quick Test Indicator -->
+          <div
+            class="yono-demo-banner"
+            (click)="fillDemoCredentials()"
+            title="Click to fill mock credentials"
+          >
+            <span class="yono-demo-pill">Demo Ready</span>
+            <span>Pre-filled for fast evaluation • Click to auto-complete</span>
+          </div>
+
+          <!-- Alert message if any -->
+          <div *ngIf="errorMessage" class="yono-error-banner">
+            <i class="bi bi-exclamation-circle-fill"></i>
+            <span>{{ errorMessage }}</span>
+          </div>
+
+          <form (ngSubmit)="onLogin()" class="yono-form" autocomplete="off">
+            <!-- Username Underline Input -->
+            <div class="yono-field-wrap">
+              <input
+                type="text"
+                [(ngModel)]="username"
+                name="username"
+                class="yono-underline-input"
+                placeholder="Username"
+                (focus)="activeInputField = 'username'"
+                required
+              />
+              <div class="yono-link-row">
+                <a
+                  href="javascript:void(0)"
+                  (click)="openModal('forgotUsername')"
+                  class="yono-sub-link"
+                >
+                  Forgot Username?
+                </a>
+              </div>
+            </div>
+
+            <!-- Password Underline Input -->
+            <div class="yono-field-wrap">
+              <div class="yono-password-input-group">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  [(ngModel)]="password"
+                  name="password"
+                  class="yono-underline-input"
+                  placeholder="Password"
+                  (focus)="activeInputField = 'password'"
+                  required
+                />
+                <div class="yono-field-tools">
+                  <button
+                    type="button"
+                    class="yono-tool-btn"
+                    (click)="togglePasswordVisibility()"
+                    [title]="showPassword ? 'Hide password' : 'Show password'"
+                  >
+                    <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="yono-tool-btn yono-kbd-icon-btn"
+                    [class.active]="showVirtualKeyboard"
+                    (click)="toggleVirtualKeyboard()"
+                    title="Toggle Virtual Keyboard"
+                  >
+                    <i class="bi bi-keyboard"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="yono-link-row">
+                <a
+                  href="javascript:void(0)"
+                  (click)="openModal('forgotPassword')"
+                  class="yono-sub-link"
+                >
+                  Forgot Password?
+                </a>
+              </div>
+            </div>
+
+            <!-- Virtual Keyboard (Optional On-Screen Keypad) -->
+            <div *ngIf="showVirtualKeyboard" class="yono-virtual-keyboard-box">
+              <div class="yono-vkey-header">
+                <span>Virtual Keypad (Target: {{ activeInputField | uppercase }})</span>
+                <button type="button" class="yono-vkey-close" (click)="toggleVirtualKeyboard()">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+              <div class="yono-vkey-rows">
+                <div *ngFor="let row of keyboardRows" class="yono-vkey-row">
+                  <button
+                    *ngFor="let key of row"
+                    type="button"
+                    class="yono-key-btn"
+                    (click)="onVirtualKeyPress(key)"
+                  >
+                    {{ isCaps ? (key | uppercase) : key }}
+                  </button>
+                </div>
+                <div class="yono-vkey-row yono-vkey-actions">
+                  <button
+                    type="button"
+                    class="yono-key-btn yono-key-modifier"
+                    [class.active]="isCaps"
+                    (click)="toggleCapsLock()"
+                  >
+                    Caps
+                  </button>
+                  <button
+                    type="button"
+                    class="yono-key-btn yono-key-space"
+                    (click)="onVirtualKeyPress(' ')"
+                  >
+                    Space
+                  </button>
+                  <button
+                    type="button"
+                    class="yono-key-btn yono-key-modifier"
+                    (click)="virtualBackspace()"
+                  >
+                    ⌫ Back
+                  </button>
+                  <button
+                    type="button"
+                    class="yono-key-btn yono-key-modifier"
+                    (click)="virtualClear()"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Captcha Input & Authentic Security Widget -->
+            <div class="yono-captcha-container">
+              <div class="yono-captcha-input-box">
+                <input
+                  type="text"
+                  [(ngModel)]="captchaInput"
+                  name="captchaInput"
+                  class="yono-underline-input"
+                  placeholder="Enter Captcha"
+                  (focus)="activeInputField = 'captcha'"
+                  required
+                />
+              </div>
+
+              <div class="yono-captcha-display-cluster">
+                <!-- Distorted Captcha Box -->
+                <div class="yono-captcha-card">
+                  <div class="yono-captcha-bg-noise"></div>
+                  <span class="yono-captcha-code-text">{{ captchaCode }}</span>
+                  <div class="yono-captcha-strike"></div>
+                </div>
+
+                <!-- Action Controls (Speaker Audio & Refresh) -->
+                <div class="yono-captcha-actions">
+                  <button
+                    type="button"
+                    class="yono-captcha-icon-btn"
+                    (click)="playCaptchaAudio()"
+                    title="Audio Captcha: Listen"
+                  >
+                    <i class="bi bi-volume-up"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="yono-captcha-icon-btn"
+                    (click)="generateCaptcha()"
+                    title="Refresh Captcha"
+                  >
+                    <i class="bi bi-arrow-clockwise"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Login Pill Button -->
+            <div class="yono-submit-box">
+              <button type="submit" class="yono-login-submit-btn" [disabled]="isLoading">
+                <span *ngIf="!isLoading">Login</span>
+                <span *ngIf="isLoading" class="yono-spinner-wrap">
+                  <span class="spinner-border spinner-border-sm" role="status"></span>
+                  Authenticating...
+                </span>
+              </button>
+            </div>
+
+            <!-- Lock / Unlock Link -->
+            <div class="yono-footer-link-box">
+              <a href="javascript:void(0)" (click)="openModal('lockUnlock')" class="yono-lock-link">
+                Lock/Unlock User
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM WAVE BANNER WITH QUICK ACTIONS -->
+  <div class="yono-bottom-wave-section">
+    <!-- SVG Wavy Curves -->
+    <div class="yono-wave-svg-wrap">
+      <svg
+        viewBox="0 0 1440 120"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,48 C280,120 720,0 1120,64 C1280,90 1380,80 1440,70 L1440,120 L0,120 Z"
+          fill="#521568"
+          opacity="0.9"
+        />
+        <path
+          d="M0,70 C360,130 840,30 1200,85 C1320,105 1400,95 1440,90 L1440,120 L0,120 Z"
+          fill="#440f57"
+        />
+      </svg>
+    </div>
+
+    <!-- Quick Actions Bar Content -->
+    <div class="yono-quick-actions-bar">
+      <div class="yono-quick-actions-container">
+        <h4 class="yono-quick-actions-title">Quick Actions</h4>
+        <div class="yono-quick-pills">
+          <a routerLink="/payments/process" class="yono-quick-pill">
+            <i class="bi bi-credit-card"></i>
+            <span>Quick Pay</span>
+          </a>
+          <a routerLink="/bills" class="yono-quick-pill">
+            <i class="bi bi-receipt"></i>
+            <span>Track Invoices</span>
+          </a>
+          <a routerLink="/pdf/generator" class="yono-quick-pill">
+            <i class="bi bi-file-earmark-pdf"></i>
+            <span>Generate PDF</span>
+          </a>
+          <a routerLink="/reports/analytics" class="yono-quick-pill">
+            <i class="bi bi-graph-up-arrow"></i>
+            <span>Tax & Analytics</span>
+          </a>
+          <a routerLink="/settings" class="yono-quick-pill">
+            <i class="bi bi-shield-check"></i>
+            <span>Security Center</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERACTIVE ASSISTANCE MODAL DIALOG -->
+  <div *ngIf="activeModal" class="yono-modal-backdrop" (click)="closeModal()">
+    <div class="yono-modal-card" (click)="$event.stopPropagation()">
+      <div class="yono-modal-header">
+        <h3 class="yono-modal-title">
+          <span *ngIf="activeModal === 'activate'">Activate Online Access</span>
+          <span *ngIf="activeModal === 'forgotUsername'">Recover Username</span>
+          <span *ngIf="activeModal === 'forgotPassword'">Reset Security Password</span>
+          <span *ngIf="activeModal === 'lockUnlock'">Account Lock / Unlock Service</span>
+        </h3>
+        <button type="button" class="yono-modal-close" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <div class="yono-modal-body">
+        <div *ngIf="modalSuccessMsg" class="yono-modal-success">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>{{ modalSuccessMsg }}</span>
+        </div>
+
+        <p *ngIf="!modalSuccessMsg" class="yono-modal-desc">
+          <span *ngIf="activeModal === 'activate'">
+            Enter your registration reference number or customer ID to activate your credentials:
+          </span>
+          <span *ngIf="activeModal === 'forgotUsername'">
+            Provide your registered enterprise email address to receive your verified username:
+          </span>
+          <span *ngIf="activeModal === 'forgotPassword'">
+            Provide your user ID or work email. A temporary secure reset token will be dispatched:
+          </span>
+          <span *ngIf="activeModal === 'lockUnlock'">
+            Manage user security state. Enter your user account identifier below:
+          </span>
+        </p>
+
+        <div *ngIf="!modalSuccessMsg" class="yono-modal-form">
+          <div class="yono-field-wrap">
+            <label class="yono-modal-label">User Identifier / Email</label>
+            <input
+              type="text"
+              [(ngModel)]="modalEmail"
+              placeholder="e.g. alex.vance@universalbilling.io"
+              class="yono-underline-input"
+            />
+          </div>
+          <button type="button" class="yono-btn-modal-submit" (click)="submitModalAction()">
+            Submit Request
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
