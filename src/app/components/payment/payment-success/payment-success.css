@@ -1,0 +1,73 @@
+.ubs-success-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 24px;
+}
+
+.ubs-success-card {
+  max-width: 480px;
+  width: 100%;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.ubs-check-ring {
+  width: 64px;
+  height: 64px;
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px auto;
+  border: 2px solid var(--ubs-success-border);
+}
+
+.ubs-success-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 8px 0;
+}
+
+.ubs-success-desc {
+  font-size: 0.85rem;
+  color: var(--ubs-ash-muted);
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.ubs-success-receipt-box {
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  padding: 16px;
+  margin-bottom: 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ubs-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-receipt-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-success-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}

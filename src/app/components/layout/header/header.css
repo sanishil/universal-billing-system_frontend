@@ -1,0 +1,225 @@
+.ubs-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background-color: var(--ubs-white);
+  border-bottom: 1px solid var(--ubs-ash-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  z-index: 100;
+  box-shadow: var(--ubs-shadow-sm);
+}
+
+.ubs-header-brand {
+  width: 232px;
+  display: flex;
+  align-items: center;
+}
+
+.ubs-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ubs-logo-mark {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--ubs-black) 0%, var(--ubs-blue-700) 100%);
+  color: var(--ubs-white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+}
+
+.ubs-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.ubs-brand-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--ubs-black);
+}
+
+.ubs-brand-subtitle {
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--ubs-blue-600);
+}
+
+/* Search bar */
+.ubs-header-search {
+  flex: 1;
+  max-width: 480px;
+  margin: 0 24px;
+}
+
+.ubs-search-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ubs-search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--ubs-ash-muted);
+  pointer-events: none;
+}
+
+.ubs-header-search-input {
+  width: 100%;
+  padding: 9px 40px 9px 38px;
+  font-size: 0.85rem;
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 20px;
+  color: var(--ubs-black);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ubs-header-search-input:focus {
+  background-color: var(--ubs-white);
+  border-color: var(--ubs-blue-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.ubs-search-kbd {
+  position: absolute;
+  right: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ubs-ash-muted);
+  background: var(--ubs-white);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+/* Actions */
+.ubs-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ubs-header-create-btn {
+  padding: 8px 16px;
+  font-size: 0.8125rem;
+}
+
+.ubs-header-icon-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  transition: all 0.2s ease;
+}
+
+.ubs-header-icon-btn:hover {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  border-color: var(--ubs-blue-200);
+}
+
+.ubs-notification-dot {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--ubs-blue-600);
+  color: var(--ubs-white);
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ubs-white);
+}
+
+/* User Profile */
+.ubs-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px 4px 4px;
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 30px;
+}
+
+.ubs-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: var(--ubs-black);
+  color: var(--ubs-white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.ubs-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ubs-user-name {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  line-height: 1.1;
+}
+
+.ubs-user-role {
+  font-size: 0.6875rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-logout-btn {
+  background: none;
+  border: none;
+  color: var(--ubs-ash-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.2s ease;
+}
+
+.ubs-logout-btn:hover {
+  color: #dc2626;
+}
+
+@media (max-width: 768px) {
+  .ubs-header-search {
+    display: none;
+  }
+  .ubs-user-info {
+    display: none;
+  }
+}

@@ -1,0 +1,46 @@
+.ubs-app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ubs-ash-bg);
+}
+
+.ubs-workspace-layout {
+  display: flex;
+  flex: 1;
+  padding-top: 68px; /* Offset for fixed header */
+}
+
+.ubs-main-content {
+  flex: 1;
+  margin-left: 260px; /* Offset for fixed sidebar */
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 68px);
+  background-color: var(--ubs-ash-bg);
+  transition: margin-left 0.25s ease;
+}
+
+.ubs-content-viewport {
+  flex: 1;
+  padding: 28px 36px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ubs-fullscreen-viewport {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ubs-ash-bg);
+}
+
+@media (max-width: 1024px) {
+  .ubs-main-content {
+    margin-left: 0;
+  }
+  .ubs-content-viewport {
+    padding: 20px;
+  }
+}

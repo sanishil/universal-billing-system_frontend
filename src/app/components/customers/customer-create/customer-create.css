@@ -1,0 +1,79 @@
+.ubs-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ubs-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin-bottom: 4px;
+}
+.ubs-breadcrumb a {
+  color: var(--ubs-blue-600);
+}
+.ubs-breadcrumb .ubs-current {
+  color: var(--ubs-black);
+  font-weight: 600;
+}
+
+.ubs-form-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-form-subtitle {
+  font-size: 0.85rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ubs-customer-card {
+  padding: 32px;
+}
+
+.ubs-customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.ubs-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--ubs-ash-border);
+}
+
+@media (max-width: 640px) {
+  .ubs-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

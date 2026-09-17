@@ -1,0 +1,48 @@
+.ubs-report-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 240px;
+  padding: 32px 40px 16px 40px;
+  gap: 20px;
+}
+
+.ubs-report-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.ubs-bar-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-ash-muted);
+  margin-bottom: 8px;
+}
+
+.ubs-bar-rail {
+  flex: 1;
+  width: 44px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-bar-core {
+  width: 100%;
+  background: linear-gradient(180deg, var(--ubs-blue-600) 0%, var(--ubs-black) 100%);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.6s ease;
+}
+
+.ubs-bar-lbl {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ubs-ash-dark);
+  margin-top: 10px;
+}

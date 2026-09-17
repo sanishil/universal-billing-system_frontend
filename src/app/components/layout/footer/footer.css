@@ -1,0 +1,62 @@
+.ubs-footer {
+  margin-top: auto;
+  background-color: var(--ubs-white);
+  border-top: 1px solid var(--ubs-ash-border);
+  padding: 16px 36px;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ubs-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ubs-status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+  padding: 3px 8px;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border: 1px solid var(--ubs-success-border);
+}
+
+.ubs-status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--ubs-success-text);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.ubs-footer-divider {
+  color: var(--ubs-ash-border);
+}
+
+@media (max-width: 768px) {
+  .ubs-footer {
+    padding: 14px 20px;
+  }
+  .ubs-footer-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

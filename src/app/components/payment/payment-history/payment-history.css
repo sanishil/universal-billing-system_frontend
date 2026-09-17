@@ -1,0 +1,11 @@
+.ubs-txn-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+}
+
+.ubs-pay-amount-green {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--ubs-success-text);
+}

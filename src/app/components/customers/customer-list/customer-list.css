@@ -1,0 +1,161 @@
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-search-filter-box {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.ubs-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-filter-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  font-size: 0.85rem;
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  outline: none;
+}
+.ubs-filter-input:focus {
+  background-color: var(--ubs-white);
+  border-color: var(--ubs-blue-600);
+}
+
+.ubs-count-pill {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-customer-name {
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+.ubs-customer-name:hover {
+  color: var(--ubs-blue-600);
+  text-decoration: underline;
+}
+
+.ubs-company-text {
+  font-size: 0.825rem;
+  color: var(--ubs-ash-dark);
+}
+
+.ubs-email-text {
+  font-size: 0.825rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-spent-amount {
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ubs-btn-table {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ubs-btn-table:hover {
+  background-color: var(--ubs-white);
+  color: var(--ubs-black);
+}
+
+.ubs-btn-blue {
+  color: var(--ubs-blue-600);
+  background-color: var(--ubs-blue-50);
+  border-color: var(--ubs-blue-200);
+}
+.ubs-btn-blue:hover {
+  background-color: var(--ubs-blue-100);
+  color: var(--ubs-blue-800);
+}
+
+.ubs-btn-del {
+  color: var(--ubs-danger-text);
+  background-color: var(--ubs-danger-bg);
+  border-color: var(--ubs-danger-border);
+}
+.ubs-btn-del:hover {
+  background-color: #fee2e2;
+}
+
+.ubs-empty-state {
+  text-align: center;
+  padding: 48px 24px !important;
+}
+
+.ubs-empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ubs-empty-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-empty-desc {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}

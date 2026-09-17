@@ -1,0 +1,75 @@
+<div class="ubs-auth-page">
+  <div class="ubs-auth-card ubs-card">
+    <div class="ubs-auth-header">
+      <div class="ubs-auth-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+          <line x1="6" y1="10" x2="18" y2="10"></line>
+          <line x1="6" y1="14" x2="14" y2="14"></line>
+        </svg>
+      </div>
+      <h1 class="ubs-auth-title">Create Enterprise Account</h1>
+      <p class="ubs-auth-subtitle">Join thousands of organizations using Universal Billing</p>
+    </div>
+
+    <form (ngSubmit)="onRegister()" class="ubs-auth-form">
+      <div class="ubs-form-group">
+        <label class="ubs-label">Full Name</label>
+        <input
+          [(ngModel)]="name"
+          name="name"
+          type="text"
+          required
+          class="ubs-input"
+          placeholder="e.g. Alex Vance"
+        />
+      </div>
+
+      <div class="ubs-form-group">
+        <label class="ubs-label">Organization Name</label>
+        <input
+          [(ngModel)]="company"
+          name="company"
+          type="text"
+          required
+          class="ubs-input"
+          placeholder="e.g. Vance Dynamics Ltd."
+        />
+      </div>
+
+      <div class="ubs-form-group">
+        <label class="ubs-label">Work Email Address</label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          required
+          class="ubs-input"
+          placeholder="alex@vancedynamics.io"
+        />
+      </div>
+
+      <div class="ubs-form-group">
+        <label class="ubs-label">Security Password</label>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          required
+          class="ubs-input"
+          placeholder="At least 8 characters"
+        />
+      </div>
+
+      <button type="submit" class="ubs-btn-dark ubs-auth-submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Register & Open Workspace</span>
+        <span *ngIf="isLoading">Provisioning Workspace...</span>
+      </button>
+    </form>
+
+    <div class="ubs-auth-footer">
+      <span>Already have an account?</span>
+      <a routerLink="/login" class="ubs-link-bold">Sign In</a>
+    </div>
+  </div>
+</div>

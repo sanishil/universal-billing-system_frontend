@@ -1,0 +1,114 @@
+.ubs-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--ubs-ash-bg);
+}
+
+.ubs-auth-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 38px 34px;
+  background-color: var(--ubs-white);
+}
+
+.ubs-auth-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.ubs-auth-logo {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, var(--ubs-black) 0%, var(--ubs-blue-700) 100%);
+  color: var(--ubs-white);
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.ubs-auth-title {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-auth-subtitle {
+  font-size: 0.825rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-demo-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--ubs-blue-50);
+  border: 1px solid var(--ubs-blue-200);
+  border-radius: var(--ubs-radius-md);
+  margin-bottom: 22px;
+  font-size: 0.75rem;
+  color: var(--ubs-blue-700);
+}
+
+.ubs-demo-badge {
+  background-color: var(--ubs-blue-600);
+  color: var(--ubs-white);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.68rem;
+}
+
+.ubs-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ubs-password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ubs-forgot-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-auth-submit {
+  width: 100%;
+  padding: 12px;
+  font-size: 0.925rem;
+  margin-top: 6px;
+}
+
+.ubs-auth-footer {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--ubs-ash-border);
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ubs-link-bold {
+  font-weight: 700;
+  color: var(--ubs-blue-600);
+}
+.ubs-link-bold:hover {
+  text-decoration: underline;
+}

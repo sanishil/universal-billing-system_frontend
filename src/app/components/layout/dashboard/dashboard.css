@@ -1,0 +1,459 @@
+.ubs-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.ubs-dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-dash-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-dash-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-dash-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Metrics Grid */
+.ubs-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.ubs-metric-card {
+  padding: 22px;
+  position: relative;
+  background-color: var(--ubs-white);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-lg);
+}
+
+.ubs-metric-blue {
+  border-left: 4px solid var(--ubs-blue-600);
+}
+
+.ubs-metric-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ubs-metric-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-ash-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ubs-metric-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ubs-icon-blue {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+}
+.ubs-icon-green {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+}
+.ubs-icon-amber {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+}
+.ubs-icon-red {
+  background-color: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+}
+
+.ubs-metric-value {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.ubs-metric-unit {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-metric-trend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+}
+
+.ubs-trend-up {
+  color: var(--ubs-success-text);
+  font-weight: 700;
+}
+.ubs-trend-warn {
+  color: var(--ubs-warning-text);
+  font-weight: 600;
+}
+.ubs-trend-danger {
+  color: var(--ubs-danger-text);
+  font-weight: 700;
+}
+.ubs-trend-sub {
+  color: var(--ubs-ash-muted);
+}
+
+/* Split Grid */
+.ubs-dash-split-grid {
+  display: grid;
+  grid-template-columns: 2.1fr 1fr;
+  gap: 20px;
+}
+
+.ubs-dash-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-dash-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Panels */
+.ubs-panel-header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-panel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 2px 0;
+}
+
+.ubs-panel-subtitle {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-chart-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-ash-subtle);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-dot-blue {
+  width: 8px;
+  height: 8px;
+  background-color: var(--ubs-blue-600);
+  border-radius: 50%;
+}
+
+.ubs-btn-sm {
+  padding: 6px 14px;
+  font-size: 0.775rem;
+}
+
+/* Revenue Bars Chart */
+.ubs-chart-panel {
+  padding-bottom: 20px;
+}
+
+.ubs-bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 180px;
+  padding: 24px 30px 10px 30px;
+  gap: 16px;
+}
+
+.ubs-bar-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.ubs-bar-amount {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ubs-ash-muted);
+  margin-bottom: 6px;
+}
+
+.ubs-bar-track {
+  flex: 1;
+  width: 32px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: 6px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-bar-fill {
+  width: 100%;
+  background: linear-gradient(180deg, var(--ubs-blue-600) 0%, var(--ubs-black) 100%);
+  border-radius: 5px 5px 0 0;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ubs-bar-month {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  margin-top: 8px;
+}
+
+/* Table cells */
+.ubs-invoice-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--ubs-blue-700);
+}
+
+.ubs-client-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.ubs-client-name {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-client-sub {
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-amount-bold {
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ubs-btn-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--ubs-ash-border);
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-white);
+  transition: all 0.15s ease;
+}
+.ubs-btn-icon:hover {
+  background-color: var(--ubs-ash-subtle);
+  color: var(--ubs-black);
+}
+.ubs-btn-icon-blue:hover {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  border-color: var(--ubs-blue-200);
+}
+
+/* Side Column Panels */
+.ubs-side-panel {
+  padding: 20px;
+}
+
+.ubs-side-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-side-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0;
+}
+
+.ubs-payments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ubs-payment-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-pay-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ubs-pay-success {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+}
+.ubs-pay-pending {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+}
+
+.ubs-pay-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ubs-pay-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ubs-pay-date {
+  font-size: 0.7rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-pay-amount {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ubs-success-text);
+}
+
+.ubs-side-view-all {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--ubs-blue-600);
+}
+.ubs-side-view-all:hover {
+  text-decoration: underline;
+}
+
+/* Quick Ops */
+.ubs-quick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.ubs-quick-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: var(--ubs-white);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  transition: all 0.2s ease;
+}
+.ubs-quick-item:hover {
+  border-color: var(--ubs-blue-500);
+  background-color: var(--ubs-blue-50);
+  transform: translateX(3px);
+}
+
+.ubs-quick-icon {
+  font-size: 1.25rem;
+}
+
+.ubs-quick-content {
+  display: flex;
+  flex-direction: column;
+}
+.ubs-quick-content strong {
+  font-size: 0.8125rem;
+  color: var(--ubs-black);
+}
+.ubs-quick-content span {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .ubs-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ubs-dash-split-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ubs-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}

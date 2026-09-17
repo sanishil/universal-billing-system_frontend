@@ -1,0 +1,65 @@
+<div class="ubs-page-container">
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Settlement & Payment History</h1>
+      <p class="ubs-page-subtitle">Real-time ledger of processed client transactions and payment methods</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/payments/process" class="ubs-btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+          <line x1="2" y1="10" x2="22" y2="10"></line>
+        </svg>
+        <span>Process New Payment</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ubs-card ubs-table-card">
+    <div class="ubs-table-wrap">
+      <table class="ubs-table">
+        <thead>
+          <tr>
+            <th>Txn Reference</th>
+            <th>Related Invoice</th>
+            <th>Client Name</th>
+            <th>Date & Time</th>
+            <th>Payment Channel</th>
+            <th>Amount Paid</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of payments">
+            <td>
+              <span class="ubs-txn-id">{{ p.transactionId }}</span>
+            </td>
+            <td>
+              <a [routerLink]="['/bills/view', p.billId]" class="ubs-bill-link">
+                #{{ p.billId }}
+              </a>
+            </td>
+            <td>
+              <strong>{{ p.customerName || 'Direct Client' }}</strong>
+            </td>
+            <td>{{ p.date }}</td>
+            <td>
+              <span class="ubs-badge ubs-badge-ash">{{ p.method }}</span>
+            </td>
+            <td>
+              <span class="ubs-pay-amount-green">+${{ p.amount | number:'1.2-2' }}</span>
+            </td>
+            <td>
+              <span
+                class="ubs-badge"
+                [ngClass]="p.status === 'SUCCESS' ? 'ubs-badge-paid' : 'ubs-badge-pending'"
+              >
+                {{ p.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

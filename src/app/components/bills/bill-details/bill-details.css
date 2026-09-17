@@ -1,0 +1,38 @@
+.ubs-details-card {
+  padding: 32px;
+}
+
+.ubs-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.ubs-details-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ubs-value-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-value-bold {
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-value-amount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+}
+
+@media (max-width: 768px) {
+  .ubs-details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

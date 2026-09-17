@@ -1,0 +1,102 @@
+<div class="ubs-page-container">
+  <!-- Header -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Customers Directory</h1>
+      <p class="ubs-page-subtitle">Manage client accounts, contact details, and associated invoicing activity</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/customers/create" class="ubs-btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>Add Customer</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Search & Stats Bar -->
+  <div class="ubs-card ubs-filters-bar">
+    <div class="ubs-search-filter-box">
+      <svg class="ubs-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="applyFilter()"
+        placeholder="Search by client name, email, or company..."
+        class="ubs-filter-input"
+      />
+    </div>
+
+    <div class="ubs-count-pill">
+      Showing <strong>{{ filteredCustomers.length }}</strong> of {{ allCustomers.length }} Clients
+    </div>
+  </div>
+
+  <!-- Table Card -->
+  <div class="ubs-card ubs-table-card">
+    <div class="ubs-table-wrap">
+      <table class="ubs-table">
+        <thead>
+          <tr>
+            <th>Customer Name</th>
+            <th>Company / Org</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Total Invoiced</th>
+            <th>Status</th>
+            <th style="text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cust of filteredCustomers">
+            <td>
+              <a [routerLink]="['/customers', cust.id]" class="ubs-customer-name">
+                {{ cust.name }}
+              </a>
+            </td>
+            <td>
+              <span class="ubs-company-text">{{ cust.company || 'Private Client' }}</span>
+            </td>
+            <td>
+              <span class="ubs-email-text">{{ cust.email }}</span>
+            </td>
+            <td>{{ cust.phone }}</td>
+            <td>
+              <span class="ubs-spent-amount">${{ (cust.totalSpent || 0) | number:'1.2-2' }}</span>
+            </td>
+            <td>
+              <span class="ubs-badge ubs-badge-paid">ACTIVE</span>
+            </td>
+            <td style="text-align: right;">
+              <div class="ubs-row-actions">
+                <a [routerLink]="['/customers', cust.id]" class="ubs-btn-table" title="View Profile">
+                  Profile
+                </a>
+                <a routerLink="/bills/create" class="ubs-btn-table ubs-btn-blue" title="Invoice Client">
+                  + Bill
+                </a>
+                <button (click)="deleteCustomer(cust.id)" class="ubs-btn-table ubs-btn-del" title="Delete">
+                  ✕
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="filteredCustomers.length === 0">
+            <td colspan="7" class="ubs-empty-state">
+              <div class="ubs-empty-box">
+                <p class="ubs-empty-title">No customers matched your search</p>
+                <p class="ubs-empty-desc">Check the spelling or add a new customer.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

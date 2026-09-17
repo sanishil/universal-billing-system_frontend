@@ -1,0 +1,30 @@
+<aside class="ubs-sidebar">
+  <div class="ubs-sidebar-inner">
+    <nav class="ubs-nav-menu">
+      <div *ngFor="let section of navSections" class="ubs-nav-group">
+        <h3 class="ubs-nav-header">{{ section.title }}</h3>
+        <ul class="ubs-nav-list">
+          <li *ngFor="let item of section.items" class="ubs-nav-item">
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="ubs-nav-active"
+              [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
+              class="ubs-nav-link"
+            >
+              <span class="ubs-nav-icon" [innerHTML]="item.iconSvg"></span>
+              <span class="ubs-nav-label">{{ item.label }}</span>
+              <span *ngIf="item.badge" class="ubs-nav-badge">{{ item.badge }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Quick Help / Support Widget -->
+    <div class="ubs-sidebar-footer-widget">
+      <div class="ubs-widget-title">Universal Billing v2.4</div>
+      <p class="ubs-widget-desc">Static Mock Environment active with 100% simulated transactions.</p>
+      <a routerLink="/share/link" class="ubs-widget-btn">View Shareable Links</a>
+    </div>
+  </div>
+</aside>

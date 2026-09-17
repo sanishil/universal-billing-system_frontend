@@ -1,0 +1,153 @@
+.ubs-sidebar {
+  position: fixed;
+  top: 68px;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background-color: var(--ubs-white);
+  border-right: 1px solid var(--ubs-ash-border);
+  z-index: 90;
+  overflow-y: auto;
+}
+
+.ubs-sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100vh - 68px);
+  padding: 24px 16px;
+}
+
+.ubs-nav-group {
+  margin-bottom: 24px;
+}
+
+.ubs-nav-header {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ubs-ash-muted);
+  text-transform: uppercase;
+  padding: 0 12px;
+  margin-bottom: 8px;
+}
+
+.ubs-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ubs-nav-item {
+  margin: 0;
+  padding: 0;
+}
+
+.ubs-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ubs-ash-dark);
+  border-radius: var(--ubs-radius-md);
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.ubs-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ubs-ash-muted);
+  transition: color 0.15s ease;
+}
+
+.ubs-nav-label {
+  flex: 1;
+}
+
+.ubs-nav-badge {
+  background-color: var(--ubs-blue-100);
+  color: var(--ubs-blue-700);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+}
+
+/* Hover State */
+.ubs-nav-link:hover {
+  background-color: var(--ubs-ash-subtle);
+  color: var(--ubs-black);
+}
+.ubs-nav-link:hover .ubs-nav-icon {
+  color: var(--ubs-blue-600);
+}
+
+/* Active State */
+.ubs-nav-active {
+  background-color: var(--ubs-blue-50) !important;
+  color: var(--ubs-blue-700) !important;
+  font-weight: 600;
+}
+
+.ubs-nav-active .ubs-nav-icon {
+  color: var(--ubs-blue-600) !important;
+}
+
+.ubs-nav-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background-color: var(--ubs-blue-600);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Footer Widget in Sidebar */
+.ubs-sidebar-footer-widget {
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  padding: 14px;
+  margin-top: 20px;
+}
+
+.ubs-widget-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin-bottom: 4px;
+}
+
+.ubs-widget-desc {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+  line-height: 1.35;
+  margin: 0 0 10px 0;
+}
+
+.ubs-widget-btn {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ubs-blue-600);
+  padding: 4px 0;
+}
+.ubs-widget-btn:hover {
+  color: var(--ubs-blue-800);
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .ubs-sidebar {
+    display: none;
+  }
+}

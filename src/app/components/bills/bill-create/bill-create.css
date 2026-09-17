@@ -1,0 +1,206 @@
+.ubs-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin-bottom: 4px;
+}
+.ubs-breadcrumb a {
+  color: var(--ubs-blue-600);
+}
+.ubs-breadcrumb .ubs-current {
+  color: var(--ubs-black);
+  font-weight: 600;
+}
+
+.ubs-form-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-form-subtitle {
+  font-size: 0.85rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Form Grid */
+.ubs-bill-form-grid {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.ubs-form-main-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.ubs-form-section {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 16px 0;
+}
+
+.ubs-section-subtitle {
+  font-size: 0.775rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 16px 0;
+}
+
+.ubs-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ubs-items-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ubs-items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ubs-items-table th {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-ash-muted);
+  text-transform: uppercase;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  text-align: left;
+}
+
+.ubs-items-table td {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.ubs-remove-item-btn {
+  background: none;
+  border: none;
+  color: var(--ubs-ash-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px;
+}
+.ubs-remove-item-btn:hover {
+  color: var(--ubs-danger-text);
+}
+
+/* Summary Card */
+.ubs-summary-card {
+  padding: 24px;
+  position: sticky;
+  top: 90px;
+}
+
+.ubs-summary-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 18px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.875rem;
+}
+
+.ubs-summary-label {
+  color: var(--ubs-ash-muted);
+}
+.ubs-summary-val {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-summary-divider {
+  height: 1px;
+  background-color: var(--ubs-ash-border);
+  margin: 16px 0;
+}
+
+.ubs-summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.ubs-total-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+.ubs-total-val {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-summary-pills {
+  margin-bottom: 20px;
+}
+
+.ubs-info-box {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: var(--ubs-radius-md);
+  font-size: 0.75rem;
+  color: var(--ubs-ash-dark);
+  line-height: 1.4;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-summary-submit {
+  width: 100%;
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .ubs-bill-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

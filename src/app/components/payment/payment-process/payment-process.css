@@ -1,0 +1,82 @@
+.ubs-pay-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.ubs-pay-card {
+  padding: 28px;
+}
+
+.ubs-channel-tabs {
+  display: flex;
+  gap: 8px;
+  background-color: var(--ubs-ash-subtle);
+  padding: 6px;
+  border-radius: var(--ubs-radius-md);
+  margin-bottom: 24px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-channel-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ubs-channel-btn.active {
+  background-color: var(--ubs-white);
+  color: var(--ubs-blue-700);
+  box-shadow: var(--ubs-shadow-sm);
+  font-weight: 700;
+}
+
+.ubs-payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ubs-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.ubs-pay-submit {
+  width: 100%;
+  padding: 14px;
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.ubs-invoice-preview-card {
+  padding: 24px;
+  position: sticky;
+  top: 90px;
+}
+
+.ubs-secure-badge {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+  margin-top: 18px;
+  padding: 8px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: 6px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+@media (max-width: 900px) {
+  .ubs-pay-grid {
+    grid-template-columns: 1fr;
+  }
+}

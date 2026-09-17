@@ -1,0 +1,268 @@
+.ubs-view-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.ubs-view-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.ubs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin-bottom: 4px;
+}
+.ubs-breadcrumb a {
+  color: var(--ubs-blue-600);
+}
+.ubs-breadcrumb .ubs-current {
+  color: var(--ubs-black);
+  font-weight: 600;
+}
+
+.ubs-view-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ubs-view-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-toolbar-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Document Paper */
+.ubs-invoice-sheet {
+  background-color: var(--ubs-white);
+  padding: 48px;
+  border-radius: var(--ubs-radius-lg);
+  box-shadow: var(--ubs-shadow-md);
+}
+
+.ubs-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.ubs-sheet-brand {
+  display: flex;
+  gap: 16px;
+}
+
+.ubs-sheet-company {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-sheet-subtext {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 2px 0;
+}
+
+.ubs-sheet-meta {
+  text-align: right;
+}
+
+.ubs-meta-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--ubs-blue-600);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.ubs-meta-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 8px 0;
+}
+
+.ubs-meta-line {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-dark);
+  margin: 0 0 3px 0;
+}
+
+.ubs-sheet-divider {
+  height: 1px;
+  background-color: var(--ubs-ash-border);
+  margin: 32px 0;
+}
+
+.ubs-sheet-addresses {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.ubs-block-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--ubs-ash-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.ubs-block-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-block-line {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 3px 0;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Sheet Table */
+.ubs-sheet-table-wrap {
+  margin-bottom: 32px;
+}
+
+.ubs-sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ubs-sheet-table th {
+  padding: 12px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-ash-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--ubs-ash-subtle);
+  border-bottom: 1px solid var(--ubs-ash-border);
+  border-top: 1px solid var(--ubs-ash-border);
+  text-align: left;
+}
+
+.ubs-sheet-table td {
+  padding: 14px;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-dark);
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-item-name {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+/* Bottom calculations */
+.ubs-sheet-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.ubs-sheet-notes {
+  flex: 1;
+  max-width: 480px;
+}
+
+.ubs-notes-content {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-dark);
+  line-height: 1.5;
+  margin: 0 0 8px 0;
+}
+
+.ubs-wire-info {
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+  font-family: 'JetBrains Mono', monospace;
+  background-color: var(--ubs-ash-subtle);
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--ubs-ash-border);
+  margin: 0;
+}
+
+.ubs-sheet-totals {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ubs-total-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+}
+.ubs-total-line span:last-child {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-grand-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  border-top: 2px solid var(--ubs-black);
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+}
+
+.ubs-grand-total span:last-child {
+  font-size: 1.5rem;
+  color: var(--ubs-blue-600);
+}
+
+/* Print CSS */
+@media print {
+  .no-print, app-header, app-sidebar, app-footer {
+    display: none !important;
+  }
+  .ubs-view-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .ubs-invoice-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

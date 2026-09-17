@@ -1,3 +1,302 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+/* ==========================================================================
+   UNIVERSAL BILLING SYSTEM - DESIGN SYSTEM
+   Theme: Modern White, Ash (Slate/Gray), Black, and Blue
+   ========================================================================== */
+
+:root {
+  /* White & Ash Tones */
+  --ubs-white: #ffffff;
+  --ubs-ash-bg: #f8fafc;
+  --ubs-ash-subtle: #f1f5f9;
+  --ubs-ash-border: #e2e8f0;
+  --ubs-ash-border-focus: #cbd5e1;
+  --ubs-ash-muted: #64748b;
+  --ubs-ash-dark: #334155;
+
+  /* Black Onyx */
+  --ubs-black: #090d16;
+  --ubs-black-soft: #141c2e;
+  --ubs-black-hover: #1e293b;
+
+  /* Electric Blue Accents */
+  --ubs-blue-50: #eff6ff;
+  --ubs-blue-100: #dbeafe;
+  --ubs-blue-200: #bfdbfe;
+  --ubs-blue-500: #3b82f6;
+  --ubs-blue-600: #2563eb;
+  --ubs-blue-700: #1d4ed8;
+  --ubs-blue-800: #1e40af;
+
+  /* Status Colors */
+  --ubs-success-bg: #ecfdf5;
+  --ubs-success-text: #059669;
+  --ubs-success-border: #a7f3d0;
+
+  --ubs-warning-bg: #fffbeb;
+  --ubs-warning-text: #d97706;
+  --ubs-warning-border: #fde68a;
+
+  --ubs-danger-bg: #fef2f2;
+  --ubs-danger-text: #dc2626;
+  --ubs-danger-border: #fecaca;
+
+  /* Shadows */
+  --ubs-shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --ubs-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --ubs-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+  --ubs-shadow-blue: 0 10px 20px -5px rgba(37, 99, 235, 0.25);
+
+  /* Radius */
+  --ubs-radius-sm: 6px;
+  --ubs-radius-md: 10px;
+  --ubs-radius-lg: 14px;
+  --ubs-radius-xl: 18px;
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: var(--ubs-ash-bg);
+  color: var(--ubs-black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ubs-ash-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Card Component Utility */
+.ubs-card {
+  background-color: var(--ubs-white);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-lg);
+  box-shadow: var(--ubs-shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.ubs-card:hover {
+  box-shadow: var(--ubs-shadow-md);
+  border-color: #cbd5e1;
+}
+
+/* Button Components */
+.ubs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--ubs-blue-600);
+  color: var(--ubs-white);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.ubs-btn-primary:hover {
+  background-color: var(--ubs-blue-700);
+  box-shadow: var(--ubs-shadow-blue);
+  transform: translateY(-1px);
+}
+.ubs-btn-primary:active {
+  transform: translateY(0);
+}
+
+.ubs-btn-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: var(--ubs-black);
+  color: var(--ubs-white);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-black);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ubs-btn-dark:hover {
+  background-color: var(--ubs-black-hover);
+  transform: translateY(-1px);
+}
+
+.ubs-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: var(--ubs-white);
+  color: var(--ubs-ash-dark);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-ash-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ubs-btn-secondary:hover {
+  background-color: var(--ubs-ash-subtle);
+  color: var(--ubs-black);
+  border-color: #cbd5e1;
+}
+
+.ubs-btn-outline-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-700);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-blue-200);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ubs-btn-outline-blue:hover {
+  background-color: var(--ubs-blue-100);
+  border-color: var(--ubs-blue-500);
+}
+
+/* Inputs & Form Controls */
+.ubs-input, .ubs-select, .ubs-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--ubs-black);
+  background-color: var(--ubs-white);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.ubs-input:focus, .ubs-select:focus, .ubs-textarea:focus {
+  border-color: var(--ubs-blue-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+.ubs-input::placeholder, .ubs-textarea::placeholder {
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+/* Status Badges */
+.ubs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.ubs-badge-paid {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+  border: 1px solid var(--ubs-success-border);
+}
+.ubs-badge-pending {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+  border: 1px solid var(--ubs-warning-border);
+}
+.ubs-badge-overdue {
+  background-color: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+  border: 1px solid var(--ubs-danger-border);
+}
+.ubs-badge-blue {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-700);
+  border: 1px solid var(--ubs-blue-200);
+}
+.ubs-badge-ash {
+  background-color: var(--ubs-ash-subtle);
+  color: var(--ubs-ash-dark);
+  border: 1px solid var(--ubs-ash-border);
+}
+
+/* Tables */
+.ubs-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--ubs-radius-lg);
+  border: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-white);
+  box-shadow: var(--ubs-shadow-sm);
+}
+.ubs-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+}
+.ubs-table thead {
+  background-color: var(--ubs-ash-subtle);
+}
+.ubs-table th {
+  padding: 12px 18px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-ash-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+.ubs-table td {
+  padding: 14px 18px;
+  font-size: 0.875rem;
+  color: var(--ubs-black);
+  border-bottom: 1px solid var(--ubs-ash-border);
+  vertical-align: middle;
+}
+.ubs-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.ubs-table tbody tr:hover {
+  background-color: #fafbfc;
+}

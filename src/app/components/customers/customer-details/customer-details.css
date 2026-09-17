@@ -1,0 +1,38 @@
+.ubs-profile-card {
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.ubs-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.ubs-profile-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ubs-profile-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-spent-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-customer-invoices-panel {
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .ubs-profile-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

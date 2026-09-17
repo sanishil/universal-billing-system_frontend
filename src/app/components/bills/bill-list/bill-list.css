@@ -1,0 +1,205 @@
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Filters Bar */
+.ubs-filters-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-search-filter-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.ubs-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-filter-input {
+  width: 100%;
+  padding: 8px 12px 8px 36px;
+  font-size: 0.85rem;
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  outline: none;
+}
+.ubs-filter-input:focus {
+  background-color: var(--ubs-white);
+  border-color: var(--ubs-blue-600);
+}
+
+.ubs-status-tabs {
+  display: flex;
+  gap: 6px;
+  background-color: var(--ubs-ash-subtle);
+  padding: 4px;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-status-tab {
+  background: none;
+  border: none;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ubs-status-tab:hover {
+  color: var(--ubs-black);
+}
+
+.ubs-status-tab.active {
+  background-color: var(--ubs-white);
+  color: var(--ubs-blue-700);
+  box-shadow: var(--ubs-shadow-sm);
+  font-weight: 700;
+}
+
+/* Table styles */
+.ubs-bill-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ubs-blue-600);
+}
+.ubs-bill-link:hover {
+  text-decoration: underline;
+}
+
+.ubs-client-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ubs-client-primary {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-client-items {
+  font-size: 0.725rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-bill-total {
+  font-weight: 700;
+  color: var(--ubs-black);
+  font-size: 0.95rem;
+}
+
+.ubs-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ubs-btn-table {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ubs-btn-table:hover {
+  background-color: var(--ubs-white);
+  color: var(--ubs-black);
+  border-color: #cbd5e1;
+}
+
+.ubs-btn-blue {
+  color: var(--ubs-blue-600);
+  background-color: var(--ubs-blue-50);
+  border-color: var(--ubs-blue-200);
+}
+.ubs-btn-blue:hover {
+  background-color: var(--ubs-blue-100);
+  color: var(--ubs-blue-800);
+}
+
+.ubs-btn-del {
+  color: var(--ubs-danger-text);
+  background-color: var(--ubs-danger-bg);
+  border-color: var(--ubs-danger-border);
+}
+.ubs-btn-del:hover {
+  background-color: #fee2e2;
+}
+
+/* Empty State */
+.ubs-empty-state {
+  text-align: center;
+  padding: 48px 24px !important;
+}
+
+.ubs-empty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ubs-empty-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-empty-desc {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}

@@ -1,0 +1,60 @@
+<div class="ubs-auth-page">
+  <div class="ubs-auth-card ubs-card">
+    <div class="ubs-auth-header">
+      <div class="ubs-auth-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+          <line x1="6" y1="10" x2="18" y2="10"></line>
+          <line x1="6" y1="14" x2="14" y2="14"></line>
+        </svg>
+      </div>
+      <h1 class="ubs-auth-title">Sign in to Universal Billing</h1>
+      <p class="ubs-auth-subtitle">Access your billing workspace & revenue dashboard</p>
+    </div>
+
+    <!-- Quick Demo Notice -->
+    <div class="ubs-demo-pill">
+      <span class="ubs-demo-badge">Static Demo</span>
+      <span>Credentials prefilled. Click Sign In to enter.</span>
+    </div>
+
+    <form (ngSubmit)="onLogin()" class="ubs-auth-form">
+      <div class="ubs-form-group">
+        <label class="ubs-label">Work Email Address</label>
+        <input
+          [(ngModel)]="email"
+          name="email"
+          type="email"
+          required
+          class="ubs-input"
+          placeholder="name@company.com"
+        />
+      </div>
+
+      <div class="ubs-form-group">
+        <div class="ubs-password-header">
+          <label class="ubs-label">Password</label>
+          <a href="javascript:void(0)" class="ubs-forgot-link">Forgot password?</a>
+        </div>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          type="password"
+          required
+          class="ubs-input"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <button type="submit" class="ubs-btn-dark ubs-auth-submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Sign In to Dashboard</span>
+        <span *ngIf="isLoading">Authenticating...</span>
+      </button>
+    </form>
+
+    <div class="ubs-auth-footer">
+      <span>Don't have an enterprise account?</span>
+      <a routerLink="/register" class="ubs-link-bold">Create an account</a>
+    </div>
+  </div>
+</div>

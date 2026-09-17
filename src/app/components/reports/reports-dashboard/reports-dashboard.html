@@ -1,0 +1,58 @@
+<div class="ubs-page-container">
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Executive Revenue Reports</h1>
+      <p class="ubs-page-subtitle">Fiscal performance metrics, billing cadence, and recovery efficiency</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/reports/analytics" class="ubs-btn-secondary">
+        Channel Analytics →
+      </a>
+      <a routerLink="/pdf/generator" class="ubs-btn-primary">
+        Generate PDF Summary
+      </a>
+    </div>
+  </div>
+
+  <!-- KPI Overview -->
+  <div class="ubs-metrics-grid">
+    <div class="ubs-card ubs-metric-card ubs-metric-blue">
+      <span class="ubs-metric-label">YTD Settled Revenue</span>
+      <div class="ubs-metric-value">${{ totalRevenueYTD | number:'1.0-0' }}</div>
+      <span class="ubs-trend-up">↑ +24% YoY Growth</span>
+    </div>
+
+    <div class="ubs-card ubs-metric-card">
+      <span class="ubs-metric-label">Lifetime Invoices</span>
+      <div class="ubs-metric-value">{{ totalBillsGenerated }}</div>
+      <span class="ubs-trend-sub">Across 180+ Enterprise Clients</span>
+    </div>
+
+    <div class="ubs-card ubs-metric-card">
+      <span class="ubs-metric-label">Collection Rate</span>
+      <div class="ubs-metric-value">{{ collectionRate }}%</div>
+      <span class="ubs-trend-up">Top Quartile Performance</span>
+    </div>
+  </div>
+
+  <!-- Big Monthly Trend -->
+  <div class="ubs-card ubs-chart-panel">
+    <div class="ubs-panel-header">
+      <div>
+        <h2 class="ubs-panel-title">Monthly Settled Revenue Trajectory</h2>
+        <p class="ubs-panel-subtitle">Revenue in USD captured per monthly cycle</p>
+      </div>
+      <span class="ubs-badge ubs-badge-blue">Audit Verified</span>
+    </div>
+
+    <div class="ubs-report-bars">
+      <div *ngFor="let item of monthlyData" class="ubs-report-bar-col">
+        <span class="ubs-bar-val">{{ item.amount }}</span>
+        <div class="ubs-bar-rail">
+          <div class="ubs-bar-core" [style.height.%]="item.value"></div>
+        </div>
+        <span class="ubs-bar-lbl">{{ item.month }}</span>
+      </div>
+    </div>
+  </div>
+</div>

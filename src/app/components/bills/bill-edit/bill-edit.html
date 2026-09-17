@@ -1,0 +1,175 @@
+<div class="ubs-form-container" *ngIf="bill">
+  <!-- Header with Breadcrumb -->
+  <div class="ubs-form-header">
+    <div>
+      <div class="ubs-breadcrumb">
+        <a routerLink="/bills">Invoices</a>
+        <span>/</span>
+        <a [routerLink]="['/bills/view', bill.id]">#{{ bill.id }}</a>
+        <span>/</span>
+        <span class="ubs-current">Edit</span>
+      </div>
+      <h1 class="ubs-form-title">Edit Invoice #{{ bill.id }}</h1>
+      <p class="ubs-form-subtitle">Update deliverables, line item pricing, or extended payment terms</p>
+    </div>
+    <div class="ubs-form-actions">
+      <button (click)="cancel()" class="ubs-btn-secondary">Cancel</button>
+      <button (click)="saveBill()" class="ubs-btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>Save Changes</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="ubs-bill-form-grid">
+    <!-- Left: Bill Details & Line Items -->
+    <div class="ubs-card ubs-form-main-card">
+      <div class="ubs-form-section">
+        <h2 class="ubs-section-title">Invoice Information</h2>
+        <div class="ubs-grid-2">
+          <div class="ubs-form-group">
+            <label class="ubs-label">Customer Name</label>
+            <input
+              type="text"
+              [(ngModel)]="bill.customerName"
+              class="ubs-input"
+            />
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">Due Date</label>
+            <input
+              type="date"
+              [(ngModel)]="bill.dueDate"
+              class="ubs-input"
+            />
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">Invoice Status</label>
+            <select [(ngModel)]="bill.status" class="ubs-select">
+              <option value="PAID">PAID</option>
+              <option value="PENDING">PENDING</option>
+              <option value="OVERDUE">OVERDUE</option>
+            </select>
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">Public Link Slug</label>
+            <input
+              type="text"
+              [(ngModel)]="bill.uniqueLink"
+              class="ubs-input"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Line Items Section -->
+      <div class="ubs-form-section ubs-items-section">
+        <div class="ubs-items-header">
+          <div>
+            <h2 class="ubs-section-title">Line Items</h2>
+            <p class="ubs-section-subtitle">Modify quantities or price rates</p>
+          </div>
+          <button type="button" (click)="addItem()" class="ubs-btn-secondary ubs-btn-sm">
+            + Add Row
+          </button>
+        </div>
+
+        <div class="ubs-items-table-wrap">
+          <table class="ubs-items-table">
+            <thead>
+              <tr>
+                <th style="width: 52%;">Item Description</th>
+                <th style="width: 15%;">Quantity</th>
+                <th style="width: 18%;">Price ($)</th>
+                <th style="width: 15%; text-align: right;">Amount</th>
+                <th style="width: 5%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of bill.items; let i = index">
+                <td>
+                  <input
+                    type="text"
+                    [(ngModel)]="item.name"
+                    class="ubs-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    [(ngModel)]="item.quantity"
+                    class="ubs-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    [(ngModel)]="item.price"
+                    class="ubs-input"
+                  />
+                </td>
+                <td style="text-align: right; font-weight: 700; color: var(--ubs-black);">
+                  ${{ ((item.quantity || 0) * (item.price || 0)) | number:'1.2-2' }}
+                </td>
+                <td style="text-align: center;">
+                  <button
+                    type="button"
+                    (click)="removeItem(i)"
+                    class="ubs-remove-item-btn"
+                    title="Remove item"
+                    [disabled]="bill.items.length <= 1"
+                  >
+                    ✕
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="ubs-form-section" style="border-bottom: none;">
+        <label class="ubs-label">Invoice Notes</label>
+        <textarea
+          [(ngModel)]="bill.notes"
+          rows="3"
+          class="ubs-textarea"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Right: Summary Card -->
+    <div class="ubs-card ubs-summary-card">
+      <h3 class="ubs-summary-title">Updated Totals</h3>
+
+      <div class="ubs-summary-row">
+        <span class="ubs-summary-label">Subtotal</span>
+        <span class="ubs-summary-val">${{ calculateSubtotal() | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="ubs-summary-row">
+        <span class="ubs-summary-label">Tax (10%)</span>
+        <span class="ubs-summary-val">${{ calculateTax() | number:'1.2-2' }}</span>
+      </div>
+
+      <div class="ubs-summary-divider"></div>
+
+      <div class="ubs-summary-total-row">
+        <span class="ubs-total-label">New Total</span>
+        <span class="ubs-total-val">${{ calculateTotal() | number:'1.2-2' }}</span>
+      </div>
+
+      <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit">
+        Save & Update Bill
+      </button>
+    </div>
+  </div>
+</div>

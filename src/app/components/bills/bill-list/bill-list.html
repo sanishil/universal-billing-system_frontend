@@ -1,0 +1,151 @@
+<div class="ubs-page-container">
+  <!-- Header Bar -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Invoices & Bills</h1>
+      <p class="ubs-page-subtitle">Manage, create, review, and track client billing statements</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/pdf/generator" class="ubs-btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Export PDF</span>
+      </a>
+      <a routerLink="/bills/create" class="ubs-btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>Create Invoice</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Filter & Search Controls Bar -->
+  <div class="ubs-card ubs-filters-bar">
+    <div class="ubs-search-filter-box">
+      <svg class="ubs-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearchChange()"
+        placeholder="Filter by invoice ID or customer name..."
+        class="ubs-filter-input"
+      />
+    </div>
+
+    <!-- Status Tabs -->
+    <div class="ubs-status-tabs">
+      <button
+        class="ubs-status-tab"
+        [ngClass]="{ 'active': selectedStatus === 'ALL' }"
+        (click)="onStatusChange('ALL')"
+      >
+        All ({{ allBills.length }})
+      </button>
+      <button
+        class="ubs-status-tab"
+        [ngClass]="{ 'active': selectedStatus === 'PAID' }"
+        (click)="onStatusChange('PAID')"
+      >
+        Paid
+      </button>
+      <button
+        class="ubs-status-tab"
+        [ngClass]="{ 'active': selectedStatus === 'PENDING' }"
+        (click)="onStatusChange('PENDING')"
+      >
+        Pending
+      </button>
+      <button
+        class="ubs-status-tab"
+        [ngClass]="{ 'active': selectedStatus === 'OVERDUE' }"
+        (click)="onStatusChange('OVERDUE')"
+      >
+        Overdue
+      </button>
+    </div>
+  </div>
+
+  <!-- Bills Table -->
+  <div class="ubs-card ubs-table-card">
+    <div class="ubs-table-wrap">
+      <table class="ubs-table">
+        <thead>
+          <tr>
+            <th>Invoice ID</th>
+            <th>Client Organization</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th style="text-align: right;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bill of filteredBills">
+            <td>
+              <a [routerLink]="['/bills/view', bill.id]" class="ubs-bill-link">
+                #{{ bill.id }}
+              </a>
+            </td>
+            <td>
+              <div class="ubs-client-info">
+                <span class="ubs-client-primary">{{ bill.customerName }}</span>
+                <span class="ubs-client-items">{{ bill.items.length }} Items included</span>
+              </div>
+            </td>
+            <td>{{ bill.createdAt }}</td>
+            <td>{{ bill.dueDate }}</td>
+            <td>
+              <span class="ubs-bill-total">${{ bill.total | number:'1.2-2' }}</span>
+            </td>
+            <td>
+              <span
+                class="ubs-badge"
+                [ngClass]="{
+                  'ubs-badge-paid': bill.status === 'PAID',
+                  'ubs-badge-pending': bill.status === 'PENDING',
+                  'ubs-badge-overdue': bill.status === 'OVERDUE'
+                }"
+              >
+                {{ bill.status }}
+              </span>
+            </td>
+            <td style="text-align: right;">
+              <div class="ubs-row-actions">
+                <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-table" title="View Full Invoice">
+                  View
+                </a>
+                <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-table" title="Edit Invoice">
+                  Edit
+                </a>
+                <a [routerLink]="['/bill/view', bill.uniqueLink]" target="_blank" class="ubs-btn-table ubs-btn-blue" title="Open Public Link">
+                  Public
+                </a>
+                <button (click)="deleteBill(bill.id)" class="ubs-btn-table ubs-btn-del" title="Delete">
+                  ✕
+                </button>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="filteredBills.length === 0">
+            <td colspan="7" class="ubs-empty-state">
+              <div class="ubs-empty-box">
+                <p class="ubs-empty-title">No bills found</p>
+                <p class="ubs-empty-desc">Try clearing your search query or change the status filter.</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
