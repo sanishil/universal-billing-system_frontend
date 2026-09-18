@@ -42,19 +42,10 @@
                 [(ngModel)]="username"
                 name="username"
                 class="yono-underline-input"
-                placeholder="Username"
+                placeholder="Username or Email"
                 (focus)="activeInputField = 'username'"
                 required
               />
-              <div class="yono-link-row">
-                <a
-                  href="javascript:void(0)"
-                  (click)="openModal('forgotUsername')"
-                  class="yono-sub-link"
-                >
-                  Forgot Username?
-                </a>
-              </div>
             </div>
 
             <!-- Password Underline Input -->
@@ -156,7 +147,7 @@
     <div class="yono-modal-card" (click)="$event.stopPropagation()">
       <div class="yono-modal-header">
         <h3 class="yono-modal-title">
-          <span *ngIf="activeModal === 'forgotUsername'">Recover Username</span>
+
           <span *ngIf="activeModal === 'forgotPassword'">Reset Security Password</span>
         </h3>
         <button type="button" class="yono-modal-close" (click)="closeModal()">
@@ -171,9 +162,6 @@
         </div>
 
         <p *ngIf="!modalSuccessMsg" class="yono-modal-desc">
-          <span *ngIf="activeModal === 'forgotUsername'">
-            Provide your registered enterprise email address to receive your verified username:
-          </span>
           <span *ngIf="activeModal === 'forgotPassword'">
             Provide your user ID or work email. A temporary secure reset token will be dispatched:
           </span>

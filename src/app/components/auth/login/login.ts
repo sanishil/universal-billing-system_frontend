@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
   errorMessage = '';
-  activeModal: 'activate' | 'forgotUsername' | 'forgotPassword' | 'lockUnlock' | null = null;
+  activeModal: 'activate' | 'forgotPassword' | 'lockUnlock' | null = null;
   modalEmail = '';
   modalUsername = '';
   modalSuccessMsg = '';
@@ -163,7 +163,7 @@ export class LoginComponent implements OnInit {
 
 
   // Modal actions
-  openModal(type: 'activate' | 'forgotUsername' | 'forgotPassword' | 'lockUnlock'): void {
+  openModal(type: 'activate' | 'forgotPassword' | 'lockUnlock'): void {
     this.activeModal = type;
     this.modalSuccessMsg = '';
     this.modalEmail = '';
@@ -178,8 +178,6 @@ export class LoginComponent implements OnInit {
   submitModalAction(): void {
     if (this.activeModal === 'activate') {
       this.modalSuccessMsg = 'Account activation instructions sent to your registered address!';
-    } else if (this.activeModal === 'forgotUsername') {
-      this.modalSuccessMsg = 'Your username has been dispatched to your email.';
     } else if (this.activeModal === 'forgotPassword') {
       this.modalSuccessMsg = 'Password reset instructions dispatched successfully.';
     } else if (this.activeModal === 'lockUnlock') {
