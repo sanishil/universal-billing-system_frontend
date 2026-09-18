@@ -8,26 +8,26 @@
 :root {
   /* White & Ash Tones */
   --ubs-white: #ffffff;
-  --ubs-ash-bg: #f8fafc;
-  --ubs-ash-subtle: #f1f5f9;
-  --ubs-ash-border: #e2e8f0;
-  --ubs-ash-border-focus: #cbd5e1;
-  --ubs-ash-muted: #64748b;
-  --ubs-ash-dark: #334155;
+  --ubs-ash-bg: #f8f7fb;
+  --ubs-ash-subtle: #f3eaf8;
+  --ubs-ash-border: #e8d8f0;
+  --ubs-ash-border-focus: #c89fdb;
+  --ubs-ash-muted: #7c5a8a;
+  --ubs-ash-dark: #4a2060;
 
-  /* Black Onyx */
-  --ubs-black: #090d16;
-  --ubs-black-soft: #141c2e;
-  --ubs-black-hover: #1e293b;
+  /* Purple Primary (replaces Black Onyx) */
+  --ubs-black: #5c186e;
+  --ubs-black-soft: #440f57;
+  --ubs-black-hover: #3b0a47;
 
-  /* Electric Blue Accents */
-  --ubs-blue-50: #eff6ff;
-  --ubs-blue-100: #dbeafe;
-  --ubs-blue-200: #bfdbfe;
-  --ubs-blue-500: #3b82f6;
-  --ubs-blue-600: #2563eb;
-  --ubs-blue-700: #1d4ed8;
-  --ubs-blue-800: #1e40af;
+  /* Purple Accents (replaces Electric Blue) */
+  --ubs-blue-50: #f8f0fc;
+  --ubs-blue-100: #f0dff8;
+  --ubs-blue-200: #deb8f0;
+  --ubs-blue-500: #7c2d94;
+  --ubs-blue-600: #5c186e;
+  --ubs-blue-700: #440f57;
+  --ubs-blue-800: #3b0a47;
 
   /* Status Colors */
   --ubs-success-bg: #ecfdf5;
@@ -43,10 +43,10 @@
   --ubs-danger-border: #fecaca;
 
   /* Shadows */
-  --ubs-shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --ubs-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
-  --ubs-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-  --ubs-shadow-blue: 0 10px 20px -5px rgba(37, 99, 235, 0.25);
+  --ubs-shadow-sm: 0 1px 2px 0 rgba(68, 15, 87, 0.06);
+  --ubs-shadow-md: 0 4px 6px -1px rgba(68, 15, 87, 0.09), 0 2px 4px -2px rgba(68, 15, 87, 0.06);
+  --ubs-shadow-lg: 0 10px 15px -3px rgba(68, 15, 87, 0.1), 0 4px 6px -4px rgba(68, 15, 87, 0.06);
+  --ubs-shadow-blue: 0 10px 20px -5px rgba(92, 24, 110, 0.28);
 
   /* Radius */
   --ubs-radius-sm: 6px;
@@ -65,7 +65,7 @@ html, body {
   padding: 0;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   background-color: var(--ubs-ash-bg);
-  color: var(--ubs-black);
+  color: #111827;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

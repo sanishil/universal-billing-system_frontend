@@ -1,82 +1,82 @@
-<div class="ubs-auth-page">
-  <div class="ubs-auth-card ubs-card">
-    <div class="ubs-auth-header">
-      <div class="ubs-auth-logo">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-        >
-          <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-          <line x1="6" y1="10" x2="18" y2="10"></line>
-          <line x1="6" y1="14" x2="14" y2="14"></line>
-        </svg>
-      </div>
-      <h1 class="ubs-auth-title">Create Your Account</h1>
-      
-    </div>
+<div class="yono-page-wrapper">
+  <!-- Subtle organic background curves -->
+  <div class="yono-bg-curve-top"></div>
+  <div class="yono-bg-curve-mid"></div>
 
-    <form (ngSubmit)="onRegister()" class="ubs-auth-form">
-      <div class="ubs-form-group">
-        <label class="ubs-label">Full Name</label>
-        <input
-          [(ngModel)]="name"
-          name="name"
-          type="text"
-          required
-          class="ubs-input"
-          placeholder="e.g. Alex Vance"
-        />
+  <div class="yono-content-container">
+    <div class="yono-register-card">
+      <!-- Card Tab Header -->
+      <div class="yono-card-tab">
+        <span class="yono-tab-text">Create Your Account</span>
       </div>
 
-      <div class="ubs-form-group">
-        <label class="ubs-label">Organization Name</label>
-        <input
-          [(ngModel)]="company"
-          name="company"
-          type="text"
-          required
-          class="ubs-input"
-          placeholder="e.g. Vance Dynamics Ltd."
-        />
+      <form (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
+        <!-- Full Name -->
+        <div class="yono-field-wrap">
+          <input
+            [(ngModel)]="name"
+            name="name"
+            type="text"
+            class="yono-underline-input"
+            placeholder="Full Name"
+            required
+          />
+        </div>
+
+        <!-- Organization Name -->
+        <div class="yono-field-wrap">
+          <input
+            [(ngModel)]="company"
+            name="company"
+            type="text"
+            class="yono-underline-input"
+            placeholder="Organization Name"
+            required
+          />
+        </div>
+
+        <!-- Work Email -->
+        <div class="yono-field-wrap">
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            class="yono-underline-input"
+            placeholder="Work Email Address"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="yono-field-wrap">
+          <input
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            class="yono-underline-input"
+            placeholder="Security Password"
+            required
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="yono-submit-box">
+          <button type="submit" class="yono-register-submit-btn" [disabled]="isLoading">
+            <span *ngIf="!isLoading"><i class="fa-solid fa-user-check"></i>  Register Now</span>
+            <span *ngIf="isLoading" class="yono-spinner-wrap">
+              <span class="spinner-border spinner-border-sm" role="status"></span>
+              Provisioning Workspace...
+            </span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer link -->
+      <div class="yono-footer-link-row">
+        <span>Already have an account?</span>
+        <a routerLink="/login" class="yono-footer-link">Sign In</a>
       </div>
-
-      <div class="ubs-form-group">
-        <label class="ubs-label">Work Email Address</label>
-        <input
-          [(ngModel)]="email"
-          name="email"
-          type="email"
-          required
-          class="ubs-input"
-          placeholder="alex@vancedynamics.io"
-        />
-      </div>
-
-      <div class="ubs-form-group">
-        <label class="ubs-label">Security Password</label>
-        <input
-          [(ngModel)]="password"
-          name="password"
-          type="password"
-          required
-          class="ubs-input"
-          placeholder="At least 8 characters"
-        />
-      </div>
-
-      <button type="submit" class="ubs-btn-dark ubs-auth-submit" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Register & Open Workspace</span>
-        <span *ngIf="isLoading">Provisioning Workspace...</span>
-      </button>
-    </form>
-
-    <div class="ubs-auth-footer">
-      <span>Already have an account?</span>
-      <a routerLink="/login" class="ubs-link-bold">Sign In</a>
     </div>
   </div>
 </div>
+

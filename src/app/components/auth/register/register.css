@@ -1,80 +1,226 @@
-.ubs-auth-page {
+/* ==========================================================================
+   YONO SBI-INSPIRED AUTHENTICATION THEME - REGISTER PAGE
+   Matches /login purple theme: Deep Royal Purple (#5c186e / #440f57)
+   ========================================================================== */
+
+:host {
+  display: block;
+  width: 100%;
+  --yono-purple-primary: #5c186e;
+  --yono-purple-dark: #440f57;
+  --yono-purple-light: #7c2d94;
+  --yono-purple-subtle: #f3eaf8;
+  --yono-text-dark: #111827;
+  --yono-text-muted: #4b5563;
+  --yono-border-line: #9ca3af;
+}
+
+.yono-page-wrapper {
+  position: relative;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  padding: 24px;
-  background-color: var(--ubs-ash-bg);
+  align-items: center;
+  background-color: #f8f7fb;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
 }
 
-.ubs-auth-card {
+/* Organic Background Wavy Blobs */
+.yono-bg-curve-top {
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, #ece4f5 0%, rgba(236, 228, 245, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.yono-bg-curve-mid {
+  position: absolute;
+  top: 10%;
+  right: -80px;
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #f2e9f7 0%, rgba(242, 233, 247, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Content container — centered */
+.yono-content-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 44px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+/* Register card */
+.yono-register-card {
   width: 100%;
   max-width: 480px;
-  padding: 38px 34px;
-  background-color: var(--ubs-white);
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 35px -5px rgba(68, 15, 87, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+  padding: 36px 38px;
+  position: relative;
 }
 
-.ubs-auth-header {
+/* Card tab header */
+.yono-card-tab {
   text-align: center;
   margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f3eaf8;
 }
 
-.ubs-auth-logo {
-  width: 46px;
-  height: 46px;
-  background: linear-gradient(135deg, var(--ubs-black) 0%, var(--ubs-blue-700) 100%);
-  color: var(--ubs-white);
-  border-radius: 12px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-}
-
-.ubs-auth-title {
-  font-size: 1.375rem;
+.yono-tab-text {
+  font-size: 1.05rem;
   font-weight: 800;
-  color: var(--ubs-black);
-  margin: 0 0 6px 0;
-  letter-spacing: -0.02em;
+  color: #5c186e;
+  letter-spacing: -0.01em;
 }
 
-.ubs-auth-subtitle {
-  font-size: 0.825rem;
-  color: var(--ubs-ash-muted);
-  margin: 0;
+/* Error banner */
+.yono-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-.ubs-auth-form {
+/* Form */
+.yono-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
-.ubs-auth-submit {
+.yono-field-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.yono-field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 4px;
+}
+
+/* Underline inputs — identical to login */
+.yono-underline-input {
   width: 100%;
-  padding: 12px;
-  font-size: 0.925rem;
-  margin-top: 6px;
+  border: none !important;
+  border-bottom: 1.8px solid #9ca3af !important;
+  background: transparent !important;
+  padding: 10px 2px !important;
+  font-size: 1rem !important;
+  font-family: inherit;
+  color: #111827 !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  transition: border-color 0.2s ease;
 }
 
-.ubs-auth-footer {
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--ubs-ash-border);
+.yono-underline-input:focus {
+  border-bottom-color: #5c186e !important;
+  border-bottom-width: 2.2px !important;
+}
+
+.yono-underline-input::placeholder {
+  color: #6b7280 !important;
+  font-size: 0.95rem;
+}
+
+/* Submit button */
+.yono-submit-box {
+  margin-top: 10px;
+}
+
+.yono-register-submit-btn {
+  width: 100% !important;
+  height: 46px !important;
+  border-radius: 9999px !important;
+  background-color: #5c186e !important;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  border: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(92, 24, 110, 0.35) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.yono-register-submit-btn:hover {
+  background-color: #440f57 !important;
+  box-shadow: 0 6px 18px rgba(92, 24, 110, 0.45) !important;
+  transform: translateY(-1px);
+}
+
+.yono-register-submit-btn:disabled {
+  opacity: 0.85 !important;
+  cursor: wait !important;
+}
+
+.yono-spinner-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff !important;
+}
+
+/* Footer sign-in link */
+.yono-footer-link-row {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f3eaf8;
   text-align: center;
-  font-size: 0.8125rem;
-  color: var(--ubs-ash-muted);
+  font-size: 0.85rem;
+  color: #4b5563;
   display: flex;
   justify-content: center;
   gap: 6px;
 }
 
-.ubs-link-bold {
-  font-weight: 700;
-  color: var(--ubs-blue-600);
+.yono-footer-link {
+  font-weight: 700 !important;
+  color: #5c186e !important;
+  text-decoration: underline !important;
+  cursor: pointer;
 }
-.ubs-link-bold:hover {
-  text-decoration: underline;
+
+.yono-footer-link:hover {
+  color: #3b0a47 !important;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .yono-content-container {
+    padding: 28px 16px;
+  }
+
+  .yono-register-card {
+    padding: 24px 20px;
+  }
 }

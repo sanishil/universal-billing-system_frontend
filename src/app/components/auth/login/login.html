@@ -14,7 +14,7 @@
           <div class="yono-newuser-block">
             <h3 class="yono-newuser-title">Are you a new user?</h3>
             <div class="yono-action-buttons">
-              <a routerLink="/register" class="yono-btn-register">Register Now</a>
+              <a routerLink="/register" class="yono-btn-register"><i class="fa-solid fa-user-check"></i> Register Now</a>
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@
             <!-- Login Pill Button -->
             <div class="yono-submit-box">
               <button type="submit" class="yono-login-submit-btn" [disabled]="isLoading">
-                <span *ngIf="!isLoading">Login</span>
+                <span *ngIf="!isLoading"><i class="fa-solid fa-right-to-bracket"></i> Login</span>
                 <span *ngIf="isLoading" class="yono-spinner-wrap">
                   <span class="spinner-border spinner-border-sm" role="status"></span>
                   Authenticating...
