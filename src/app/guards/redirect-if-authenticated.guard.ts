@@ -1,20 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 export const redirectIfAuthenticatedGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Synchronous check: MUST match the check in app.component.ts
-  const isAuthenticated =
-    typeof window !== 'undefined' &&
-    (localStorage.getItem('auth_token') !== null ||
-      localStorage.getItem('ubs_auth_token') !== null);
-
-  if (isAuthenticated) {
+  if (authService.isAuthenticated()) {
     // Bounce already logged-in users straight to the dashboard
     return router.createUrlTree(['/dashboard']);
   }
 
   // Let unauthenticated users see the login/register page
   return true;
-};
+};

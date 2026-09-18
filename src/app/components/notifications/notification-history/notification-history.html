@@ -1,1 +1,60 @@
-<p>notification-history works!</p>
+<div class="ubs-page-container">
+
+  <!-- Page Header -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Notification Log</h1>
+      <p class="ubs-page-subtitle">All outbound email &amp; SMS dispatch records</p>
+    </div>
+    <div class="ubs-header-stats">
+      <div class="ubs-stat-pill ubs-stat-sent">
+        <span class="ubs-stat-dot ubs-dot-sent"></span>
+        {{ sentCount }} Sent
+      </div>
+      <div class="ubs-stat-pill ubs-stat-failed">
+        <span class="ubs-stat-dot ubs-dot-failed"></span>
+        {{ failedCount }} Failed
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification List -->
+  <div class="ubs-card ubs-notif-card">
+    <div class="ubs-notif-list-header">
+      <span>Channel</span>
+      <span>Message &amp; Recipient</span>
+      <span>Status</span>
+      <span>Sent At</span>
+    </div>
+
+    <div class="ubs-notif-item" *ngFor="let n of notifications">
+      <div class="ubs-channel-badge" [class.ubs-channel-email]="n.type === 'EMAIL'" [class.ubs-channel-sms]="n.type === 'SMS'">
+        <span class="ubs-channel-icon">{{ getTypeIcon(n.type) }}</span>
+        {{ n.type }}
+      </div>
+
+      <div class="ubs-notif-body">
+        <p class="ubs-notif-message">{{ n.message }}</p>
+        <p class="ubs-notif-recipient">&#8594; {{ n.recipient }}</p>
+      </div>
+
+      <div>
+        <span class="ubs-badge"
+          [class.ubs-badge-paid]="n.status === 'SENT'"
+          [class.ubs-badge-overdue]="n.status === 'FAILED'"
+          [class.ubs-badge-pending]="n.status === 'PENDING'">
+          {{ n.status }}
+        </span>
+      </div>
+
+      <p class="ubs-notif-time">{{ n.sentAt }}</p>
+    </div>
+
+    <div class="ubs-empty-state" *ngIf="notifications.length === 0">
+      <div class="ubs-empty-icon">🔔</div>
+      <p class="ubs-empty-title">No notifications yet</p>
+      <p class="ubs-empty-desc">Dispatched emails and SMS messages will appear here.</p>
+    </div>
+  </div>
+
+</div>

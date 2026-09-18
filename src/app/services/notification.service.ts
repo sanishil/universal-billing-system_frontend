@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Notification } from '../models/notification';
+import { Notification as AppNotification } from '../models/notification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private initialNotifications: Notification[] = [
+  private initialNotifications: AppNotification[] = [
     {
       id: 'NOTIF-001',
       type: 'EMAIL',
@@ -41,16 +41,16 @@ export class NotificationService {
     }
   ];
 
-  private notificationsSubject = new BehaviorSubject<Notification[]>(this.initialNotifications);
+  private notificationsSubject = new BehaviorSubject<AppNotification[]>(this.initialNotifications);
   public notifications$ = this.notificationsSubject.asObservable();
 
-  getNotifications(): Observable<Notification[]> {
+  getNotifications(): Observable<AppNotification[]> {
     return of(this.notificationsSubject.value);
   }
 
-  sendNotification(notifData: Partial<Notification>): Observable<Notification> {
+  sendNotification(notifData: Partial<AppNotification>): Observable<AppNotification> {
     const current = this.notificationsSubject.value;
-    const newNotif: Notification = {
+    const newNotif: AppNotification = {
       id: `NOTIF-${String(current.length + 1).padStart(3, '0')}`,
       type: notifData.type || 'EMAIL',
       recipient: notifData.recipient || 'customer@example.com',

@@ -1,6 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router, NavigationEnd, Event, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { NgIf, NgClass } from '@angular/common';
 
 import { HeaderComponent } from './components/layout/header/header';
@@ -22,7 +23,7 @@ import { LayoutService } from './services/layout.service';
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   hideLayout = true;
   layoutService = inject(LayoutService);
   private router = inject(Router);
@@ -30,27 +31,40 @@ export class AppComponent implements OnInit {
   isSidebarCollapsed = false;
   isMobileSidebarOpen = false;
 
+  /** Emits once on destroy to automatically complete all subscriptions. */
+  private destroy$ = new Subject<void>();
+
   ngOnInit() {
     this.evaluateLayout(this.router.url);
 
-    this.layoutService.isSidebarCollapsed$.subscribe((collapsed) => {
-      this.isSidebarCollapsed = collapsed;
-    });
+    this.layoutService.isSidebarCollapsed$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((collapsed) => {
+        this.isSidebarCollapsed = collapsed;
+      });
 
-    this.layoutService.isMobileSidebarOpen$.subscribe((open) => {
-      this.isMobileSidebarOpen = open;
-    });
+    this.layoutService.isMobileSidebarOpen$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((open) => {
+        this.isMobileSidebarOpen = open;
+      });
 
     this.router.events
       .pipe(
         filter(
           (event: Event): event is NavigationEnd => event instanceof NavigationEnd
-        )
+        ),
+        takeUntil(this.destroy$)
       )
       .subscribe((event: NavigationEnd) => {
         this.evaluateLayout(event.url);
         this.layoutService.closeMobileSidebar();
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   closeMobileSidebar() {
@@ -72,4 +86,4 @@ export class AppComponent implements OnInit {
       this.hideLayout = false;
     }
   }
-}
+}

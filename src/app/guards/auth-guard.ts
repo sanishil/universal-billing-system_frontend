@@ -1,19 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = (_route, _state) => {
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  // Synchronous check: checks if either token exists
-  const isAuthenticated =
-    typeof window !== 'undefined' &&
-    (localStorage.getItem('auth_token') !== null ||
-      localStorage.getItem('ubs_auth_token') !== null);
-
-  if (isAuthenticated) {
+  if (authService.isAuthenticated()) {
     return true;
   }
 
-  // Return UrlTree to prevent route activation and redirect immediately
+  // Redirect unauthenticated users to login
   return router.createUrlTree(['/login']);
-};
+};

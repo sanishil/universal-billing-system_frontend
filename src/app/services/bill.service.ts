@@ -115,9 +115,11 @@ export class BillService {
 
   createBill(billData: Partial<Bill>): Observable<Bill> {
     const currentBills = this.billsSubject.value;
-    const nextNum = currentBills.length + 1;
-    const newId = `INV-2026-${String(nextNum).padStart(3, '0')}`;
-    const uniqueLink = `bill-${(billData.customerName || 'client').toLowerCase().replace(/[^a-z0-9]/g, '')}-${Date.now().toString().slice(-6)}`;
+    // Use timestamp suffix to guarantee uniqueness even after deletions
+    const uniqueSuffix = Date.now().toString().slice(-6);
+    const newId = `INV-2026-${uniqueSuffix}`;
+    const uniqueLink = `bill-${(billData.customerName || 'client').toLowerCase().replace(/[^a-z0-9]/g, '')}-${uniqueSuffix}`;
+
 
     const items = billData.items || [];
     const subtotal = items.reduce((acc, item) => acc + (Number(item.quantity || 0) * Number(item.price || 0)), 0);

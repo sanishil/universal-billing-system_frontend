@@ -1,0 +1,188 @@
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-header-stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ubs-stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.ubs-stat-sent {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+  border: 1px solid var(--ubs-success-border);
+}
+
+.ubs-stat-failed {
+  background-color: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+  border: 1px solid var(--ubs-danger-border);
+}
+
+.ubs-stat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.ubs-dot-sent { background-color: var(--ubs-success-text); }
+.ubs-dot-failed { background-color: var(--ubs-danger-text); }
+
+/* Card */
+.ubs-notif-card {
+  overflow: hidden;
+}
+
+/* List header */
+.ubs-notif-list-header {
+  display: grid;
+  grid-template-columns: 120px 1fr 110px 160px;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: var(--ubs-ash-subtle);
+  border-bottom: 1px solid var(--ubs-ash-border);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ubs-ash-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Notification row */
+.ubs-notif-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 110px 160px;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  transition: background-color 0.15s ease;
+}
+
+.ubs-notif-item:last-child {
+  border-bottom: none;
+}
+
+.ubs-notif-item:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+/* Channel badge */
+.ubs-channel-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  width: fit-content;
+}
+
+.ubs-channel-email {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-700);
+  border: 1px solid var(--ubs-blue-200);
+}
+
+.ubs-channel-sms {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+  border: 1px solid var(--ubs-warning-border);
+}
+
+.ubs-channel-icon {
+  font-size: 0.85rem;
+}
+
+/* Notification message */
+.ubs-notif-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 16px;
+}
+
+.ubs-notif-message {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+  line-height: 1.45;
+}
+
+.ubs-notif-recipient {
+  margin: 0;
+  font-size: 0.775rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-notif-time {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--ubs-ash-muted);
+}
+
+/* Empty state */
+.ubs-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.ubs-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.ubs-empty-title {
+  margin: 0 0 6px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-empty-desc {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+}

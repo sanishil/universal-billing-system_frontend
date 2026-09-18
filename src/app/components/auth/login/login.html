@@ -13,21 +13,9 @@
 
           <div class="yono-newuser-block">
             <h3 class="yono-newuser-title">Are you a new user?</h3>
-            <p class="yono-newuser-desc">
-              Choose one of the following options if you are a new user
-            </p>
-
             <div class="yono-action-buttons">
               <a routerLink="/register" class="yono-btn-register">Register Now</a>
-              <button type="button" (click)="openModal('activate')" class="yono-btn-activate">
-                Activate Username
-              </button>
             </div>
-          </div>
-
-          <div class="yono-account-check">
-            <span>Don't have an account with Universal Billing? </span>
-            <a routerLink="/register" class="yono-open-now-link">Open Now</a>
           </div>
         </div>
       </div>
@@ -229,66 +217,7 @@
                 </span>
               </button>
             </div>
-
-            <!-- Lock / Unlock Link -->
-            <div class="yono-footer-link-box">
-              <a href="javascript:void(0)" (click)="openModal('lockUnlock')" class="yono-lock-link">
-                Lock/Unlock User
-              </a>
-            </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BOTTOM WAVE BANNER WITH QUICK ACTIONS -->
-  <div class="yono-bottom-wave-section">
-    <!-- SVG Wavy Curves -->
-    <div class="yono-wave-svg-wrap">
-      <svg
-        viewBox="0 0 1440 120"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M0,48 C280,120 720,0 1120,64 C1280,90 1380,80 1440,70 L1440,120 L0,120 Z"
-          fill="#521568"
-          opacity="0.9"
-        />
-        <path
-          d="M0,70 C360,130 840,30 1200,85 C1320,105 1400,95 1440,90 L1440,120 L0,120 Z"
-          fill="#440f57"
-        />
-      </svg>
-    </div>
-
-    <!-- Quick Actions Bar Content -->
-    <div class="yono-quick-actions-bar">
-      <div class="yono-quick-actions-container">
-        <h4 class="yono-quick-actions-title">Quick Actions</h4>
-        <div class="yono-quick-pills">
-          <a routerLink="/payments/process" class="yono-quick-pill">
-            <i class="bi bi-credit-card"></i>
-            <span>Quick Pay</span>
-          </a>
-          <a routerLink="/bills" class="yono-quick-pill">
-            <i class="bi bi-receipt"></i>
-            <span>Track Invoices</span>
-          </a>
-          <a routerLink="/pdf/generator" class="yono-quick-pill">
-            <i class="bi bi-file-earmark-pdf"></i>
-            <span>Generate PDF</span>
-          </a>
-          <a routerLink="/reports/analytics" class="yono-quick-pill">
-            <i class="bi bi-graph-up-arrow"></i>
-            <span>Tax & Analytics</span>
-          </a>
-          <a routerLink="/settings" class="yono-quick-pill">
-            <i class="bi bi-shield-check"></i>
-            <span>Security Center</span>
-          </a>
         </div>
       </div>
     </div>
@@ -299,10 +228,8 @@
     <div class="yono-modal-card" (click)="$event.stopPropagation()">
       <div class="yono-modal-header">
         <h3 class="yono-modal-title">
-          <span *ngIf="activeModal === 'activate'">Activate Online Access</span>
           <span *ngIf="activeModal === 'forgotUsername'">Recover Username</span>
           <span *ngIf="activeModal === 'forgotPassword'">Reset Security Password</span>
-          <span *ngIf="activeModal === 'lockUnlock'">Account Lock / Unlock Service</span>
         </h3>
         <button type="button" class="yono-modal-close" (click)="closeModal()">
           <i class="bi bi-x-lg"></i>
@@ -316,17 +243,11 @@
         </div>
 
         <p *ngIf="!modalSuccessMsg" class="yono-modal-desc">
-          <span *ngIf="activeModal === 'activate'">
-            Enter your registration reference number or customer ID to activate your credentials:
-          </span>
           <span *ngIf="activeModal === 'forgotUsername'">
             Provide your registered enterprise email address to receive your verified username:
           </span>
           <span *ngIf="activeModal === 'forgotPassword'">
             Provide your user ID or work email. A temporary secure reset token will be dispatched:
-          </span>
-          <span *ngIf="activeModal === 'lockUnlock'">
-            Manage user security state. Enter your user account identifier below:
           </span>
         </p>
 
