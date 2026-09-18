@@ -28,16 +28,6 @@
             <span class="yono-tab-text">Username / Password</span>
           </div>
 
-          <!-- Quick Test Indicator -->
-          <div
-            class="yono-demo-banner"
-            (click)="fillDemoCredentials()"
-            title="Click to fill mock credentials"
-          >
-            <span class="yono-demo-pill">Demo Ready</span>
-            <span>Pre-filled for fast evaluation • Click to auto-complete</span>
-          </div>
-
           <!-- Alert message if any -->
           <div *ngIf="errorMessage" class="yono-error-banner">
             <i class="bi bi-exclamation-circle-fill"></i>
@@ -88,15 +78,7 @@
                   >
                     <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                   </button>
-                  <button
-                    type="button"
-                    class="yono-tool-btn yono-kbd-icon-btn"
-                    [class.active]="showVirtualKeyboard"
-                    (click)="toggleVirtualKeyboard()"
-                    title="Toggle Virtual Keyboard"
-                  >
-                    <i class="bi bi-keyboard"></i>
-                  </button>
+
                 </div>
               </div>
               <div class="yono-link-row">
@@ -110,65 +92,11 @@
               </div>
             </div>
 
-            <!-- Virtual Keyboard (Optional On-Screen Keypad) -->
-            <div *ngIf="showVirtualKeyboard" class="yono-virtual-keyboard-box">
-              <div class="yono-vkey-header">
-                <span>Virtual Keypad (Target: {{ activeInputField | uppercase }})</span>
-                <button type="button" class="yono-vkey-close" (click)="toggleVirtualKeyboard()">
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-              <div class="yono-vkey-rows">
-                <div *ngFor="let row of keyboardRows" class="yono-vkey-row">
-                  <button
-                    *ngFor="let key of row"
-                    type="button"
-                    class="yono-key-btn"
-                    (click)="onVirtualKeyPress(key)"
-                  >
-                    {{ isCaps ? (key | uppercase) : key }}
-                  </button>
-                </div>
-                <div class="yono-vkey-row yono-vkey-actions">
-                  <button
-                    type="button"
-                    class="yono-key-btn yono-key-modifier"
-                    [class.active]="isCaps"
-                    (click)="toggleCapsLock()"
-                  >
-                    Caps
-                  </button>
-                  <button
-                    type="button"
-                    class="yono-key-btn yono-key-space"
-                    (click)="onVirtualKeyPress(' ')"
-                  >
-                    Space
-                  </button>
-                  <button
-                    type="button"
-                    class="yono-key-btn yono-key-modifier"
-                    (click)="virtualBackspace()"
-                  >
-                    ⌫ Back
-                  </button>
-                  <button
-                    type="button"
-                    class="yono-key-btn yono-key-modifier"
-                    (click)="virtualClear()"
-                  >
-                    Clear
-                  </button>
-                </div>
-              </div>
-            </div>
-
             <!-- Captcha Input & Authentic Security Widget -->
             <div class="yono-captcha-container">
               <div class="yono-captcha-input-box">
                 <input
                   type="text"
-                  [(ngModel)]="captchaInput"
                   name="captchaInput"
                   class="yono-underline-input"
                   placeholder="Enter Captcha"

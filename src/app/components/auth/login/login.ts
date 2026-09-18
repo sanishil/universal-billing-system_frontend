@@ -16,14 +16,14 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
 
   // Form Fields
-  username = 'alex.vance@universalbilling.io';
-  password = '••••••••••••';
+  username = '';
+  password = '';
   captchaInput = '';
   captchaCode = '';
 
   // UI States
   showPassword = false;
-  showVirtualKeyboard = false;
+
   isLoading = false;
   errorMessage = '';
   activeModal: 'activate' | 'forgotUsername' | 'forgotPassword' | 'lockUnlock' | null = null;
@@ -32,13 +32,7 @@ export class LoginComponent implements OnInit {
   modalSuccessMsg = '';
   activeInputField: 'username' | 'password' | 'captcha' = 'password';
 
-  // Virtual Keyboard Layout
-  readonly keyboardRows = [
-    ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm', '@', '.', '_']
-  ];
+
   isCaps = false;
 
   ngOnInit(): void {
@@ -81,12 +75,7 @@ export class LoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  /**
-   * Toggle virtual on-screen keyboard
-   */
-  toggleVirtualKeyboard(): void {
-    this.showVirtualKeyboard = !this.showVirtualKeyboard;
-  }
+
 
   /**
    * Virtual keyboard typing handler
@@ -172,13 +161,6 @@ export class LoginComponent implements OnInit {
     }, 450);
   }
 
-  // Quick Demo fill
-  fillDemoCredentials(): void {
-    this.username = 'alex.vance@universalbilling.io';
-    this.password = 'Universal@2026';
-    this.captchaInput = this.captchaCode;
-    this.errorMessage = '';
-  }
 
   // Modal actions
   openModal(type: 'activate' | 'forgotUsername' | 'forgotPassword' | 'lockUnlock'): void {
