@@ -8,6 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "assets": [
+    "src/favicon.ico",
+    "src/assets",
+    "src/_redirects"
+  ],
   "private": true,
   "packageManager": "npm@12.0.2",
   "dependencies": {
