@@ -7,7 +7,8 @@ import { Bill } from '../../../models/bill';
 @Component({
   selector: 'app-public-bill-view',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  // imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './public-bill-view.html',
   styleUrl: './public-bill-view.css'
 })
