@@ -33,12 +33,12 @@ export class DashboardComponent implements OnInit {
   };
 
   monthlyPerformance = [
-    { month: 'Apr', amount: '$3,800', heightPercent: 42 },
-    { month: 'May', amount: '$5,400', heightPercent: 60 },
-    { month: 'Jun', amount: '$6,900', heightPercent: 75 },
-    { month: 'Jul', amount: '$4,200', heightPercent: 48 },
-    { month: 'Aug', amount: '$7,800', heightPercent: 86 },
-    { month: 'Sep', amount: '$9,287', heightPercent: 100 }
+    { month: 'Apr', amount: '₹3,80,000', heightPercent: 42 },
+    { month: 'May', amount: '₹5,40,000', heightPercent: 60 },
+    { month: 'Jun', amount: '₹6,90,000', heightPercent: 75 },
+    { month: 'Jul', amount: '₹4,20,000', heightPercent: 48 },
+    { month: 'Aug', amount: '₹7,80,000', heightPercent: 86 },
+    { month: 'Sep', amount: '₹9,28,700', heightPercent: 100 }
   ];
 
   ngOnInit() {

@@ -24,10 +24,14 @@ export class BillCreateComponent implements OnInit {
   selectedCustomerId = '';
   dueDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
   status: 'PENDING' | 'PAID' = 'PENDING';
-  notes = 'Payment terms: Net 14 days. Thank you for your business!';
+  gstRate = 18;
+  isInterState = false;
+  placeOfSupply = 'Karnataka (29)';
+  customerGstin = '';
+  notes = 'Payment terms: Net 14 days. Settle via UPI (billing@sbi) or Net Banking. Thank you for your business!';
 
   items: BillItem[] = [
-    { name: 'Software Development & Architecture Consulting', quantity: 1, price: 1500 }
+    { name: 'Cloud Infrastructure Architecture & Security Consulting', hsnSac: '998314', quantity: 1, price: 65000 }
   ];
 
   ngOnInit() {
@@ -36,6 +40,9 @@ export class BillCreateComponent implements OnInit {
       if (custs.length > 0) {
         this.selectedCustomerId = custs[0].id;
         this.customerName = custs[0].name;
+        this.customerGstin = custs[0].gstin || '29AAACI4321A1ZG';
+        this.placeOfSupply = `${custs[0].state || 'Karnataka'} (${custs[0].stateCode || '29'})`;
+        this.isInterState = (custs[0].stateCode || '29') !== '29';
       }
     });
   }
@@ -45,11 +52,14 @@ export class BillCreateComponent implements OnInit {
     const cust = this.customers.find(c => c.id === id);
     if (cust) {
       this.customerName = cust.name;
+      this.customerGstin = cust.gstin || '';
+      this.placeOfSupply = `${cust.state || 'Karnataka'} (${cust.stateCode || '29'})`;
+      this.isInterState = (cust.stateCode || '29') !== '29';
     }
   }
 
   addItem() {
-    this.items.push({ name: '', quantity: 1, price: 0 });
+    this.items.push({ name: '', hsnSac: '998314', quantity: 1, price: 0 });
   }
 
   removeItem(index: number) {
@@ -63,7 +73,19 @@ export class BillCreateComponent implements OnInit {
   }
 
   calculateTax(): number {
-    return Math.round(this.calculateSubtotal() * 0.1 * 100) / 100;
+    return Math.round(this.calculateSubtotal() * (this.gstRate / 100) * 100) / 100;
+  }
+
+  calculateCGST(): number {
+    return this.isInterState ? 0 : Math.round((this.calculateTax() / 2) * 100) / 100;
+  }
+
+  calculateSGST(): number {
+    return this.isInterState ? 0 : Math.round((this.calculateTax() / 2) * 100) / 100;
+  }
+
+  calculateIGST(): number {
+    return this.isInterState ? this.calculateTax() : 0;
   }
 
   calculateTotal(): number {
@@ -79,6 +101,13 @@ export class BillCreateComponent implements OnInit {
     const newBill = {
       customerId: this.selectedCustomerId || 'CUST-001',
       customerName: this.customerName,
+      customerGstin: this.customerGstin,
+      placeOfSupply: this.placeOfSupply,
+      isInterState: this.isInterState,
+      gstRate: this.gstRate,
+      cgst: this.calculateCGST(),
+      sgst: this.calculateSGST(),
+      igst: this.calculateIGST(),
       items: this.items,
       subtotal: this.calculateSubtotal(),
       tax: this.calculateTax(),

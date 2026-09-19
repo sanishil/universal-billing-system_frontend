@@ -20,7 +20,11 @@ export class CustomerCreateComponent {
     company: '',
     email: '',
     phone: '',
-    address: ''
+    address: '',
+    gstin: '',
+    pan: '',
+    state: 'Karnataka',
+    stateCode: '29'
   };
 
   saveCustomer() {

@@ -58,6 +58,133 @@
   margin-top: 8px;
 }
 
+.ubs-upi-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: #faf7fd;
+  border: 1px solid var(--ubs-ash-border);
+  padding: 16px;
+  border-radius: var(--ubs-radius-md);
+}
+
+.ubs-upi-scan-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 140px;
+}
+
+.ubs-qr-frame {
+  background: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--ubs-ash-border);
+  box-shadow: var(--ubs-shadow-sm);
+}
+
+.ubs-qr-sub {
+  font-size: 0.68rem;
+  color: var(--ubs-ash-muted);
+  margin-top: 6px;
+  line-height: 1.2;
+}
+
+.ubs-upi-manual-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ubs-quick-vpa-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ubs-quick-vpa-tags span {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  cursor: pointer;
+  color: var(--ubs-black);
+  font-weight: 600;
+  transition: all 0.15s;
+}
+
+.ubs-quick-vpa-tags span:hover {
+  background: var(--ubs-blue-100);
+  border-color: var(--ubs-blue-500);
+}
+
+.ubs-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ubs-bank-tile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 1.5px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  cursor: pointer;
+  background: #ffffff;
+  transition: all 0.15s;
+}
+
+.ubs-bank-tile:hover {
+  border-color: var(--ubs-blue-500);
+  background: var(--ubs-blue-50);
+}
+
+.ubs-bank-tile.active {
+  border-color: var(--ubs-blue-600);
+  background: var(--ubs-blue-50);
+  box-shadow: var(--ubs-shadow-sm);
+  font-weight: 700;
+}
+
+.ubs-bank-icon {
+  font-size: 1.1rem;
+}
+
+.ubs-bank-name {
+  font-size: 0.78rem;
+  color: var(--ubs-black);
+}
+
+.ubs-neft-details-box {
+  background: #fdfafc;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ubs-neft-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 6px 0;
+}
+
+.ubs-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #444;
+}
+
 .ubs-invoice-preview-card {
   padding: 24px;
   position: sticky;

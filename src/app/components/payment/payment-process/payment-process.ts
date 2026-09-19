@@ -22,11 +22,33 @@ export class PaymentProcessComponent implements OnInit {
   selectedBillId = '';
   selectedBill: Bill | null = null;
 
-  paymentMethod: 'CREDIT_CARD' | 'BANK_TRANSFER' | 'PAYPAL' = 'CREDIT_CARD';
-  cardNumber = '4242 •••• •••• 4242';
-  cardExpiry = '12/28';
-  cardCvc = '884';
-  cardHolder = 'John Vance';
+  paymentMethod: 'UPI' | 'NET_BANKING' | 'RUPAY_CARD' | 'NEFT_RTGS' = 'UPI';
+
+  // UPI fields
+  upiId = 'accounts@oksbi';
+  selectedUpiApp = 'GPay';
+
+  // Net Banking fields
+  selectedBank = 'SBI';
+  indianBanks = [
+    { code: 'SBI', name: 'State Bank of India', icon: '🏛️' },
+    { code: 'HDFC', name: 'HDFC Bank', icon: '🏦' },
+    { code: 'ICICI', name: 'ICICI Bank', icon: '🏧' },
+    { code: 'AXIS', name: 'Axis Bank', icon: '🏢' },
+    { code: 'KOTAK', name: 'Kotak Mahindra', icon: '🏛️' },
+    { code: 'PNB', name: 'Punjab National Bank', icon: '🏦' }
+  ];
+
+  // Card fields
+  cardNumber = '6073 •••• •••• 9924';
+  cardExpiry = '08/29';
+  cardCvc = '714';
+  cardHolder = 'Rajesh Kumar';
+  isRuPay = true;
+
+  // NEFT / RTGS fields
+  neftUtr = 'SBIN26258190012';
+
   isProcessing = false;
 
   ngOnInit() {
@@ -53,7 +75,9 @@ export class PaymentProcessComponent implements OnInit {
         billId: this.selectedBill!.id,
         customerName: this.selectedBill!.customerName,
         amount: this.selectedBill!.total,
-        method: this.paymentMethod
+        method: this.paymentMethod,
+        upiId: this.paymentMethod === 'UPI' ? this.upiId : undefined,
+        bankName: this.paymentMethod === 'NET_BANKING' ? this.selectedBank : undefined
       }).subscribe(() => {
         this.isProcessing = false;
         this.router.navigate(['/payments/success']);

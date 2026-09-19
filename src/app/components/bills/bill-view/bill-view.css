@@ -251,6 +251,129 @@
   color: var(--ubs-blue-600);
 }
 
+.ubs-meta-copy-type {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+  margin: -2px 0 6px 0;
+  font-style: italic;
+}
+
+.ubs-hsn-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--ubs-ash-subtle);
+  color: var(--ubs-black);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-amount-words-box {
+  background: #fdf8fe;
+  border-left: 3px solid var(--ubs-blue-600);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.ubs-words-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ubs-ash-muted);
+}
+.ubs-words-val {
+  margin: 2px 0 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  font-style: italic;
+}
+
+.ubs-upi-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #faf7fd;
+  border: 1px dashed var(--ubs-ash-border-focus);
+  padding: 12px 16px;
+  border-radius: var(--ubs-radius-md);
+  margin-top: 14px;
+}
+.ubs-upi-qr {
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--ubs-ash-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+.ubs-upi-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ubs-upi-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ubs-upi-id {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #333;
+}
+.ubs-upi-sub {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-signature-area {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--ubs-ash-border);
+  text-align: right;
+}
+.ubs-sign-company {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 8px 0;
+}
+.ubs-sign-stamp-placeholder {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 16px;
+  border: 1.5px solid var(--ubs-blue-600);
+  border-radius: 6px;
+  background: var(--ubs-blue-50);
+  margin: 6px 0;
+}
+.ubs-stamp-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ubs-blue-600);
+}
+.ubs-stamp-date {
+  font-size: 0.65rem;
+  color: var(--ubs-ash-muted);
+}
+.ubs-sign-label {
+  margin: 4px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
 /* Print CSS */
 @media print {
   .no-print, app-header, app-sidebar, app-footer {

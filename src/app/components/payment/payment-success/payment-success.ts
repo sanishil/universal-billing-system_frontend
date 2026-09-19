@@ -10,6 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './payment-success.css'
 })
 export class PaymentSuccessComponent {
-  transactionId = `TXN-STT-${Math.floor(100000 + Math.random() * 900000)}`;
-  processedDate = new Date().toLocaleString();
+  transactionId = `TXN-UPI-${Math.floor(100000 + Math.random() * 900000)}`;
+  utrNumber = `UTR${Date.now().toString().slice(-10)}`;
+  processedDate = new Date().toLocaleString('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
 }

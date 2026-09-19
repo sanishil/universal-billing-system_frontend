@@ -124,7 +124,7 @@
             <td>{{ bill.createdAt }}</td>
             <td>{{ bill.dueDate }}</td>
             <td>
-              <span class="ubs-bill-total">${{ bill.total | number: '1.2-2' }}</span>
+              <span class="ubs-bill-total">₹{{ bill.total | number: '1.2-2' }}</span>
             </td>
             <td>
               <span

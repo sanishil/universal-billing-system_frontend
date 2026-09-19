@@ -31,20 +31,29 @@ export class BillViewComponent implements OnInit {
           this.bill = {
             id,
             customerId: 'CUST-001',
-            customerName: 'Acme Global Technologies',
+            customerName: 'Infosys Digital Systems Ltd.',
+            customerGstin: '29AAACI4321A1ZG',
+            supplierGstin: '29AABCU9603R1ZM',
+            placeOfSupply: 'Karnataka (29)',
+            stateCode: '29',
             items: [
-              { name: 'Enterprise Cloud Infrastructure Hosting', quantity: 1, price: 1850 },
-              { name: 'Dedicated Support & Maintenance', quantity: 1, price: 650 },
-              { name: 'SSL Security Cert & Audit', quantity: 2, price: 150 }
+              { name: 'Enterprise Cloud Infrastructure & Kubernetes', hsnSac: '998315', quantity: 1, price: 85000 },
+              { name: 'Dedicated Support & 24/7 SLA Retainer', hsnSac: '998314', quantity: 1, price: 45000 },
+              { name: 'Security Cert Audit & Vulnerability Assessment', hsnSac: '998316', quantity: 2, price: 12500 }
             ],
-            subtotal: 2800,
-            tax: 280,
-            total: 3080,
+            subtotal: 155000,
+            cgst: 13950,
+            sgst: 13950,
+            igst: 0,
+            tax: 27900,
+            total: 182900,
+            amountInWords: 'Rupees One Lakh Eighty Two Thousand Nine Hundred Only',
+            currency: 'INR',
             status: 'PAID',
-            uniqueLink: 'bill-acme-2026001',
+            uniqueLink: 'bill-infosys-2026001',
             createdAt: '2026-09-10',
             dueDate: '2026-09-24',
-            notes: 'Payment settled in full.'
+            notes: 'Payment received via SBI Net Banking. Thank you for your business!'
           };
         }
       });

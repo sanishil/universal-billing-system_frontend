@@ -57,15 +57,15 @@
     </div>
   </div>
 
-  <!-- Document Paper / Invoice Card -->
+  <!-- Document Paper / Indian Tax Invoice Card -->
   <div class="ubs-card ubs-invoice-sheet">
     <!-- Sheet Header -->
     <div class="ubs-sheet-header">
       <div class="ubs-sheet-brand">
         <div class="ubs-logo-mark">
           <svg
-            width="24"
-            height="24"
+            width="28"
+            height="28"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -77,48 +77,54 @@
           </svg>
         </div>
         <div>
-          <h2 class="ubs-sheet-company">Universal Billing Inc.</h2>
-          <p class="ubs-sheet-subtext">Enterprise Financial Infrastructure & Billing</p>
-          <p class="ubs-sheet-subtext">100 Tech Enterprise Blvd, Suite 800, San Francisco, CA</p>
+          <h2 class="ubs-sheet-company">Universal Billing Solutions India Pvt. Ltd.</h2>
+          <p class="ubs-sheet-subtext"><strong>GSTIN:</strong> 29AABCU9603R1ZM | <strong>PAN:</strong> AABCU9603R</p>
+          <p class="ubs-sheet-subtext">Salarpuria Cyber Towers, 4th Floor, HSR Layout, Bengaluru, Karnataka - 560102</p>
+          <p class="ubs-sheet-subtext">State: Karnataka | State Code: 29 | CIN: U72200KA2024PTC189201</p>
         </div>
       </div>
 
       <div class="ubs-sheet-meta">
-        <div class="ubs-meta-badge">INVOICE</div>
-        <p class="ubs-meta-id">#{{ bill.id }}</p>
-        <p class="ubs-meta-line"><strong>Issued:</strong> {{ bill.createdAt }}</p>
-        <p class="ubs-meta-line"><strong>Due:</strong> {{ bill.dueDate }}</p>
+        <div class="ubs-meta-badge">TAX INVOICE</div>
+        <p class="ubs-meta-copy-type">(Original for Recipient)</p>
+        <p class="ubs-meta-id">Invoice #: {{ bill.id }}</p>
+        <p class="ubs-meta-line"><strong>Invoice Date:</strong> {{ bill.createdAt }}</p>
+        <p class="ubs-meta-line"><strong>Payment Due:</strong> {{ bill.dueDate }}</p>
       </div>
     </div>
 
     <div class="ubs-sheet-divider"></div>
 
-    <!-- Client & Payment Meta -->
+    <!-- Client & Tax Place of Supply Details -->
     <div class="ubs-sheet-addresses">
       <div class="ubs-address-block">
-        <span class="ubs-block-label">BILLED TO</span>
+        <span class="ubs-block-label">BILLED TO (BUYER DETAILS)</span>
         <h3 class="ubs-block-name">{{ bill.customerName }}</h3>
-        <p class="ubs-block-line">Customer ID: {{ bill.customerId }}</p>
-        <p class="ubs-block-line">Verified Enterprise Client</p>
+        <p class="ubs-block-line"><strong>Client ID:</strong> {{ bill.customerId }}</p>
+        <p class="ubs-block-line"><strong>Buyer GSTIN:</strong> {{ bill.customerGstin || '29AAACI4321A1ZG' }}</p>
+        <p class="ubs-block-line"><strong>PAN:</strong> {{ bill.pan || 'AAACI4321A' }}</p>
+        <p class="ubs-block-line"><strong>Place of Supply:</strong> {{ bill.placeOfSupply || 'Karnataka (State Code 29)' }}</p>
       </div>
 
       <div class="ubs-address-block text-right">
-        <span class="ubs-block-label">PAYMENT DETAILS</span>
+        <span class="ubs-block-label">TAX & SETTLEMENT INFO</span>
         <p class="ubs-block-line"><strong>Status:</strong> {{ bill.status }}</p>
-        <p class="ubs-block-line"><strong>Currency:</strong> USD ($)</p>
+        <p class="ubs-block-line"><strong>Currency:</strong> INR (₹ - Indian Rupee)</p>
+        <p class="ubs-block-line"><strong>Supply Type:</strong> {{ bill.isInterState ? 'Inter-State (IGST Applicable)' : 'Intra-State (CGST + SGST)' }}</p>
         <p class="ubs-block-line"><strong>Payment Reference:</strong> {{ bill.uniqueLink }}</p>
       </div>
     </div>
 
-    <!-- Line Items Table -->
+    <!-- Line Items Table with SAC Codes and Rupee Values -->
     <div class="ubs-sheet-table-wrap">
       <table class="ubs-sheet-table">
         <thead>
           <tr>
-            <th style="width: 50%">Deliverable / Line Item</th>
-            <th style="width: 15%; text-align: center">Qty</th>
-            <th style="width: 15%; text-align: right">Unit Price</th>
-            <th style="width: 20%; text-align: right">Total</th>
+            <th style="width: 44%">Service Description / Deliverable</th>
+            <th style="width: 14%; text-align: center">HSN/SAC</th>
+            <th style="width: 10%; text-align: center">Qty</th>
+            <th style="width: 16%; text-align: right">Unit Rate (₹)</th>
+            <th style="width: 16%; text-align: right">Taxable Value (₹)</th>
           </tr>
         </thead>
         <tbody>
@@ -126,40 +132,102 @@
             <td>
               <span class="ubs-item-name">{{ item.name }}</span>
             </td>
+            <td style="text-align: center">
+              <span class="ubs-hsn-badge">{{ item.hsnSac || '998314' }}</span>
+            </td>
             <td style="text-align: center">{{ item.quantity }}</td>
-            <td style="text-align: right">${{ item.price | number: '1.2-2' }}</td>
+            <td style="text-align: right">₹{{ item.price | number: '1.2-2' }}</td>
             <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
-              ${{ item.quantity * item.price | number: '1.2-2' }}
+              ₹{{ item.quantity * item.price | number: '1.2-2' }}
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Calculations Bottom -->
+    <!-- Calculations & GST Breakdown -->
     <div class="ubs-sheet-bottom">
       <div class="ubs-sheet-notes">
-        <span class="ubs-block-label">NOTES & WIRE INSTRUCTIONS</span>
-        <p class="ubs-notes-content">
-          {{ bill.notes || 'Thank you for choosing Universal Billing.' }}
-        </p>
+        <!-- Amount in Words Banner (Mandatory in Indian Invoicing) -->
+        <div class="ubs-amount-words-box">
+          <span class="ubs-words-label">Invoice Amount in Words:</span>
+          <p class="ubs-words-val">{{ bill.amountInWords || 'Rupees Only' }}</p>
+        </div>
+
+        <span class="ubs-block-label" style="margin-top: 14px">BANK TRANSFER (NEFT / RTGS / IMPS)</span>
         <p class="ubs-wire-info">
-          Bank: Silicon Horizon Bank | Routing: #021000089 | Account: #9948-2810-UB
+          <strong>Bank:</strong> State Bank of India | <strong>A/C No:</strong> 389201948102 (Current A/C)<br />
+          <strong>IFSC Code:</strong> SBIN0004044 | <strong>Branch:</strong> Bengaluru Main Branch | <strong>MICR:</strong> 560002010
         </p>
+
+        <!-- UPI Quick Pay Widget -->
+        <div class="ubs-upi-box">
+          <div class="ubs-upi-qr">
+            <!-- Authentic SVG QR Code Representation -->
+            <svg width="68" height="68" viewBox="0 0 100 100" fill="currentColor">
+              <rect x="0" y="0" width="30" height="30" fill="#5c186e"/>
+              <rect x="5" y="5" width="20" height="20" fill="#fff"/>
+              <rect x="10" y="10" width="10" height="10" fill="#5c186e"/>
+              <rect x="70" y="0" width="30" height="30" fill="#5c186e"/>
+              <rect x="75" y="5" width="20" height="20" fill="#fff"/>
+              <rect x="80" y="10" width="10" height="10" fill="#5c186e"/>
+              <rect x="0" y="70" width="30" height="30" fill="#5c186e"/>
+              <rect x="5" y="75" width="20" height="20" fill="#fff"/>
+              <rect x="10" y="80" width="10" height="10" fill="#5c186e"/>
+              <rect x="36" y="8" width="8" height="18" fill="#5c186e"/>
+              <rect x="50" y="4" width="12" height="8" fill="#5c186e"/>
+              <rect x="36" y="38" width="28" height="14" fill="#5c186e"/>
+              <rect x="68" y="42" width="14" height="20" fill="#5c186e"/>
+              <rect x="42" y="68" width="16" height="24" fill="#5c186e"/>
+              <rect x="74" y="74" width="22" height="18" fill="#5c186e"/>
+            </svg>
+          </div>
+          <div class="ubs-upi-meta">
+            <span class="ubs-upi-title"><i class="fa-solid fa-qrcode"></i> Instant UPI Pay (GPay / PhonePe / Paytm)</span>
+            <p class="ubs-upi-id">UPI VPA: <strong>billing@sbi</strong></p>
+            <span class="ubs-upi-sub">Scan QR using any UPI app to pay ₹{{ bill.total | number: '1.2-2' }} directly</span>
+          </div>
+        </div>
       </div>
 
+      <!-- Totals & GST Line Items -->
       <div class="ubs-sheet-totals">
         <div class="ubs-total-line">
-          <span>Subtotal</span>
-          <span>${{ bill.subtotal | number: '1.2-2' }}</span>
+          <span>Taxable Amount</span>
+          <span>₹{{ bill.subtotal | number: '1.2-2' }}</span>
         </div>
-        <div class="ubs-total-line">
-          <span>Tax (10%)</span>
-          <span>${{ bill.tax | number: '1.2-2' }}</span>
+
+        <!-- Intra-state CGST & SGST -->
+        <ng-container *ngIf="!bill.isInterState">
+          <div class="ubs-total-line">
+            <span>CGST (9%)</span>
+            <span>₹{{ (bill.cgst !== undefined ? bill.cgst : bill.tax / 2) | number: '1.2-2' }}</span>
+          </div>
+          <div class="ubs-total-line">
+            <span>SGST (9%)</span>
+            <span>₹{{ (bill.sgst !== undefined ? bill.sgst : bill.tax / 2) | number: '1.2-2' }}</span>
+          </div>
+        </ng-container>
+
+        <!-- Inter-state IGST -->
+        <div class="ubs-total-line" *ngIf="bill.isInterState">
+          <span>IGST (18%)</span>
+          <span>₹{{ (bill.igst !== undefined ? bill.igst : bill.tax) | number: '1.2-2' }}</span>
         </div>
+
         <div class="ubs-grand-total">
-          <span>Total Amount</span>
-          <span>${{ bill.total | number: '1.2-2' }}</span>
+          <span>Total Invoice Value</span>
+          <span>₹{{ bill.total | number: '1.2-2' }}</span>
+        </div>
+
+        <!-- Authorized Signature Stamp Area -->
+        <div class="ubs-signature-area">
+          <p class="ubs-sign-company">For Universal Billing Solutions India Pvt. Ltd.</p>
+          <div class="ubs-sign-stamp-placeholder">
+            <span class="ubs-stamp-badge">DIGITALLY SIGNED</span>
+            <span class="ubs-stamp-date">Date: {{ bill.createdAt }}</span>
+          </div>
+          <p class="ubs-sign-label">Authorized Signatory</p>
         </div>
       </div>
     </div>

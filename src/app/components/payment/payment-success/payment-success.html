@@ -27,16 +27,20 @@
         <span class="ubs-receipt-val">{{ transactionId }}</span>
       </div>
       <div class="ubs-receipt-row">
+        <span>Bank / UPI UTR</span>
+        <span class="ubs-receipt-val font-mono">{{ utrNumber }}</span>
+      </div>
+      <div class="ubs-receipt-row">
         <span>Timestamp</span>
         <span class="ubs-receipt-val">{{ processedDate }}</span>
       </div>
       <div class="ubs-receipt-row">
         <span>Payment Method</span>
-        <span class="ubs-receipt-val">Electronic Authorization</span>
+        <span class="ubs-receipt-val">UPI / Net Banking Instant Clearance</span>
       </div>
       <div class="ubs-receipt-row">
         <span>Ledger Status</span>
-        <span class="ubs-badge ubs-badge-paid">CLEARED</span>
+        <span class="ubs-badge ubs-badge-paid">SETTLED (INR)</span>
       </div>
     </div>
 

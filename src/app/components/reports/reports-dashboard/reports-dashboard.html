@@ -15,13 +15,13 @@
   <!-- KPI Overview -->
   <div class="ubs-metrics-grid">
     <div class="ubs-card ubs-metric-card ubs-metric-blue">
-      <span class="ubs-metric-label">YTD Settled Revenue</span>
-      <div class="ubs-metric-value">${{ totalRevenueYTD | number: '1.0-0' }}</div>
+      <span class="ubs-metric-label">YTD Settled Revenue (INR)</span>
+      <div class="ubs-metric-value">₹{{ totalRevenueYTD | number: '1.0-0' }}</div>
       <span class="ubs-trend-up">↑ +24% YoY Growth</span>
     </div>
 
     <div class="ubs-card ubs-metric-card">
-      <span class="ubs-metric-label">Lifetime Invoices</span>
+      <span class="ubs-metric-label">Lifetime Tax Invoices</span>
       <div class="ubs-metric-value">{{ totalBillsGenerated }}</div>
       <span class="ubs-trend-sub">Across 180+ Enterprise Clients</span>
     </div>
@@ -38,9 +38,9 @@
     <div class="ubs-panel-header">
       <div>
         <h2 class="ubs-panel-title">Monthly Settled Revenue Trajectory</h2>
-        <p class="ubs-panel-subtitle">Revenue in USD captured per monthly cycle</p>
+        <p class="ubs-panel-subtitle">Revenue in INR (₹) captured per monthly billing cycle</p>
       </div>
-      <span class="ubs-badge ubs-badge-blue">Audit Verified</span>
+      <span class="ubs-badge ubs-badge-blue">GST Audit Verified</span>
     </div>
 
     <div class="ubs-report-bars">

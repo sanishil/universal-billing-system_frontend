@@ -40,8 +40,12 @@
         </div>
       </div>
       <div class="ubs-details-item">
-        <span class="ubs-label">Total Amount</span>
-        <span class="ubs-value-amount">${{ bill.total | number: '1.2-2' }}</span>
+        <span class="ubs-label">Total Amount (INR)</span>
+        <span class="ubs-value-amount">₹{{ bill.total | number: '1.2-2' }}</span>
+      </div>
+      <div class="ubs-details-item" *ngIf="bill.gstRate">
+        <span class="ubs-label">GST Tax Applied</span>
+        <span class="ubs-value-bold">{{ bill.gstRate }}% {{ bill.isInterState ? '(IGST)' : '(CGST+SGST)' }}</span>
       </div>
     </div>
   </div>

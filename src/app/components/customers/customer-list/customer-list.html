@@ -77,14 +77,17 @@
               </a>
             </td>
             <td>
-              <span class="ubs-company-text">{{ cust.company || 'Private Client' }}</span>
+              <div class="flex flex-col">
+                <span class="ubs-company-text">{{ cust.company || 'Private Client' }}</span>
+                <span class="text-xs text-gray-500" *ngIf="cust.gstin">GSTIN: {{ cust.gstin }}</span>
+              </div>
             </td>
             <td>
               <span class="ubs-email-text">{{ cust.email }}</span>
             </td>
             <td>{{ cust.phone }}</td>
             <td>
-              <span class="ubs-spent-amount">${{ cust.totalSpent || 0 | number: '1.2-2' }}</span>
+              <span class="ubs-spent-amount">₹{{ cust.totalSpent || 0 | number: '1.2-2' }}</span>
             </td>
             <td>
               <span class="ubs-badge ubs-badge-paid">ACTIVE</span>

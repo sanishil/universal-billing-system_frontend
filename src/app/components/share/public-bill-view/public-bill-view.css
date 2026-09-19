@@ -1,0 +1,383 @@
+.ubs-public-page {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ubs-public-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--ubs-white);
+  padding: 16px 24px;
+  border-radius: var(--ubs-radius-lg);
+  border: 1px solid var(--ubs-ash-border);
+  box-shadow: var(--ubs-shadow-sm);
+}
+
+.ubs-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ubs-brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.ubs-topbar-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+}
+
+.ubs-topbar-sub {
+  margin: 2px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ubs-paid-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  padding: 12px 18px;
+  border-radius: var(--ubs-radius-md);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* Document Paper */
+.ubs-invoice-sheet {
+  background-color: var(--ubs-white);
+  padding: 44px;
+  border-radius: var(--ubs-radius-lg);
+  border: 1px solid var(--ubs-ash-border);
+  box-shadow: var(--ubs-shadow-md);
+}
+
+.ubs-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.ubs-sheet-company {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-sheet-subtext {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 2px 0;
+}
+
+.ubs-sheet-meta {
+  text-align: right;
+}
+
+.ubs-meta-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--ubs-blue-600);
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.ubs-meta-copy-type {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 6px 0;
+  font-style: italic;
+}
+
+.ubs-meta-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-meta-line {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 2px 0;
+}
+
+.ubs-sheet-divider {
+  height: 1px;
+  background-color: var(--ubs-ash-border);
+  margin: 24px 0;
+}
+
+.ubs-sheet-addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.ubs-block-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--ubs-ash-muted);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.ubs-block-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+}
+
+.ubs-block-line {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-dark);
+  margin: 0 0 3px 0;
+}
+
+.ubs-sheet-table-wrap {
+  margin-bottom: 28px;
+  overflow-x: auto;
+}
+
+.ubs-sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ubs-sheet-table th {
+  background-color: var(--ubs-ash-subtle);
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ubs-ash-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-sheet-table td {
+  padding: 14px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-item-name {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-hsn-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  background: var(--ubs-ash-subtle);
+  color: var(--ubs-black);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-sheet-bottom {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.ubs-amount-words-box {
+  background: #fdf8fe;
+  border-left: 3px solid var(--ubs-blue-600);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.ubs-words-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-words-val {
+  margin: 2px 0 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  font-style: italic;
+}
+
+.ubs-upi-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #faf7fd;
+  border: 1px dashed var(--ubs-ash-border-focus);
+  padding: 12px 16px;
+  border-radius: var(--ubs-radius-md);
+  margin-top: 10px;
+}
+
+.ubs-upi-qr {
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--ubs-ash-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.ubs-upi-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ubs-upi-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-upi-id {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #333;
+}
+
+.ubs-upi-sub {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-sheet-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ubs-total-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-total-line span:last-child {
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.ubs-grand-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 12px;
+  border-top: 2px solid var(--ubs-black);
+  margin-top: 4px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+}
+
+.ubs-grand-total span:last-child {
+  font-size: 1.4rem;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-signature-area {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--ubs-ash-border);
+  text-align: right;
+}
+
+.ubs-sign-company {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 6px 0;
+}
+
+.ubs-sign-stamp-placeholder {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1.5px solid var(--ubs-blue-600);
+  border-radius: 6px;
+  background: var(--ubs-blue-50);
+  margin: 4px 0;
+}
+
+.ubs-stamp-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-stamp-date {
+  font-size: 0.65rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-sign-label {
+  margin: 4px 0 0 0;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .ubs-public-page {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .ubs-invoice-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}

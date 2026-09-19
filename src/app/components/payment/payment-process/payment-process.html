@@ -16,51 +16,147 @@
     <!-- Form Box -->
     <div class="ubs-card ubs-pay-card">
       <div class="ubs-form-group mb-4">
-        <label class="ubs-label">Select Outstanding Invoice</label>
+        <label class="ubs-label">Select Outstanding Tax Invoice</label>
         <select [ngModel]="selectedBillId" (ngModelChange)="selectBill($event)" class="ubs-select">
           <option *ngFor="let b of unpaidBills" [value]="b.id">
-            #{{ b.id }} - {{ b.customerName }} (${{ b.total | number: '1.2-2' }}) [{{ b.status }}]
+            #{{ b.id }} - {{ b.customerName }} (₹{{ b.total | number: '1.2-2' }}) [{{ b.status }}]
           </option>
         </select>
       </div>
 
-      <!-- Payment Channel Tabs -->
+      <!-- Payment Channel Tabs: Indian Payment Methods -->
       <div class="ubs-channel-tabs">
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ active: paymentMethod === 'CREDIT_CARD' }"
-          (click)="paymentMethod = 'CREDIT_CARD'"
+          [ngClass]="{ active: paymentMethod === 'UPI' }"
+          (click)="paymentMethod = 'UPI'"
         >
-          💳 Credit Card
+          📱 UPI (GPay/PhonePe)
         </button>
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ active: paymentMethod === 'BANK_TRANSFER' }"
-          (click)="paymentMethod = 'BANK_TRANSFER'"
+          [ngClass]="{ active: paymentMethod === 'NET_BANKING' }"
+          (click)="paymentMethod = 'NET_BANKING'"
         >
-          🏦 Wire Transfer
+          🏛️ Net Banking
         </button>
         <button
           type="button"
           class="ubs-channel-btn"
-          [ngClass]="{ active: paymentMethod === 'PAYPAL' }"
-          (click)="paymentMethod = 'PAYPAL'"
+          [ngClass]="{ active: paymentMethod === 'RUPAY_CARD' }"
+          (click)="paymentMethod = 'RUPAY_CARD'"
         >
-          🅿️ PayPal
+          💳 RuPay / Cards
+        </button>
+        <button
+          type="button"
+          class="ubs-channel-btn"
+          [ngClass]="{ active: paymentMethod === 'NEFT_RTGS' }"
+          (click)="paymentMethod = 'NEFT_RTGS'"
+        >
+          🏦 NEFT / RTGS
         </button>
       </div>
 
-      <!-- Credit Card Fields -->
-      <form (ngSubmit)="processPayment()" class="ubs-payment-form">
+      <!-- UPI Payment Channel -->
+      <div *ngIf="paymentMethod === 'UPI'" class="ubs-payment-form">
+        <div class="ubs-upi-container">
+          <div class="ubs-upi-scan-pane">
+            <div class="ubs-qr-frame">
+              <svg width="110" height="110" viewBox="0 0 100 100" fill="currentColor">
+                <rect x="0" y="0" width="30" height="30" fill="#5c186e"/>
+                <rect x="5" y="5" width="20" height="20" fill="#fff"/>
+                <rect x="10" y="10" width="10" height="10" fill="#5c186e"/>
+                <rect x="70" y="0" width="30" height="30" fill="#5c186e"/>
+                <rect x="75" y="5" width="20" height="20" fill="#fff"/>
+                <rect x="80" y="10" width="10" height="10" fill="#5c186e"/>
+                <rect x="0" y="70" width="30" height="30" fill="#5c186e"/>
+                <rect x="5" y="75" width="20" height="20" fill="#fff"/>
+                <rect x="10" y="80" width="10" height="10" fill="#5c186e"/>
+                <rect x="36" y="8" width="8" height="18" fill="#5c186e"/>
+                <rect x="50" y="4" width="12" height="8" fill="#5c186e"/>
+                <rect x="36" y="38" width="28" height="14" fill="#5c186e"/>
+                <rect x="68" y="42" width="14" height="20" fill="#5c186e"/>
+                <rect x="42" y="68" width="16" height="24" fill="#5c186e"/>
+                <rect x="74" y="74" width="22" height="18" fill="#5c186e"/>
+              </svg>
+            </div>
+            <span class="ubs-qr-sub">Scan using Google Pay, PhonePe, Paytm or BHIM UPI</span>
+          </div>
+
+          <div class="ubs-upi-manual-pane">
+            <label class="ubs-label">Or Enter Customer Virtual Payment Address (UPI ID)</label>
+            <div class="ubs-vpa-input-box">
+              <input type="text" [(ngModel)]="upiId" class="ubs-input" placeholder="e.g. buyer@oksbi" />
+            </div>
+            <div class="ubs-quick-vpa-tags">
+              <span (click)="upiId = 'accounts@oksbi'">@oksbi</span>
+              <span (click)="upiId = 'finance@okhdfcbank'">@okhdfcbank</span>
+              <span (click)="upiId = 'payables@paytm'">@paytm</span>
+              <span (click)="upiId = 'billing@ybl'">@ybl</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          (click)="processPayment()"
+          class="ubs-btn-primary ubs-pay-submit"
+          [disabled]="isProcessing || !selectedBill"
+        >
+          <span *ngIf="!isProcessing && selectedBill">
+            Authorize & Settle ₹{{ selectedBill.total | number: '1.2-2' }} via UPI
+          </span>
+          <span *ngIf="isProcessing">Connecting to NPCI UPI Network...</span>
+          <span *ngIf="!selectedBill">No Pending Invoice Selected</span>
+        </button>
+      </div>
+
+      <!-- Net Banking Channel -->
+      <div *ngIf="paymentMethod === 'NET_BANKING'" class="ubs-payment-form">
+        <label class="ubs-label">Select Primary Indian Bank</label>
+        <div class="ubs-bank-grid">
+          <div
+            *ngFor="let b of indianBanks"
+            class="ubs-bank-tile"
+            [ngClass]="{ active: selectedBank === b.code }"
+            (click)="selectedBank = b.code"
+          >
+            <span class="ubs-bank-icon">{{ b.icon }}</span>
+            <span class="ubs-bank-name">{{ b.name }}</span>
+          </div>
+        </div>
+
+        <div class="ubs-info-box">
+          <span class="ubs-info-icon">🏛️</span>
+          <span>Corporate net banking portal credentials will be simulated for {{ selectedBank }}.</span>
+        </div>
+
+        <button
+          type="button"
+          (click)="processPayment()"
+          class="ubs-btn-primary ubs-pay-submit"
+          [disabled]="isProcessing || !selectedBill"
+        >
+          <span *ngIf="!isProcessing && selectedBill">
+            Proceed with Net Banking (₹{{ selectedBill.total | number: '1.2-2' }})
+          </span>
+          <span *ngIf="isProcessing">Connecting to Bank Gateway...</span>
+          <span *ngIf="!selectedBill">No Pending Invoice Selected</span>
+        </button>
+      </div>
+
+      <!-- RuPay / Debit & Credit Cards Channel -->
+      <form *ngIf="paymentMethod === 'RUPAY_CARD'" (ngSubmit)="processPayment()" class="ubs-payment-form">
         <div class="ubs-form-group">
-          <label class="ubs-label">Cardholder Name</label>
+          <label class="ubs-label">Cardholder Name (as on RuPay/Card)</label>
           <input type="text" [(ngModel)]="cardHolder" name="cardHolder" class="ubs-input" />
         </div>
 
         <div class="ubs-form-group">
-          <label class="ubs-label">Card Number</label>
+          <label class="ubs-label">Card Number (RuPay / Domestic / International)</label>
           <input type="text" [(ngModel)]="cardNumber" name="cardNumber" class="ubs-input" />
         </div>
 
@@ -70,7 +166,7 @@
             <input type="text" [(ngModel)]="cardExpiry" name="cardExpiry" class="ubs-input" />
           </div>
           <div class="ubs-form-group">
-            <label class="ubs-label">Security CVC</label>
+            <label class="ubs-label">CVV / Security Code</label>
             <input type="text" [(ngModel)]="cardCvc" name="cardCvc" class="ubs-input" />
           </div>
         </div>
@@ -81,12 +177,57 @@
           [disabled]="isProcessing || !selectedBill"
         >
           <span *ngIf="!isProcessing && selectedBill">
-            Authorize & Pay ${{ selectedBill.total | number: '1.2-2' }}
+            Authorize & Settle ₹{{ selectedBill.total | number: '1.2-2' }}
           </span>
-          <span *ngIf="isProcessing">Transacting Settlement...</span>
+          <span *ngIf="isProcessing">Authenticating with 3D Secure OTP...</span>
           <span *ngIf="!selectedBill">No Pending Invoice Selected</span>
         </button>
       </form>
+
+      <!-- NEFT / RTGS Channel -->
+      <div *ngIf="paymentMethod === 'NEFT_RTGS'" class="ubs-payment-form">
+        <div class="ubs-neft-details-box">
+          <h4 class="ubs-neft-title">Beneficiary Virtual Account Details</h4>
+          <div class="ubs-receipt-row">
+            <span>Beneficiary Name:</span>
+            <strong>Universal Billing Solutions India Pvt. Ltd.</strong>
+          </div>
+          <div class="ubs-receipt-row">
+            <span>Bank:</span>
+            <strong>State Bank of India</strong>
+          </div>
+          <div class="ubs-receipt-row">
+            <span>Virtual A/C No:</span>
+            <strong class="font-mono">UBPAY389201948</strong>
+          </div>
+          <div class="ubs-receipt-row">
+            <span>IFSC Code:</span>
+            <strong class="font-mono">SBIN0004044</strong>
+          </div>
+          <div class="ubs-receipt-row">
+            <span>Account Type:</span>
+            <strong>Current Account</strong>
+          </div>
+        </div>
+
+        <div class="ubs-form-group">
+          <label class="ubs-label">Bank UTR Number / Reference (Simulated)</label>
+          <input type="text" [(ngModel)]="neftUtr" class="ubs-input font-mono" />
+        </div>
+
+        <button
+          type="button"
+          (click)="processPayment()"
+          class="ubs-btn-primary ubs-pay-submit"
+          [disabled]="isProcessing || !selectedBill"
+        >
+          <span *ngIf="!isProcessing && selectedBill">
+            Record NEFT/RTGS Settlement (₹{{ selectedBill.total | number: '1.2-2' }})
+          </span>
+          <span *ngIf="isProcessing">Reconciling Bank UTR Ledger...</span>
+          <span *ngIf="!selectedBill">No Pending Invoice Selected</span>
+        </button>
+      </div>
     </div>
 
     <!-- Right: Invoice Card Preview -->
@@ -94,7 +235,7 @@
       <h3 class="ubs-summary-title">Settlement Breakdown</h3>
 
       <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Invoice Reference</span>
+        <span class="ubs-summary-label">Tax Invoice Reference</span>
         <span class="ubs-summary-val">#{{ selectedBill.id }}</span>
       </div>
       <div class="ubs-summary-row">
@@ -102,19 +243,27 @@
         <span class="ubs-summary-val">{{ selectedBill.customerName }}</span>
       </div>
       <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Due Date</span>
-        <span class="ubs-summary-val">{{ selectedBill.dueDate }}</span>
+        <span class="ubs-summary-label">Place of Supply</span>
+        <span class="ubs-summary-val">{{ selectedBill.placeOfSupply || 'Karnataka (29)' }}</span>
+      </div>
+      <div class="ubs-summary-row">
+        <span class="ubs-summary-label">Taxable Subtotal</span>
+        <span class="ubs-summary-val">₹{{ selectedBill.subtotal | number: '1.2-2' }}</span>
+      </div>
+      <div class="ubs-summary-row">
+        <span class="ubs-summary-label">GST Tax ({{ selectedBill.gstRate || 18 }}%)</span>
+        <span class="ubs-summary-val">₹{{ selectedBill.tax | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
-        <span class="ubs-total-label">Total Charge</span>
-        <span class="ubs-total-val">${{ selectedBill.total | number: '1.2-2' }}</span>
+        <span class="ubs-total-label">Total Amount Due</span>
+        <span class="ubs-total-val">₹{{ selectedBill.total | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-secure-badge">
-        <span>🔒 256-bit Encrypted Static Simulation</span>
+        <span>🔒 NPCI & RBI Standard Encrypted Payment Gateway</span>
       </div>
     </div>
   </div>

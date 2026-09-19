@@ -61,9 +61,45 @@
             type="tel"
             [(ngModel)]="customer.phone"
             name="phone"
-            placeholder="+1 (555) 000-0000"
+            placeholder="+91 98765 43210"
             class="ubs-input"
           />
+        </div>
+
+        <div class="ubs-form-group">
+          <label class="ubs-label">Buyer GSTIN (Optional)</label>
+          <input
+            type="text"
+            [(ngModel)]="customer.gstin"
+            name="gstin"
+            placeholder="e.g. 29AAACI4321A1ZG"
+            class="ubs-input"
+          />
+        </div>
+
+        <div class="ubs-form-group">
+          <label class="ubs-label">PAN Number (Optional)</label>
+          <input
+            type="text"
+            [(ngModel)]="customer.pan"
+            name="pan"
+            placeholder="e.g. AAACI4321A"
+            class="ubs-input"
+          />
+        </div>
+
+        <div class="ubs-form-group">
+          <label class="ubs-label">State / Union Territory</label>
+          <select [(ngModel)]="customer.state" name="state" class="ubs-select">
+            <option value="Karnataka">Karnataka (Code: 29)</option>
+            <option value="Maharashtra">Maharashtra (Code: 27)</option>
+            <option value="Delhi">Delhi (Code: 07)</option>
+            <option value="Haryana">Haryana (Code: 06)</option>
+            <option value="Tamil Nadu">Tamil Nadu (Code: 33)</option>
+            <option value="Telangana">Telangana (Code: 36)</option>
+            <option value="Gujarat">Gujarat (Code: 24)</option>
+            <option value="West Bengal">West Bengal (Code: 19)</option>
+          </select>
         </div>
       </div>
 
@@ -73,7 +109,7 @@
           [(ngModel)]="customer.address"
           name="address"
           rows="3"
-          placeholder="Street address, Suite, City, State, ZIP code..."
+          placeholder="Street address, Tech Park, City, State, PIN code (e.g. HSR Layout, Bengaluru, Karnataka 560102)"
           class="ubs-textarea"
         ></textarea>
       </div>

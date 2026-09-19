@@ -5,6 +5,10 @@ export interface Customer {
   phone: string;
   address: string;
   company?: string;
+  gstin?: string;
+  pan?: string;
+  state?: string;
+  stateCode?: string;
   totalSpent?: number;
   billsCount?: number;
   status?: 'ACTIVE' | 'INACTIVE';

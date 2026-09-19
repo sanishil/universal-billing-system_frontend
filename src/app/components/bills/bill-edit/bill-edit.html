@@ -80,10 +80,11 @@
           <table class="ubs-items-table">
             <thead>
               <tr>
-                <th style="width: 52%">Item Description</th>
-                <th style="width: 15%">Quantity</th>
-                <th style="width: 18%">Price ($)</th>
-                <th style="width: 15%; text-align: right">Amount</th>
+                <th style="width: 44%">Item Description</th>
+                <th style="width: 16%">HSN / SAC</th>
+                <th style="width: 12%">Quantity</th>
+                <th style="width: 14%">Rate (₹)</th>
+                <th style="width: 14%; text-align: right">Amount (₹)</th>
                 <th style="width: 5%"></th>
               </tr>
             </thead>
@@ -93,13 +94,16 @@
                   <input type="text" [(ngModel)]="item.name" class="ubs-input" />
                 </td>
                 <td>
+                  <input type="text" [(ngModel)]="item.hsnSac" placeholder="998314" class="ubs-input" />
+                </td>
+                <td>
                   <input type="number" min="1" [(ngModel)]="item.quantity" class="ubs-input" />
                 </td>
                 <td>
                   <input type="number" min="0" [(ngModel)]="item.price" class="ubs-input" />
                 </td>
                 <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
-                  ${{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
+                  ₹{{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
                 </td>
                 <td style="text-align: center">
                   <button
@@ -127,23 +131,34 @@
 
     <!-- Right: Summary Card -->
     <div class="ubs-card ubs-summary-card">
-      <h3 class="ubs-summary-title">Updated Totals</h3>
+      <h3 class="ubs-summary-title">Updated GST Totals</h3>
 
       <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Subtotal</span>
-        <span class="ubs-summary-val">${{ calculateSubtotal() | number: '1.2-2' }}</span>
+        <span class="ubs-summary-label">Taxable Subtotal</span>
+        <span class="ubs-summary-val">₹{{ calculateSubtotal() | number: '1.2-2' }}</span>
       </div>
 
-      <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Tax (10%)</span>
-        <span class="ubs-summary-val">${{ calculateTax() | number: '1.2-2' }}</span>
+      <ng-container *ngIf="!bill.isInterState">
+        <div class="ubs-summary-row">
+          <span class="ubs-summary-label">CGST ({{ (bill.gstRate || 18) / 2 }}%)</span>
+          <span class="ubs-summary-val">₹{{ calculateCGST() | number: '1.2-2' }}</span>
+        </div>
+        <div class="ubs-summary-row">
+          <span class="ubs-summary-label">SGST ({{ (bill.gstRate || 18) / 2 }}%)</span>
+          <span class="ubs-summary-val">₹{{ calculateSGST() | number: '1.2-2' }}</span>
+        </div>
+      </ng-container>
+
+      <div class="ubs-summary-row" *ngIf="bill.isInterState">
+        <span class="ubs-summary-label">IGST ({{ bill.gstRate || 18 }}%)</span>
+        <span class="ubs-summary-val">₹{{ calculateIGST() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
-        <span class="ubs-total-label">New Total</span>
-        <span class="ubs-total-val">${{ calculateTotal() | number: '1.2-2' }}</span>
+        <span class="ubs-total-label">New Total (INR)</span>
+        <span class="ubs-total-val">₹{{ calculateTotal() | number: '1.2-2' }}</span>
       </div>
 
       <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit">

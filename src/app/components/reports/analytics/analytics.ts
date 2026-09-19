@@ -10,9 +10,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AnalyticsComponent {
   paymentMethods = [
-    { name: 'Corporate Credit Card', percent: 62, volume: '$77,190' },
-    { name: 'Direct Bank Wire (ACH)', percent: 26, volume: '$32,370' },
-    { name: 'PayPal Enterprise', percent: 12, volume: '$14,940' }
+    { name: 'UPI (GPay / PhonePe / Paytm / BHIM)', percent: 54, volume: '₹67,23,000' },
+    { name: 'Corporate Net Banking (SBI / HDFC / ICICI)', percent: 28, volume: '₹34,86,000' },
+    { name: 'RuPay & Commercial Cards', percent: 14, volume: '₹17,43,000' },
+    { name: 'Direct Bank Wire (NEFT / RTGS)', percent: 4, volume: '₹4,98,000' }
   ];
 
   billStatusBreakdown = [

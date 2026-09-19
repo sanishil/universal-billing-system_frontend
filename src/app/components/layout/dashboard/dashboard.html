@@ -48,24 +48,14 @@
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Settled Revenue</span>
         <div class="ubs-metric-icon-box ubs-icon-blue">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <line x1="12" y1="1" x2="12" y2="23"></line>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-          </svg>
+          <i class="fa-solid fa-indian-rupee-sign"></i>
         </div>
       </div>
-      <div class="ubs-metric-value">${{ stats.totalRevenue | number: '1.2-2' }}</div>
-      <div class="ubs-metric-trend">
+      <div class="ubs-metric-value">₹{{ stats.totalRevenue | number: '1.2-2' }}</div>
+      <!-- <div class="ubs-metric-trend">
         <span class="ubs-trend-up">↑ +18.4%</span>
         <span class="ubs-trend-sub">vs last billing cycle</span>
-      </div>
+      </div> -->
     </div>
 
     <!-- Card 2: Paid Invoices -->
@@ -88,10 +78,10 @@
       <div class="ubs-metric-value">
         {{ stats.paidCount }} <span class="ubs-metric-unit">Invoices</span>
       </div>
-      <div class="ubs-metric-trend">
+      <!-- <div class="ubs-metric-trend">
         <span class="ubs-trend-up">100% Verified</span>
         <span class="ubs-trend-sub">funds received</span>
-      </div>
+      </div> -->
     </div>
 
     <!-- Card 3: Pending Invoices -->
@@ -212,7 +202,7 @@
                 </td>
                 <td>{{ bill.dueDate }}</td>
                 <td>
-                  <span class="ubs-amount-bold">${{ bill.total | number: '1.2-2' }}</span>
+                  <span class="ubs-amount-bold">₹{{ bill.total | number: '1.2-2' }}</span>
                 </td>
                 <td>
                   <span
@@ -303,7 +293,7 @@
               <span class="ubs-pay-name">{{ p.customerName }}</span>
               <span class="ubs-pay-date">{{ p.date }} • {{ p.method }}</span>
             </div>
-            <div class="ubs-pay-amount">+${{ p.amount | number: '1.2-2' }}</div>
+            <div class="ubs-pay-amount">+₹{{ p.amount | number: '1.2-2' }}</div>
           </div>
         </div>
 
@@ -325,7 +315,7 @@
             <div class="ubs-quick-icon">💳</div>
             <div class="ubs-quick-content">
               <strong>Process Payment</strong>
-              <span>Credit Card or Bank Transfer</span>
+              <span>UPI, Net Banking, RuPay & Cards</span>
             </div>
           </a>
           <a routerLink="/share/link" class="ubs-quick-item">

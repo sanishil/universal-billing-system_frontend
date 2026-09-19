@@ -55,9 +55,41 @@
             <input
               type="text"
               [(ngModel)]="customerName"
-              placeholder="e.g. Acme Corp"
+              placeholder="e.g. Infosys Digital Systems"
               class="ubs-input"
             />
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">Customer GSTIN (Buyer)</label>
+            <input
+              type="text"
+              [(ngModel)]="customerGstin"
+              placeholder="e.g. 29AAACI4321A1ZG"
+              class="ubs-input"
+            />
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">Place of Supply (State)</label>
+            <select [(ngModel)]="placeOfSupply" class="ubs-select" (ngModelChange)="isInterState = placeOfSupply !== 'Karnataka (29)'">
+              <option value="Karnataka (29)">Karnataka (29) - Intra-State</option>
+              <option value="Maharashtra (27)">Maharashtra (27) - Inter-State</option>
+              <option value="Haryana (06)">Haryana (06) - Inter-State</option>
+              <option value="Delhi (07)">Delhi (07) - Inter-State</option>
+              <option value="Tamil Nadu (33)">Tamil Nadu (33) - Inter-State</option>
+              <option value="Telangana (36)">Telangana (36) - Inter-State</option>
+            </select>
+          </div>
+
+          <div class="ubs-form-group">
+            <label class="ubs-label">GST Tax Rate</label>
+            <select [(ngModel)]="gstRate" class="ubs-select">
+              <option [ngValue]="18">18% GST (Standard Services & Tech)</option>
+              <option [ngValue]="12">12% GST (Standard Goods)</option>
+              <option [ngValue]="5">5% GST (Concessional)</option>
+              <option [ngValue]="0">0% GST (Exempt / Nil Rated)</option>
+            </select>
           </div>
 
           <div class="ubs-form-group">
@@ -81,7 +113,7 @@
           <div>
             <h2 class="ubs-section-title">Line Items & Services</h2>
             <p class="ubs-section-subtitle">
-              Specify individual deliverables, quantities, and unit rates
+              Specify individual deliverables, SAC/HSN codes, quantities, and rates in INR (₹)
             </p>
           </div>
           <button type="button" (click)="addItem()" class="ubs-btn-secondary ubs-btn-sm">
@@ -93,9 +125,10 @@
           <table class="ubs-items-table">
             <thead>
               <tr>
-                <th style="width: 52%">Item Description</th>
-                <th style="width: 15%">Quantity</th>
-                <th style="width: 18%">Unit Price ($)</th>
+                <th style="width: 42%">Item Description</th>
+                <th style="width: 16%">HSN / SAC</th>
+                <th style="width: 12%">Quantity</th>
+                <th style="width: 15%">Unit Rate (₹)</th>
                 <th style="width: 15%; text-align: right">Amount</th>
                 <th style="width: 5%"></th>
               </tr>
@@ -106,7 +139,15 @@
                   <input
                     type="text"
                     [(ngModel)]="item.name"
-                    placeholder="Item title or description"
+                    placeholder="Item title or deliverable"
+                    class="ubs-input"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    [(ngModel)]="item.hsnSac"
+                    placeholder="998314"
                     class="ubs-input"
                   />
                 </td>
@@ -117,7 +158,7 @@
                   <input type="number" min="0" [(ngModel)]="item.price" class="ubs-input" />
                 </td>
                 <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
-                  ${{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
+                  ₹{{ (item.quantity || 0) * (item.price || 0) | number: '1.2-2' }}
                 </td>
                 <td style="text-align: center">
                   <button
@@ -142,7 +183,7 @@
         <textarea
           [(ngModel)]="notes"
           rows="3"
-          placeholder="Include bank details, terms of payment, or custom notes..."
+          placeholder="Include bank details, UPI ID, terms of payment, or custom notes..."
           class="ubs-textarea"
         ></textarea>
       </div>
@@ -150,31 +191,41 @@
 
     <!-- Right: Summary Card -->
     <div class="ubs-card ubs-summary-card">
-      <h3 class="ubs-summary-title">Financial Summary</h3>
+      <h3 class="ubs-summary-title">Financial & GST Summary</h3>
 
       <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Subtotal</span>
-        <span class="ubs-summary-val">${{ calculateSubtotal() | number: '1.2-2' }}</span>
+        <span class="ubs-summary-label">Taxable Subtotal</span>
+        <span class="ubs-summary-val">₹{{ calculateSubtotal() | number: '1.2-2' }}</span>
       </div>
 
-      <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Tax (10% standard)</span>
-        <span class="ubs-summary-val">${{ calculateTax() | number: '1.2-2' }}</span>
+      <ng-container *ngIf="!isInterState">
+        <div class="ubs-summary-row">
+          <span class="ubs-summary-label">CGST ({{ gstRate / 2 }}%)</span>
+          <span class="ubs-summary-val">₹{{ calculateCGST() | number: '1.2-2' }}</span>
+        </div>
+        <div class="ubs-summary-row">
+          <span class="ubs-summary-label">SGST ({{ gstRate / 2 }}%)</span>
+          <span class="ubs-summary-val">₹{{ calculateSGST() | number: '1.2-2' }}</span>
+        </div>
+      </ng-container>
+
+      <div class="ubs-summary-row" *ngIf="isInterState">
+        <span class="ubs-summary-label">IGST ({{ gstRate }}%)</span>
+        <span class="ubs-summary-val">₹{{ calculateIGST() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
-        <span class="ubs-total-label">Total Due</span>
-        <span class="ubs-total-val">${{ calculateTotal() | number: '1.2-2' }}</span>
+        <span class="ubs-total-label">Total Due (INR)</span>
+        <span class="ubs-total-val">₹{{ calculateTotal() | number: '1.2-2' }}</span>
       </div>
 
       <div class="ubs-summary-pills">
         <div class="ubs-info-box">
-          <span class="ubs-info-icon">ℹ️</span>
+          <span class="ubs-info-icon">🇮🇳</span>
           <span
-            >A public client URL will be instantly generated for sharing and mock credit card
-            checkout.</span
+            >Invoice formatted with Indian GST compliance, SAC codes, and instant UPI payment link.</span
           >
         </div>
       </div>

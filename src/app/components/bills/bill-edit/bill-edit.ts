@@ -32,16 +32,23 @@ export class BillEditComponent implements OnInit {
         this.bill = {
           id: this.billId,
           customerId: 'CUST-001',
-          customerName: 'Acme Global Technologies',
-          items: [{ name: 'Enterprise Cloud Infrastructure', quantity: 1, price: 1850 }],
-          subtotal: 1850,
-          tax: 185,
-          total: 2035,
+          customerName: 'Infosys Digital Systems Ltd.',
+          customerGstin: '29AAACI4321A1ZG',
+          placeOfSupply: 'Karnataka (29)',
+          isInterState: false,
+          gstRate: 18,
+          items: [{ name: 'Enterprise Cloud Infrastructure', hsnSac: '998315', quantity: 1, price: 85000 }],
+          subtotal: 85000,
+          cgst: 7650,
+          sgst: 7650,
+          igst: 0,
+          tax: 15300,
+          total: 100300,
           status: 'PENDING',
-          uniqueLink: 'bill-acme-edit',
+          uniqueLink: 'bill-infosys-edit',
           createdAt: '2026-09-10',
           dueDate: '2026-09-24',
-          notes: 'Standard Net 14'
+          notes: 'Standard Net 14 days'
         };
       }
       this.isLoading = false;
@@ -50,7 +57,7 @@ export class BillEditComponent implements OnInit {
 
   addItem() {
     if (this.bill) {
-      this.bill.items.push({ name: '', quantity: 1, price: 0 });
+      this.bill.items.push({ name: '', hsnSac: '998314', quantity: 1, price: 0 });
     }
   }
 
@@ -66,7 +73,23 @@ export class BillEditComponent implements OnInit {
   }
 
   calculateTax(): number {
-    return Math.round(this.calculateSubtotal() * 0.1 * 100) / 100;
+    const rate = this.bill?.gstRate !== undefined ? this.bill.gstRate : 18;
+    return Math.round(this.calculateSubtotal() * (rate / 100) * 100) / 100;
+  }
+
+  calculateCGST(): number {
+    if (this.bill?.isInterState) return 0;
+    return Math.round((this.calculateTax() / 2) * 100) / 100;
+  }
+
+  calculateSGST(): number {
+    if (this.bill?.isInterState) return 0;
+    return Math.round((this.calculateTax() / 2) * 100) / 100;
+  }
+
+  calculateIGST(): number {
+    if (!this.bill?.isInterState) return 0;
+    return this.calculateTax();
   }
 
   calculateTotal(): number {
@@ -78,6 +101,9 @@ export class BillEditComponent implements OnInit {
 
     this.bill.subtotal = this.calculateSubtotal();
     this.bill.tax = this.calculateTax();
+    this.bill.cgst = this.calculateCGST();
+    this.bill.sgst = this.calculateSGST();
+    this.bill.igst = this.calculateIGST();
     this.bill.total = this.calculateTotal();
 
     this.billService.updateBill(this.bill.id, this.bill).subscribe(() => {

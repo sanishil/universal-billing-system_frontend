@@ -33,10 +33,22 @@
         <span class="ubs-label">Billing Address</span>
         <span class="ubs-profile-val">{{ customer.address }}</span>
       </div>
+      <div class="ubs-profile-item" *ngIf="customer.gstin">
+        <span class="ubs-label">GSTIN / Tax ID</span>
+        <span class="ubs-profile-val font-mono">{{ customer.gstin }}</span>
+      </div>
+      <div class="ubs-profile-item" *ngIf="customer.pan">
+        <span class="ubs-label">PAN</span>
+        <span class="ubs-profile-val font-mono">{{ customer.pan }}</span>
+      </div>
+      <div class="ubs-profile-item" *ngIf="customer.state">
+        <span class="ubs-label">State / Region</span>
+        <span class="ubs-profile-val">{{ customer.state }} (Code: {{ customer.stateCode }})</span>
+      </div>
       <div class="ubs-profile-item">
-        <span class="ubs-label">Lifetime Value</span>
+        <span class="ubs-label">Lifetime Value (INR)</span>
         <span class="ubs-profile-val ubs-spent-val"
-          >${{ customer.totalSpent || 12850 | number: '1.2-2' }}</span
+          >₹{{ customer.totalSpent || 128500 | number: '1.2-2' }}</span
         >
       </div>
     </div>
@@ -67,7 +79,7 @@
             </td>
             <td>{{ b.dueDate }}</td>
             <td>
-              <strong>${{ b.total | number: '1.2-2' }}</strong>
+              <strong>₹{{ b.total | number: '1.2-2' }}</strong>
             </td>
             <td>
               <span
