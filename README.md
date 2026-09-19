@@ -14,5 +14,5 @@ Make sure you have Node.js and npm installed on your machine before running the 
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/sanishil/universal-billing-system_frontend.git
    cd universal-billing-system_frontend
