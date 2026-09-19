@@ -3,9 +3,9 @@
   <div class="ubs-dash-header">
     <div>
       <h1 class="ubs-dash-title">Financial Overview & Dashboard</h1>
-      <p class="ubs-dash-subtitle">
+      <!-- <p class="ubs-dash-subtitle">
         Enterprise billing analytics, invoice pipeline, and real-time cash flow status.
-      </p>
+      </p> -->
     </div>
     <div class="ubs-dash-actions">
       <a routerLink="/bills/create" class="ubs-btn-primary">
@@ -44,7 +44,7 @@
   <!-- 4 Key Metric Cards -->
   <div class="ubs-metrics-grid">
     <!-- Card 1: Total Revenue -->
-    <div class="ubs-card ubs-metric-card ubs-metric-blue">
+    <div class="ubs-card ubs-metric-card ubs-metric-blue" style="background-color: oklch(83.7% 0.128 66.29);">
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Settled Revenue</span>
         <div class="ubs-metric-icon-box ubs-icon-blue">
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Card 2: Paid Invoices -->
-    <div class="ubs-card ubs-metric-card">
+    <div class="ubs-card ubs-metric-card ubs-metric-blue" style="background-color:oklch(90.5% 0.093 164.15);">
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Paid Invoices</span>
         <div class="ubs-metric-icon-box ubs-icon-green">
@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="ubs-metric-value">
-        {{ stats.paidCount }} <span class="ubs-metric-unit">Invoices</span>
+        {{ stats.paidCount }} <span class="ubs-metric-unit"> Invoices</span>
       </div>
       <!-- <div class="ubs-metric-trend">
         <span class="ubs-trend-up">100% Verified</span>
@@ -85,7 +85,7 @@
     </div>
 
     <!-- Card 3: Pending Invoices -->
-    <div class="ubs-card ubs-metric-card">
+    <div class="ubs-card ubs-metric-card ubs-metric-blue" style="background-color:oklch(85.5% 0.138 181.071);">
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Pending Invoices</span>
         <div class="ubs-metric-icon-box ubs-icon-amber">
@@ -112,7 +112,7 @@
     </div>
 
     <!-- Card 4: Overdue Invoices -->
-    <div class="ubs-card ubs-metric-card">
+    <div class="ubs-card ubs-metric-card ubs-metric-blue" style="background-color: oklch(86.9% 0.022 252.894);">
       <div class="ubs-metric-top">
         <span class="ubs-metric-label">Overdue Alerts</span>
         <div class="ubs-metric-icon-box ubs-icon-red">
@@ -151,7 +151,7 @@
         <div class="ubs-panel-header">
           <div>
             <h2 class="ubs-panel-title">Revenue Trajectory</h2>
-            <p class="ubs-panel-subtitle">Monthly billed volumes across fiscal 2026</p>
+            <!-- <p class="ubs-panel-subtitle">Monthly billed volumes across fiscal 2026</p> -->
           </div>
           <div class="ubs-chart-pill"><span class="ubs-dot-blue"></span> Current Year</div>
         </div>
@@ -172,7 +172,7 @@
         <div class="ubs-panel-header">
           <div>
             <h2 class="ubs-panel-title">Active Invoice Pipeline</h2>
-            <p class="ubs-panel-subtitle">Latest issued billing records & payment states</p>
+            <!-- <p class="ubs-panel-subtitle">Latest issued billing records & payment states</p> -->
           </div>
           <a routerLink="/bills" class="ubs-btn-secondary ubs-btn-sm">View All Bills →</a>
         </div>
