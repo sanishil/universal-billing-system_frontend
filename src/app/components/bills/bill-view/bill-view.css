@@ -464,24 +464,25 @@
   border-color: #111111 !important;
 }
 
-/* Print — keep watermark visible on print */
+/* Print fallback — if browser blocks popup, fall back to full-page print with layout hidden */
 @media print {
-  .ubs-watermark span {
-    color: rgba(0, 0, 0, 0.12);
-    border-color: rgba(0, 0, 0, 0.09);
-  }
-}
-@media print {
-  .no-print, app-header, app-sidebar, app-footer {
+  .no-print, app-header, app-sidebar, app-footer, .ubs-view-toolbar {
     display: none !important;
   }
   .ubs-view-container {
     max-width: 100% !important;
     margin: 0 !important;
+    gap: 0 !important;
   }
   .ubs-invoice-sheet {
     box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
+    border-radius: 0 !important;
+    padding: 32px !important;
+  }
+  .ubs-watermark span {
+    color: rgba(0, 0, 0, 0.12) !important;
+    border-color: rgba(0, 0, 0, 0.09) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
