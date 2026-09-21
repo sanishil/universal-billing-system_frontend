@@ -1,3 +1,37 @@
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .ubs-txn-id {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 600;
