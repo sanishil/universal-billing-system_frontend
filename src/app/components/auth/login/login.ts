@@ -149,12 +149,6 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
 
     setTimeout(() => {
-      // Synchronize both token keys so guards & layout render correctly
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('auth_token', 'mock-jwt-token-2026');
-        localStorage.setItem('ubs_auth_token', 'mock-jwt-token-2026');
-      }
-
       this.authService.login(this.username, this.password);
       this.isLoading = false;
       this.router.navigate(['/dashboard']);

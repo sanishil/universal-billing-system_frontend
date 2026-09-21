@@ -1,38 +1,67 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-system-settings',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="p-8 max-w-2xl mx-auto bg-white dark:bg-gray-900 min-h-screen transition-colors">
-      <h1 class="text-3xl font-bold text-black dark:text-white mb-8">System Settings</h1>
-      <form class="space-y-6">
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Currency</label>
-            <select class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white outline-none">
-              <option>USD ($)</option>
-              <option>EUR (€)</option>
-              <option>INR (₹)</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Default Tax Rate (%)</label>
-            <input [(ngModel)]="taxRate" name="taxRate" type="number" class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white outline-none">
-          </div>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Name (on Bills)</label>
-          <input [(ngModel)]="companyName" name="companyName" class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white outline-none">
-        </div>
-        <button type="submit" class="px-8 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-lg hover:opacity-90 transition">Save System Settings</button>
-      </form>
-    </div>
-  `
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './system-settings.html',
+  styleUrl: './system-settings.css'
 })
 export class SystemSettingsComponent {
-  taxRate = 10; companyName = 'Universal Billing';
+
+  // Billing & Tax
+  currency = 'INR';
+  taxRate = 18;
+  taxLabel = 'GST';
+  invoicePrefix = 'INV';
+  invoiceStartNumber = 1001;
+  dueDays = 30;
+
+  // Company
+  companyName = 'Universal Billing Pvt. Ltd.';
+  companyEmail = 'billing@universalbilling.in';
+  companyPhone = '+91 98765 43210';
+  companyAddress = '12, Tech Park, Pune, Maharashtra - 411014';
+  companyGstin = '27AABCU9603R1ZX';
+  companyWebsite = 'https://universalbilling.in';
+
+  // Appearance & Regional
+  dateFormat = 'DD/MM/YYYY';
+  timeZone = 'Asia/Kolkata';
+  language = 'en';
+
+  // Notifications
+  emailOnPayment = true;
+  emailOnOverdue = true;
+  emailOnNewClient = false;
+  weeklyReport = true;
+
+  saveSettings() {
+    console.log('System settings saved');
+  }
+
+  resetSettings() {
+    this.currency = 'INR';
+    this.taxRate = 18;
+    this.taxLabel = 'GST';
+    this.invoicePrefix = 'INV';
+    this.invoiceStartNumber = 1001;
+    this.dueDays = 30;
+    this.companyName = 'Universal Billing Pvt. Ltd.';
+    this.companyEmail = 'billing@universalbilling.in';
+    this.companyPhone = '+91 98765 43210';
+    this.companyAddress = '12, Tech Park, Pune, Maharashtra - 411014';
+    this.companyGstin = '27AABCU9603R1ZX';
+    this.companyWebsite = 'https://universalbilling.in';
+    this.dateFormat = 'DD/MM/YYYY';
+    this.timeZone = 'Asia/Kolkata';
+    this.language = 'en';
+    this.emailOnPayment = true;
+    this.emailOnOverdue = true;
+    this.emailOnNewClient = false;
+    this.weeklyReport = true;
+  }
 }
