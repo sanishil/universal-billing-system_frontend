@@ -9,12 +9,24 @@ export interface User {
   avatarUrl?: string;
 }
 
+const SESSION_KEY = 'ubs_session_user';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(this.getSessionUser());
   public currentUser$ = this.currentUserSubject.asObservable();
+
+  /** Restore user from sessionStorage on page refresh */
+  private getSessionUser(): User | null {
+    try {
+      const raw = sessionStorage.getItem(SESSION_KEY);
+      return raw ? (JSON.parse(raw) as User) : null;
+    } catch {
+      return null;
+    }
+  }
 
   login(email: string, _pass: string): Observable<boolean> {
     const user: User = {
@@ -24,11 +36,13 @@ export class AuthService {
       role: 'Administrator'
     };
 
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
     this.currentUserSubject.next(user);
     return of(true);
   }
 
   logout(): void {
+    sessionStorage.removeItem(SESSION_KEY);
     this.currentUserSubject.next(null);
   }
 
