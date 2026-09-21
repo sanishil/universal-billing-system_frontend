@@ -1,13 +1,188 @@
-.ubs-report-bars {
+/* Page Container */
+.ubs-page-container {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  height: 240px;
-  padding: 32px 40px 16px 40px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─── Metrics Grid ─── */
+.rpt-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.rpt-metric-card {
+  padding: 22px;
+  position: relative;
+}
+
+.rpt-card-accent {
+  border-left: 4px solid var(--ubs-blue-600);
+}
+
+.rpt-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rpt-card-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ubs-ash-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rpt-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.rpt-icon-purple {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+}
+
+.rpt-icon-blue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.rpt-icon-green {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+}
+
+.rpt-icon-amber {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+}
+
+.rpt-card-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.rpt-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.rpt-trend-up {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ubs-success-text);
+  font-weight: 700;
+}
+
+.rpt-trend-warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--ubs-warning-text);
+  font-weight: 700;
+}
+
+.rpt-footer-sub {
+  color: var(--ubs-ash-muted);
+}
+
+/* ─── Main Layout Grid ─── */
+.rpt-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
   gap: 20px;
 }
 
-.ubs-report-bar-col {
+.rpt-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Chart Panel ─── */
+.rpt-chart-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.rpt-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  gap: 12px;
+}
+
+.rpt-panel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 3px 0;
+}
+
+.rpt-panel-subtitle {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.rpt-bars-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 220px;
+  padding: 28px 32px 16px 32px;
+  gap: 14px;
+}
+
+.rpt-bar-col {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -15,16 +190,17 @@
   height: 100%;
 }
 
-.ubs-bar-val {
-  font-size: 0.75rem;
-  font-weight: 700;
+.rpt-bar-val {
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--ubs-ash-muted);
   margin-bottom: 8px;
+  white-space: nowrap;
 }
 
-.ubs-bar-rail {
+.rpt-bar-rail {
   flex: 1;
-  width: 44px;
+  width: 42px;
   background-color: var(--ubs-ash-subtle);
   border-radius: 8px;
   display: flex;
@@ -33,16 +209,232 @@
   border: 1px solid var(--ubs-ash-border);
 }
 
-.ubs-bar-core {
+.rpt-bar-fill {
   width: 100%;
-  background: linear-gradient(180deg, var(--ubs-blue-600) 0%, var(--ubs-black) 100%);
+  background: linear-gradient(180deg, var(--ubs-blue-500) 0%, var(--ubs-blue-800) 100%);
   border-radius: 6px 6px 0 0;
-  transition: height 0.6s ease;
+  transition: height 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ubs-bar-lbl {
-  font-size: 0.8125rem;
+.rpt-bar-lbl {
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--ubs-ash-dark);
   margin-top: 10px;
+}
+
+/* Chart Legend */
+.rpt-chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 32px 20px;
+  border-top: 1px solid var(--ubs-ash-border);
+}
+
+.rpt-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+}
+
+.rpt-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.rpt-dot-purple {
+  background: linear-gradient(135deg, var(--ubs-blue-500), var(--ubs-blue-800));
+}
+
+.rpt-dot-ash {
+  background: var(--ubs-ash-border);
+}
+
+/* ─── Breakdown Panel ─── */
+.rpt-breakdown-panel {
+  padding: 20px;
+}
+
+.rpt-breakdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.rpt-side-title {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0;
+}
+
+.rpt-view-all-link {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--ubs-blue-600);
+}
+
+.rpt-view-all-link:hover {
+  text-decoration: underline;
+}
+
+.rpt-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rpt-breakdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rpt-breakdown-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rpt-category-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.rpt-category-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rpt-breakdown-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.rpt-category-amount {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.rpt-progress-rail {
+  width: 80px;
+  height: 5px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.rpt-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.5s ease;
+}
+
+/* ─── Quick Stats Panel ─── */
+.rpt-quick-stats-panel {
+  padding: 20px;
+}
+
+.rpt-stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 20px;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  overflow: hidden;
+}
+
+.rpt-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  transition: background-color 0.15s ease;
+}
+
+.rpt-stat-row:last-child {
+  border-bottom: none;
+}
+
+.rpt-stat-row:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+.rpt-stat-label {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  font-weight: 600;
+}
+
+.rpt-stat-value {
+  font-size: 0.825rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.rpt-stat-up {
+  color: var(--ubs-success-text);
+}
+
+.rpt-stat-warn {
+  color: var(--ubs-warning-text);
+}
+
+.rpt-export-row {
+  display: flex;
+  gap: 10px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1280px) {
+  .rpt-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .rpt-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .rpt-side-stack {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .rpt-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .rpt-side-stack {
+    grid-template-columns: 1fr;
+  }
+  .rpt-bars-wrap {
+    height: 160px;
+    padding: 16px;
+  }
+  .rpt-bar-val {
+    display: none;
+  }
 }

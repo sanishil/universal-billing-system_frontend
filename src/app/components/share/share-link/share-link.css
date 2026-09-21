@@ -1,0 +1,500 @@
+/* Page Container */
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─── Main Grid ─── */
+.shl-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 22px;
+  align-items: start;
+}
+
+.shl-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.shl-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Link Card ─── */
+.shl-link-card {
+  overflow: hidden;
+}
+
+.shl-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-header-icon {
+  width: 42px;
+  height: 42px;
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  border: 1px solid var(--ubs-blue-200);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.shl-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 3px 0;
+}
+
+.shl-card-desc {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.shl-link-box {
+  display: flex;
+  gap: 0;
+  padding: 20px 24px;
+}
+
+.shl-link-input-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.shl-link-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--ubs-ash-muted);
+  display: flex;
+  pointer-events: none;
+}
+
+.shl-link-input {
+  flex: 1;
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  font-size: 0.825rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ubs-blue-700);
+  background-color: var(--ubs-blue-50);
+  border: 1.5px solid var(--ubs-blue-200);
+  border-right: none;
+  border-radius: var(--ubs-radius-md) 0 0 var(--ubs-radius-md);
+  outline: none;
+  font-weight: 500;
+}
+
+.shl-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  background-color: var(--ubs-blue-600);
+  color: white;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 0 var(--ubs-radius-md) var(--ubs-radius-md) 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.shl-copy-btn:hover {
+  background-color: var(--ubs-blue-700);
+}
+
+.shl-copy-btn.copied {
+  background-color: var(--ubs-success-text);
+}
+
+.shl-info-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 24px 20px;
+  padding: 12px 16px;
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--ubs-radius-md);
+  font-size: 0.8rem;
+  color: #92400e;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.shl-info-banner svg {
+  flex-shrink: 0;
+  color: #d97706;
+  margin-top: 1px;
+}
+
+/* ─── Select Card ─── */
+.shl-select-card {
+  overflow: hidden;
+}
+
+.shl-select-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-section-title {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0;
+}
+
+.shl-select-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.shl-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.shl-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ─── Toggle Group ─── */
+.shl-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  overflow: hidden;
+}
+
+.shl-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-white);
+  transition: background-color 0.15s ease;
+}
+
+.shl-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.shl-toggle-row:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-toggle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shl-toggle-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.shl-toggle-hint {
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.shl-toggle {
+  width: 42px;
+  height: 24px;
+  background-color: var(--ubs-ash-border);
+  border-radius: 99px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.shl-toggle.on {
+  background-color: var(--ubs-blue-600);
+}
+
+.shl-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.shl-toggle.on .shl-knob {
+  transform: translateX(18px);
+}
+
+/* ─── Generate Actions ─── */
+.shl-gen-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ─── Active Links Card ─── */
+.shl-active-links-card {
+  overflow: hidden;
+}
+
+.shl-active-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-links-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.shl-link-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  transition: background-color 0.15s ease;
+}
+
+.shl-link-item:last-child {
+  border-bottom: none;
+}
+
+.shl-link-item:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-link-item-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.shl-icon-paid {
+  background-color: var(--ubs-success-bg);
+  color: var(--ubs-success-text);
+}
+
+.shl-icon-pending {
+  background-color: var(--ubs-warning-bg);
+  color: var(--ubs-warning-text);
+}
+
+.shl-link-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.shl-link-client {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.shl-link-meta {
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.shl-link-url {
+  font-size: 0.7rem;
+  color: var(--ubs-blue-600);
+  font-family: 'JetBrains Mono', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shl-link-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.shl-icon-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 6px;
+  color: var(--ubs-ash-dark);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.shl-icon-btn:hover {
+  background-color: var(--ubs-blue-50);
+  border-color: var(--ubs-blue-200);
+  color: var(--ubs-blue-600);
+}
+
+/* ─── QR Code Card ─── */
+.shl-qr-card {
+  padding: 20px;
+}
+
+.shl-qr-wrapper {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.shl-qr-mock {
+  width: 96px;
+  height: 96px;
+  background: white;
+  border: 1.5px solid var(--ubs-ash-border);
+  border-radius: 8px;
+  padding: 8px;
+  flex-shrink: 0;
+}
+
+.shl-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 1.5px;
+  width: 100%;
+  height: 100%;
+}
+
+.shl-qr-cell {
+  border-radius: 1px;
+  background-color: var(--ubs-ash-subtle);
+}
+
+.shl-qr-cell.filled {
+  background-color: var(--ubs-black);
+}
+
+.shl-qr-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shl-qr-desc {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.shl-qr-btn {
+  align-self: flex-start;
+  padding: 7px 14px;
+  font-size: 0.775rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1100px) {
+  .shl-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .shl-right-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .shl-form-row {
+    grid-template-columns: 1fr;
+  }
+  .shl-right-col {
+    grid-template-columns: 1fr;
+  }
+  .shl-link-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .shl-link-input {
+    border-right: 1.5px solid var(--ubs-blue-200);
+    border-radius: var(--ubs-radius-md);
+  }
+  .shl-copy-btn {
+    border-radius: var(--ubs-radius-md);
+    justify-content: center;
+  }
+}

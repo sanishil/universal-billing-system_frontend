@@ -1,35 +1,54 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-share-link',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  template: `
-    <div class="p-8 max-w-2xl mx-auto bg-white dark:bg-gray-900 min-h-screen transition-colors">
-      <h1 class="text-3xl font-bold text-black dark:text-white mb-8">Share Bill Link</h1>
-      <div class="space-y-6">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Public Link</label>
-          <div class="flex">
-            <input [value]="shareLink" readonly class="flex-1 p-3 border border-gray-300 dark:border-gray-700 rounded-l-lg bg-gray-50 dark:bg-gray-800 text-black dark:text-white outline-none">
-            <button (click)="copyLink()" class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-r-lg hover:opacity-90 transition">{{ copied ? 'Copied!' : 'Copy' }}</button>
-          </div>
-        </div>
-        <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <p class="text-sm text-yellow-800 dark:text-yellow-200">This link is permanent and does not require the customer to log in.</p>
-        </div>
-      </div>
-    </div>
-  `
+  imports: [CommonModule, FormsModule, TitleCasePipe],
+  templateUrl: './share-link.html',
+  styleUrl: './share-link.css'
 })
 export class ShareLinkComponent {
   shareLink = 'https://universalbilling.com/bill/view/abc-123-xyz';
   copied = false;
+  allowPayment = true;
+  allowDownload = true;
+  requireEmail = false;
+
+  activeLinks = [
+    { client: 'Rajesh Kumar Enterprises', invoice: 'INV-001', date: '21 Sep 2026', url: 'ubill.in/v/rkent-001', status: 'paid' },
+    { client: 'Priya Nair Technologies', invoice: 'INV-002', date: '20 Sep 2026', url: 'ubill.in/v/pnt-002', status: 'pending' },
+    { client: 'Mehta & Sons Pvt. Ltd', invoice: 'INV-003', date: '18 Sep 2026', url: 'ubill.in/v/ms-003', status: 'pending' },
+    { client: 'Ravi Shankar Exports', invoice: 'INV-004', date: '15 Sep 2026', url: 'ubill.in/v/rse-004', status: 'paid' },
+  ];
+
+  // QR Code mock pattern (81 cells, 9×9)
+  qrCells: boolean[] = [
+    true,true,true,true,true,true,true,false,true,
+    true,false,false,false,false,false,true,false,false,
+    true,false,true,true,true,false,true,false,true,
+    true,false,true,true,true,false,true,false,true,
+    true,false,true,true,true,false,true,false,false,
+    true,false,false,false,false,false,true,false,true,
+    true,true,true,true,true,true,true,false,true,
+    false,false,false,false,false,false,false,false,false,
+    true,false,true,false,true,true,false,true,false,
+  ];
+
   copyLink() {
     navigator.clipboard.writeText(this.shareLink);
     this.copied = true;
-    setTimeout(() => this.copied = false, 2000);
+    setTimeout(() => this.copied = false, 2500);
+  }
+
+  copySpecificLink(url: string) {
+    navigator.clipboard.writeText('https://' + url);
+  }
+
+  generateNewLink() {
+    const id = Math.random().toString(36).substring(2, 10);
+    this.shareLink = `https://universalbilling.com/bill/view/${id}`;
+    this.copyLink();
   }
 }

@@ -1,1 +1,343 @@
-<p>profile-settings works!</p>
+<div class="ubs-page-container">
+
+  <!-- Page Header -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Profile Settings</h1>
+      <p class="ubs-page-subtitle">Manage your personal information, credentials & account preferences</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/settings/system" class="ubs-btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+          <line x1="12" y1="2" x2="12" y2="6"></line>
+          <line x1="12" y1="18" x2="12" y2="22"></line>
+        </svg>
+        System Settings
+      </a>
+    </div>
+  </div>
+
+  <div class="prf-main-grid">
+
+    <!-- Left: Profile Form -->
+    <div class="prf-form-col">
+
+      <!-- Avatar & Identity Card -->
+      <div class="ubs-card prf-avatar-card">
+        <div class="prf-avatar-section">
+          <div class="prf-avatar-container">
+            <div class="prf-avatar-ring">
+              <div class="prf-avatar-circle">
+                <span>{{ initials }}</span>
+              </div>
+            </div>
+            <button class="prf-avatar-edit-btn" type="button" title="Change profile photo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="prf-avatar-info">
+            <h2 class="prf-username">{{ name }}</h2>
+            <p class="prf-user-email">{{ email }}</p>
+            <span class="ubs-badge ubs-badge-blue">Administrator</span>
+          </div>
+          <div class="prf-avatar-stats">
+            <div class="prf-stat">
+              <span class="prf-stat-val">180+</span>
+              <span class="prf-stat-label">Clients</span>
+            </div>
+            <div class="prf-stat-divider"></div>
+            <div class="prf-stat">
+              <span class="prf-stat-val">1,245</span>
+              <span class="prf-stat-label">Invoices</span>
+            </div>
+            <div class="prf-stat-divider"></div>
+            <div class="prf-stat">
+              <span class="prf-stat-val">96.4%</span>
+              <span class="prf-stat-label">Collection</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Personal Information -->
+      <div class="ubs-card prf-form-card">
+        <div class="prf-form-section-header">
+          <div class="prf-section-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div>
+            <h2 class="prf-section-title">Personal Information</h2>
+            <p class="prf-section-desc">Update your name, email, and contact details</p>
+          </div>
+        </div>
+
+        <form class="prf-form-body" (ngSubmit)="updateProfile()">
+          <div class="prf-field-grid">
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-first-name">First Name</label>
+              <input
+                id="prf-first-name"
+                type="text"
+                class="ubs-input"
+                [(ngModel)]="firstName"
+                name="firstName"
+                placeholder="Enter first name"
+              />
+            </div>
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-last-name">Last Name</label>
+              <input
+                id="prf-last-name"
+                type="text"
+                class="ubs-input"
+                [(ngModel)]="lastName"
+                name="lastName"
+                placeholder="Enter last name"
+              />
+            </div>
+          </div>
+
+          <div class="prf-form-group">
+            <label class="ubs-label" for="prf-email">Email Address</label>
+            <div class="prf-input-with-icon">
+              <div class="prf-input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <input
+                id="prf-email"
+                type="email"
+                class="ubs-input prf-icon-input"
+                [(ngModel)]="email"
+                name="email"
+                placeholder="Enter email address"
+              />
+            </div>
+          </div>
+
+          <div class="prf-field-grid">
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-phone">Phone Number</label>
+              <div class="prf-input-with-icon">
+                <div class="prf-input-icon">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+                <input
+                  id="prf-phone"
+                  type="tel"
+                  class="ubs-input prf-icon-input"
+                  [(ngModel)]="phone"
+                  name="phone"
+                  placeholder="+91 9XXXXXXXXX"
+                />
+              </div>
+            </div>
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-company">Company / Business Name</label>
+              <input
+                id="prf-company"
+                type="text"
+                class="ubs-input"
+                [(ngModel)]="company"
+                name="company"
+                placeholder="Enter company name"
+              />
+            </div>
+          </div>
+
+          <div class="prf-form-group">
+            <label class="ubs-label" for="prf-gstin">GSTIN</label>
+            <input
+              id="prf-gstin"
+              type="text"
+              class="ubs-input"
+              [(ngModel)]="gstin"
+              name="gstin"
+              placeholder="27AAAAA0000A1Z5"
+              style="font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;"
+            />
+          </div>
+
+          <div class="prf-form-footer">
+            <button type="button" class="ubs-btn-secondary" (click)="resetForm()">Reset</button>
+            <button type="submit" class="ubs-btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Security Card -->
+      <div class="ubs-card prf-form-card">
+        <div class="prf-form-section-header">
+          <div class="prf-section-icon prf-icon-red">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="prf-section-title">Security & Password</h2>
+            <p class="prf-section-desc">Change your password and manage 2FA</p>
+          </div>
+        </div>
+
+        <form class="prf-form-body">
+          <div class="prf-form-group">
+            <label class="ubs-label" for="prf-cur-pass">Current Password</label>
+            <div class="prf-input-with-icon">
+              <div class="prf-input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <input id="prf-cur-pass" type="password" class="ubs-input prf-icon-input" placeholder="Enter current password" />
+            </div>
+          </div>
+
+          <div class="prf-field-grid">
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-new-pass">New Password</label>
+              <input id="prf-new-pass" type="password" class="ubs-input" placeholder="Min 8 characters" />
+            </div>
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-conf-pass">Confirm Password</label>
+              <input id="prf-conf-pass" type="password" class="ubs-input" placeholder="Repeat new password" />
+            </div>
+          </div>
+
+          <!-- Password Strength Bar -->
+          <div class="prf-strength-wrap">
+            <div class="prf-strength-bar">
+              <div class="prf-strength-fill" style="width: 40%; background: var(--ubs-warning-text)"></div>
+            </div>
+            <span class="prf-strength-label" style="color: var(--ubs-warning-text)">Moderate</span>
+          </div>
+
+          <div class="prf-form-footer">
+            <button type="submit" class="ubs-btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              Update Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right: Sidebar -->
+    <div class="prf-sidebar">
+
+      <!-- Account Status -->
+      <div class="ubs-card prf-status-card">
+        <h3 class="prf-widget-title">Account Status</h3>
+        <div class="prf-status-list">
+          <div class="prf-status-item">
+            <div class="prf-status-dot prf-dot-green"></div>
+            <span class="prf-status-label">Account Active</span>
+            <span class="ubs-badge ubs-badge-paid">Live</span>
+          </div>
+          <div class="prf-status-item">
+            <div class="prf-status-dot prf-dot-green"></div>
+            <span class="prf-status-label">Email Verified</span>
+            <span class="ubs-badge ubs-badge-paid">✓</span>
+          </div>
+          <div class="prf-status-item">
+            <div class="prf-status-dot prf-dot-amber"></div>
+            <span class="prf-status-label">2FA Enabled</span>
+            <span class="ubs-badge ubs-badge-pending">Off</span>
+          </div>
+          <div class="prf-status-item">
+            <div class="prf-status-dot prf-dot-green"></div>
+            <span class="prf-status-label">GST Verified</span>
+            <span class="ubs-badge ubs-badge-paid">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notification Preferences -->
+      <div class="ubs-card prf-notif-card">
+        <h3 class="prf-widget-title" style="margin-bottom: 14px;">Notification Preferences</h3>
+        <div class="prf-notif-list">
+          <div class="prf-notif-row">
+            <div class="prf-notif-info">
+              <span class="prf-notif-label">Payment Alerts</span>
+              <span class="prf-notif-hint">Notify when payment received</span>
+            </div>
+            <div class="prf-tiny-toggle prf-tiny-on">
+              <div class="prf-tiny-knob"></div>
+            </div>
+          </div>
+          <div class="prf-notif-row">
+            <div class="prf-notif-info">
+              <span class="prf-notif-label">Overdue Reminders</span>
+              <span class="prf-notif-hint">Auto-send overdue notices</span>
+            </div>
+            <div class="prf-tiny-toggle prf-tiny-on">
+              <div class="prf-tiny-knob"></div>
+            </div>
+          </div>
+          <div class="prf-notif-row">
+            <div class="prf-notif-info">
+              <span class="prf-notif-label">Weekly Reports</span>
+              <span class="prf-notif-hint">Revenue summary every Monday</span>
+            </div>
+            <div class="prf-tiny-toggle">
+              <div class="prf-tiny-knob"></div>
+            </div>
+          </div>
+          <div class="prf-notif-row">
+            <div class="prf-notif-info">
+              <span class="prf-notif-label">New Client Signup</span>
+              <span class="prf-notif-hint">When a new client registers</span>
+            </div>
+            <div class="prf-tiny-toggle prf-tiny-on">
+              <div class="prf-tiny-knob"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div class="ubs-card prf-danger-card">
+        <h3 class="prf-widget-title prf-danger-title">Danger Zone</h3>
+        <p class="prf-danger-desc">These actions are irreversible. Please proceed with caution.</p>
+        <div class="prf-danger-actions">
+          <button class="prf-danger-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+            </svg>
+            Delete All Bills
+          </button>
+          <button class="prf-danger-btn prf-danger-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Deactivate Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

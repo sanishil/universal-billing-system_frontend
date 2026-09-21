@@ -1,1 +1,287 @@
-<p>pdf-generator works!</p>
+<div class="ubs-page-container">
+
+  <!-- Page Header -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">PDF Invoice Generator</h1>
+      <p class="ubs-page-subtitle">Generate, preview & dispatch professional PDF invoices to clients</p>
+    </div>
+    <div class="ubs-page-actions">
+      <a routerLink="/reports" class="ubs-btn-secondary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to Reports
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="pdf-main-grid">
+
+    <!-- Left: Generator Form -->
+    <div class="pdf-form-col">
+
+      <!-- Step 1: Select Invoice -->
+      <div class="ubs-card pdf-step-card">
+        <div class="pdf-step-header">
+          <div class="pdf-step-badge">1</div>
+          <div>
+            <h2 class="pdf-step-title">Select Invoice</h2>
+            <p class="pdf-step-desc">Choose the bill to generate PDF for</p>
+          </div>
+        </div>
+
+        <div class="pdf-step-body">
+          <label class="ubs-label" for="pdf-bill-select">Bill / Invoice</label>
+          <select id="pdf-bill-select" class="ubs-select" [(ngModel)]="selectedBill" name="bill">
+            <option value="">— Select an Invoice —</option>
+            <option value="INV-001">Invoice #INV-001 – Rajesh Kumar Enterprises</option>
+            <option value="INV-002">Invoice #INV-002 – Priya Nair Technologies</option>
+            <option value="INV-003">Invoice #INV-003 – Mehta & Sons Pvt. Ltd</option>
+            <option value="INV-004">Invoice #INV-004 – Ravi Shankar Exports</option>
+          </select>
+
+          <div class="pdf-selected-preview" *ngIf="selectedBill">
+            <div class="pdf-preview-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span class="pdf-preview-label">{{ selectedBill }}</span>
+              <span class="ubs-badge ubs-badge-paid">Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Delivery Options -->
+      <div class="ubs-card pdf-step-card">
+        <div class="pdf-step-header">
+          <div class="pdf-step-badge">2</div>
+          <div>
+            <h2 class="pdf-step-title">Delivery Options</h2>
+            <p class="pdf-step-desc">Choose how to deliver this PDF to the customer</p>
+          </div>
+        </div>
+
+        <div class="pdf-step-body">
+          <div class="pdf-option-cards">
+            <label class="pdf-option-card" [class.active]="emailPdf" (click)="emailPdf = !emailPdf">
+              <div class="pdf-option-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="pdf-option-text">
+                <strong>Email PDF</strong>
+                <span>Send directly to client's email</span>
+              </div>
+              <div class="pdf-option-check" [class.checked]="emailPdf">
+                <svg *ngIf="emailPdf" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
+
+            <label class="pdf-option-card" [class.active]="smsPdf" (click)="smsPdf = !smsPdf">
+              <div class="pdf-option-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div class="pdf-option-text">
+                <strong>SMS with Link</strong>
+                <span>Send download link via SMS</span>
+              </div>
+              <div class="pdf-option-check" [class.checked]="smsPdf">
+                <svg *ngIf="smsPdf" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
+
+            <label class="pdf-option-card" [class.active]="downloadPdf" (click)="downloadPdf = !downloadPdf">
+              <div class="pdf-option-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+              </div>
+              <div class="pdf-option-text">
+                <strong>Direct Download</strong>
+                <span>Save PDF to your device</span>
+              </div>
+              <div class="pdf-option-check" [class.checked]="downloadPdf">
+                <svg *ngIf="downloadPdf" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: PDF Settings -->
+      <div class="ubs-card pdf-step-card">
+        <div class="pdf-step-header">
+          <div class="pdf-step-badge">3</div>
+          <div>
+            <h2 class="pdf-step-title">PDF Settings</h2>
+            <p class="pdf-step-desc">Customize the PDF output format</p>
+          </div>
+        </div>
+
+        <div class="pdf-step-body">
+          <div class="pdf-settings-grid">
+            <div class="pdf-form-group">
+              <label class="ubs-label" for="pdf-template">Template Style</label>
+              <select id="pdf-template" class="ubs-select" [(ngModel)]="template" name="template">
+                <option value="standard">Standard Invoice</option>
+                <option value="gst">GST Tax Invoice</option>
+                <option value="proforma">Proforma Invoice</option>
+                <option value="receipt">Payment Receipt</option>
+              </select>
+            </div>
+            <div class="pdf-form-group">
+              <label class="ubs-label" for="pdf-lang">Language</label>
+              <select id="pdf-lang" class="ubs-select" [(ngModel)]="language" name="language">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="mr">Marathi</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pdf-toggle-row">
+            <div class="pdf-toggle-item">
+              <label class="pdf-toggle-label">Include Company Letterhead</label>
+              <div class="pdf-toggle-switch" [class.on]="letterhead" (click)="letterhead = !letterhead">
+                <div class="pdf-toggle-knob"></div>
+              </div>
+            </div>
+            <div class="pdf-toggle-item">
+              <label class="pdf-toggle-label">Include Digital Signature</label>
+              <div class="pdf-toggle-switch" [class.on]="signature" (click)="signature = !signature">
+                <div class="pdf-toggle-knob"></div>
+              </div>
+            </div>
+            <div class="pdf-toggle-item">
+              <label class="pdf-toggle-label">Watermark (Copy)</label>
+              <div class="pdf-toggle-switch" [class.on]="watermark" (click)="watermark = !watermark">
+                <div class="pdf-toggle-knob"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="pdf-actions-bar">
+        <button class="ubs-btn-secondary" (click)="previewPdf()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+          </svg>
+          Preview PDF
+        </button>
+        <button class="ubs-btn-primary" [disabled]="!selectedBill" (click)="generateAndSend()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          Generate &amp; Send
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Info Panel -->
+    <div class="pdf-info-col">
+      <!-- Preview Placeholder -->
+      <div class="ubs-card pdf-preview-card">
+        <div class="pdf-preview-header">
+          <h3 class="pdf-preview-title">PDF Preview</h3>
+          <span class="ubs-badge ubs-badge-ash">Live Preview</span>
+        </div>
+        <div class="pdf-preview-placeholder">
+          <div class="pdf-mock-doc">
+            <div class="pdf-mock-header-bar"></div>
+            <div class="pdf-mock-logo-row">
+              <div class="pdf-mock-logo"></div>
+              <div class="pdf-mock-meta">
+                <div class="pdf-mock-line w-60"></div>
+                <div class="pdf-mock-line w-40"></div>
+              </div>
+            </div>
+            <div class="pdf-mock-divider"></div>
+            <div class="pdf-mock-body">
+              <div class="pdf-mock-line w-80"></div>
+              <div class="pdf-mock-line w-60"></div>
+              <div class="pdf-mock-line w-70"></div>
+              <div class="pdf-mock-divider sm"></div>
+              <div class="pdf-mock-table-row">
+                <div class="pdf-mock-line w-40"></div>
+                <div class="pdf-mock-line w-20"></div>
+              </div>
+              <div class="pdf-mock-table-row">
+                <div class="pdf-mock-line w-50"></div>
+                <div class="pdf-mock-line w-20"></div>
+              </div>
+              <div class="pdf-mock-table-row">
+                <div class="pdf-mock-line w-35"></div>
+                <div class="pdf-mock-line w-25"></div>
+              </div>
+              <div class="pdf-mock-divider"></div>
+              <div class="pdf-mock-total-row">
+                <div class="pdf-mock-line w-25 bold"></div>
+                <div class="pdf-mock-line w-30 bold"></div>
+              </div>
+            </div>
+            <div class="pdf-mock-footer-bar"></div>
+          </div>
+          <p class="pdf-preview-hint">Select an invoice to see live preview</p>
+        </div>
+      </div>
+
+      <!-- PDF Features -->
+      <div class="ubs-card pdf-features-card">
+        <h3 class="pdf-features-title">What's Included</h3>
+        <div class="pdf-features-list">
+          <div class="pdf-feature-item">
+            <div class="pdf-feature-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>GST-compliant CGST / SGST / IGST breakup</span>
+          </div>
+          <div class="pdf-feature-item">
+            <div class="pdf-feature-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>Company letterhead & authorized signature</span>
+          </div>
+          <div class="pdf-feature-item">
+            <div class="pdf-feature-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>UPI QR Code for instant payment</span>
+          </div>
+          <div class="pdf-feature-item">
+            <div class="pdf-feature-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>Amount in words (Indian numbering)</span>
+          </div>
+          <div class="pdf-feature-item">
+            <div class="pdf-feature-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <span>Unique Document Reference Number (DRN)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

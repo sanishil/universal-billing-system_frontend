@@ -1,0 +1,517 @@
+/* Page Container */
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.ubs-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0 0 4px 0;
+  letter-spacing: -0.02em;
+}
+
+.ubs-page-subtitle {
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.ubs-page-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─── Main Grid ─── */
+.prf-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 22px;
+  align-items: start;
+}
+
+.prf-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.prf-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ─── Avatar Card ─── */
+.prf-avatar-card {
+  overflow: hidden;
+}
+
+.prf-avatar-section {
+  padding: 28px 28px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: linear-gradient(135deg, var(--ubs-ash-subtle) 0%, var(--ubs-blue-50) 100%);
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.prf-avatar-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.prf-avatar-ring {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ubs-blue-500), var(--ubs-blue-800));
+  padding: 3px;
+}
+
+.prf-avatar-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--ubs-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-blue-700);
+  letter-spacing: -0.02em;
+}
+
+.prf-avatar-edit-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--ubs-blue-600);
+  color: white;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.prf-avatar-edit-btn:hover {
+  background-color: var(--ubs-blue-700);
+}
+
+.prf-avatar-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.prf-username {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.prf-user-email {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-muted);
+  margin: 0 0 4px 0;
+}
+
+.prf-avatar-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background-color: var(--ubs-white);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.prf-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.prf-stat-val {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  letter-spacing: -0.02em;
+}
+
+.prf-stat-label {
+  font-size: 0.7rem;
+  color: var(--ubs-ash-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.prf-stat-divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--ubs-ash-border);
+}
+
+/* ─── Form Cards ─── */
+.prf-form-card {
+  overflow: hidden;
+}
+
+.prf-form-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  background-color: var(--ubs-ash-subtle);
+}
+
+.prf-section-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prf-icon-red {
+  background-color: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+}
+
+.prf-section-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0 0 3px 0;
+}
+
+.prf-section-desc {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 0;
+}
+
+.prf-form-body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.prf-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.prf-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Input with Icon */
+.prf-input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.prf-input-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--ubs-ash-muted);
+  display: flex;
+  pointer-events: none;
+}
+
+.prf-icon-input {
+  padding-left: 38px !important;
+}
+
+/* ─── Password Strength ─── */
+.prf-strength-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.prf-strength-bar {
+  flex: 1;
+  height: 6px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.prf-strength-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.3s ease;
+}
+
+.prf-strength-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ─── Form Footer ─── */
+.prf-form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: 1px solid var(--ubs-ash-border);
+}
+
+/* ─── Sidebar Widgets ─── */
+.prf-widget-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0;
+}
+
+/* Account Status */
+.prf-status-card {
+  padding: 18px 20px;
+}
+
+.prf-status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 14px;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  overflow: hidden;
+}
+
+.prf-status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  transition: background-color 0.15s;
+}
+
+.prf-status-item:last-child {
+  border-bottom: none;
+}
+
+.prf-status-item:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+.prf-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.prf-dot-green { background-color: var(--ubs-success-text); }
+.prf-dot-amber { background-color: var(--ubs-warning-text); }
+.prf-dot-red   { background-color: var(--ubs-danger-text); }
+
+.prf-status-label {
+  flex: 1;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+/* Notification Preferences */
+.prf-notif-card {
+  padding: 18px 20px;
+}
+
+.prf-notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  overflow: hidden;
+}
+
+.prf-notif-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+  transition: background-color 0.15s;
+}
+
+.prf-notif-row:last-child {
+  border-bottom: none;
+}
+
+.prf-notif-row:hover {
+  background-color: var(--ubs-ash-subtle);
+}
+
+.prf-notif-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prf-notif-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ubs-black);
+}
+
+.prf-notif-hint {
+  font-size: 0.72rem;
+  color: var(--ubs-ash-muted);
+}
+
+/* Tiny Toggle */
+.prf-tiny-toggle {
+  width: 36px;
+  height: 20px;
+  background-color: var(--ubs-ash-border);
+  border-radius: 99px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.prf-tiny-toggle.prf-tiny-on {
+  background-color: var(--ubs-blue-600);
+}
+
+.prf-tiny-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.prf-tiny-toggle.prf-tiny-on .prf-tiny-knob {
+  transform: translateX(16px);
+}
+
+/* Danger Zone */
+.prf-danger-card {
+  padding: 18px 20px;
+  border-color: var(--ubs-danger-border) !important;
+  background-color: var(--ubs-danger-bg);
+}
+
+.prf-danger-title {
+  color: var(--ubs-danger-text);
+}
+
+.prf-danger-desc {
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  margin: 8px 0 14px;
+  line-height: 1.5;
+}
+
+.prf-danger-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.prf-danger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--ubs-radius-md);
+  border: 1.5px solid var(--ubs-danger-border);
+  color: var(--ubs-danger-text);
+  background-color: var(--ubs-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.prf-danger-btn:hover {
+  background-color: var(--ubs-danger-bg);
+}
+
+.prf-danger-primary {
+  background-color: var(--ubs-danger-text);
+  color: white;
+  border-color: var(--ubs-danger-text);
+}
+
+.prf-danger-primary:hover {
+  background-color: #b91c1c;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1100px) {
+  .prf-main-grid {
+    grid-template-columns: 1fr;
+  }
+  .prf-sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .prf-avatar-section {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .prf-field-grid {
+    grid-template-columns: 1fr;
+  }
+  .prf-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .prf-avatar-stats {
+    width: 100%;
+    justify-content: center;
+  }
+}

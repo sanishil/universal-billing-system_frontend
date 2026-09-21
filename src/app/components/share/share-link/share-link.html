@@ -1,1 +1,222 @@
-<p>share-link works!</p>
+<div class="ubs-page-container">
+
+  <!-- Page Header -->
+  <div class="ubs-page-header">
+    <div>
+      <h1 class="ubs-page-title">Share Bill Link</h1>
+      <p class="ubs-page-subtitle">Generate permanent public links for clients to view and pay bills online</p>
+    </div>
+    <div class="ubs-page-actions">
+      <button class="ubs-btn-primary" (click)="generateNewLink()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Generate New Link
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="shl-main-grid">
+
+    <!-- Left: Link Generator -->
+    <div class="shl-left-col">
+
+      <!-- Current Public Link Card -->
+      <div class="ubs-card shl-link-card">
+        <div class="shl-card-header">
+          <div class="shl-header-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="shl-card-title">Active Public Link</h2>
+            <p class="shl-card-desc">Copy this link and share it with your customer</p>
+          </div>
+          <span class="ubs-badge ubs-badge-paid">Active</span>
+        </div>
+
+        <div class="shl-link-box">
+          <div class="shl-link-input-wrap">
+            <div class="shl-link-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+            </div>
+            <input
+              [value]="shareLink"
+              readonly
+              id="share-link-input"
+              class="shl-link-input"
+            />
+          </div>
+          <button (click)="copyLink()" class="shl-copy-btn" [class.copied]="copied" id="copy-link-btn">
+            <svg *ngIf="!copied" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <svg *ngIf="copied" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            {{ copied ? 'Copied!' : 'Copy Link' }}
+          </button>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="shl-info-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>This link is permanent and does not require the customer to log in. The client can view the bill and pay directly online.</span>
+        </div>
+      </div>
+
+      <!-- Select Bill to Share -->
+      <div class="ubs-card shl-select-card">
+        <div class="shl-select-header">
+          <h2 class="shl-section-title">Generate Link for a Specific Bill</h2>
+        </div>
+        <div class="shl-select-body">
+          <div class="shl-form-row">
+            <div class="shl-form-group">
+              <label class="ubs-label" for="shl-bill-select">Select Invoice</label>
+              <select id="shl-bill-select" class="ubs-select">
+                <option>Invoice #INV-001 – Rajesh Kumar Enterprises</option>
+                <option>Invoice #INV-002 – Priya Nair Technologies</option>
+                <option>Invoice #INV-003 – Mehta & Sons Pvt. Ltd</option>
+                <option>Invoice #INV-004 – Ravi Shankar Exports</option>
+              </select>
+            </div>
+            <div class="shl-form-group">
+              <label class="ubs-label" for="shl-expiry">Link Expiry</label>
+              <select id="shl-expiry" class="ubs-select">
+                <option>Never Expires</option>
+                <option>7 Days</option>
+                <option>30 Days</option>
+                <option>90 Days</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="shl-toggle-group">
+            <div class="shl-toggle-row">
+              <div class="shl-toggle-info">
+                <label class="shl-toggle-label">Allow Online Payment</label>
+                <span class="shl-toggle-hint">Client can pay directly from the shared link</span>
+              </div>
+              <div class="shl-toggle" [class.on]="allowPayment" (click)="allowPayment = !allowPayment">
+                <div class="shl-knob"></div>
+              </div>
+            </div>
+            <div class="shl-toggle-row">
+              <div class="shl-toggle-info">
+                <label class="shl-toggle-label">Allow PDF Download</label>
+                <span class="shl-toggle-hint">Client can download the invoice as PDF</span>
+              </div>
+              <div class="shl-toggle" [class.on]="allowDownload" (click)="allowDownload = !allowDownload">
+                <div class="shl-knob"></div>
+              </div>
+            </div>
+            <div class="shl-toggle-row">
+              <div class="shl-toggle-info">
+                <label class="shl-toggle-label">Require Email Verification</label>
+                <span class="shl-toggle-hint">Client must verify email before viewing</span>
+              </div>
+              <div class="shl-toggle" [class.on]="requireEmail" (click)="requireEmail = !requireEmail">
+                <div class="shl-knob"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shl-gen-actions">
+            <button class="ubs-btn-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              Preview Page
+            </button>
+            <button class="ubs-btn-primary" (click)="generateNewLink()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              Generate &amp; Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Active Links List -->
+    <div class="shl-right-col">
+
+      <!-- Active Links -->
+      <div class="ubs-card shl-active-links-card">
+        <div class="shl-active-header">
+          <h3 class="shl-section-title">Recently Generated Links</h3>
+          <span class="ubs-badge ubs-badge-blue">{{ activeLinks.length }} Active</span>
+        </div>
+
+        <div class="shl-links-list">
+          <div *ngFor="let link of activeLinks" class="shl-link-item">
+            <div class="shl-link-item-icon" [class.shl-icon-paid]="link.status === 'paid'" [class.shl-icon-pending]="link.status === 'pending'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+            </div>
+            <div class="shl-link-item-body">
+              <span class="shl-link-client">{{ link.client }}</span>
+              <span class="shl-link-meta">{{ link.invoice }} · {{ link.date }}</span>
+              <span class="shl-link-url">{{ link.url }}</span>
+            </div>
+            <div class="shl-link-item-actions">
+              <span class="ubs-badge" [class.ubs-badge-paid]="link.status === 'paid'" [class.ubs-badge-pending]="link.status === 'pending'">
+                {{ link.status | titlecase }}
+              </span>
+              <button class="shl-icon-btn" title="Copy link" (click)="copySpecificLink(link.url)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- QR Code Card -->
+      <div class="ubs-card shl-qr-card">
+        <h3 class="shl-section-title" style="margin-bottom: 14px;">Share via QR Code</h3>
+        <div class="shl-qr-wrapper">
+          <div class="shl-qr-mock">
+            <div class="shl-qr-grid">
+              <div *ngFor="let cell of qrCells" class="shl-qr-cell" [class.filled]="cell"></div>
+            </div>
+          </div>
+          <div class="shl-qr-info">
+            <p class="shl-qr-desc">Scan with any UPI or camera app to open the invoice payment page</p>
+            <button class="ubs-btn-secondary shl-qr-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Download QR PNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
