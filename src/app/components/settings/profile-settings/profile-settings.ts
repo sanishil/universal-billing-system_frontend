@@ -26,6 +26,12 @@ export class ProfileSettingsComponent {
     return `${this.firstName.charAt(0)}${this.lastName.charAt(0)}`.toUpperCase();
   }
 
+  showPersonalInfo = false;
+
+  togglePersonalInfo() {
+    this.showPersonalInfo = !this.showPersonalInfo;
+  }
+
   updateProfile() {
     console.log('Profile updated:', {
       firstName: this.firstName,
