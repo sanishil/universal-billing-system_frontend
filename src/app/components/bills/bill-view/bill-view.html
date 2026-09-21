@@ -30,6 +30,12 @@
       <button (click)="copyPublicLink()" class="ubs-btn-secondary">
         {{ copied ? 'Link Copied!' : 'Copy Client Link' }}
       </button>
+      <button (click)="toggleWatermark()" class="ubs-btn-secondary" [class.ubs-btn-watermark-active]="watermarkActive">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <span>{{ watermarkButtonLabel }}</span>
+      </button>
       <a
         [routerLink]="['/bill/view', bill.uniqueLink]"
         target="_blank"
@@ -58,7 +64,11 @@
   </div>
 
   <!-- Document Paper / Indian Tax Invoice Card -->
-  <div class="ubs-card ubs-invoice-sheet">
+  <div class="ubs-card ubs-invoice-sheet" [class.ubs-invoice-sheet--watermarked]="watermarkActive">
+    <!-- Watermark Overlay -->
+    <div class="ubs-watermark" *ngIf="watermarkActive" [attr.data-text]="watermarkText">
+      <span>{{ watermarkText }}</span>
+    </div>
     <!-- Sheet Header -->
     <div class="ubs-sheet-header">
       <div class="ubs-sheet-brand">
@@ -137,7 +147,7 @@
             </td>
             <td style="text-align: center">{{ item.quantity }}</td>
             <td style="text-align: right">₹{{ item.price | number: '1.2-2' }}</td>
-            <td style="text-align: right; font-weight: 700; color: var(--ubs-black)">
+            <td style="text-align: right; font-weight: 700; color: #111111">
               ₹{{ item.quantity * item.price | number: '1.2-2' }}
             </td>
           </tr>
@@ -154,7 +164,7 @@
           <p class="ubs-words-val">{{ bill.amountInWords || 'Rupees Only' }}</p>
         </div>
 
-        <span class="ubs-block-label" style="margin-top: 14px">BANK TRANSFER (NEFT / RTGS / IMPS)</span>
+        <span class="ubs-block-label" style="margin-top: 14px; color: #777777">BANK TRANSFER (NEFT / RTGS / IMPS)</span>
         <p class="ubs-wire-info">
           <strong>Bank:</strong> State Bank of India | <strong>A/C No:</strong> 389201948102 (Current A/C)<br />
           <strong>IFSC Code:</strong> SBIN0004044 | <strong>Branch:</strong> Bengaluru Main Branch | <strong>MICR:</strong> 560002010

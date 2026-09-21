@@ -20,6 +20,32 @@ export class BillViewComponent implements OnInit {
   bill: Bill | null = null;
   copied = false;
 
+  // Watermark
+  watermarkActive = false;
+  watermarkOptions = ['PAID', 'CONFIDENTIAL', 'DRAFT', 'COPY'];
+  watermarkIndex = 0;
+
+  get watermarkText(): string {
+    return this.watermarkOptions[this.watermarkIndex];
+  }
+
+  toggleWatermark() {
+    if (!this.watermarkActive) {
+      this.watermarkActive = true;
+    } else {
+      // cycle through options; after last one, turn off
+      this.watermarkIndex = (this.watermarkIndex + 1) % this.watermarkOptions.length;
+      if (this.watermarkIndex === 0) {
+        this.watermarkActive = false;
+      }
+    }
+  }
+
+  get watermarkButtonLabel(): string {
+    if (!this.watermarkActive) return 'Add Watermark';
+    return `Watermark: ${this.watermarkText}`;
+  }
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
