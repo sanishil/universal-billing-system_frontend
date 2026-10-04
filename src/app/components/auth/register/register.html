@@ -11,6 +11,9 @@
       </div>
 
       <form (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="alert alert-success" role="status">{{ successMessage }}</div>
+
         <!-- Full Name -->
         <div class="yono-field-wrap">
           <input

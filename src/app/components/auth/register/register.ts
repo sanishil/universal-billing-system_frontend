@@ -20,13 +20,29 @@ export class RegisterComponent {
   company = '';
   password = '';
   isLoading = false;
+  errorMessage = '';
+  successMessage = '';
 
   onRegister() {
     this.isLoading = true;
-    setTimeout(() => {
-      this.authService.login(this.email, this.password);
-      this.isLoading = false;
-      this.router.navigate(['/dashboard']);
-    }, 400);
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    this.authService.register({
+      name: this.name,
+      company: this.company,
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.password = '';
+        this.successMessage = 'Account created. You can now sign in.';
+      },
+      error: () => {
+        this.isLoading = false;
+        this.errorMessage = 'Registration failed. Check your details and try again.';
+      }
+    });
   }
 }

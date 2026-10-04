@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { API_BASE_URL } from './api.config';
 
 export interface User {
   id: string;
@@ -15,6 +17,7 @@ const SESSION_KEY = 'ubs_session_user';
   providedIn: 'root'
 })
 export class AuthService {
+  private http = inject(HttpClient);
   private currentUserSubject = new BehaviorSubject<User | null>(this.getSessionUser());
   public currentUser$ = this.currentUserSubject.asObservable();
 
@@ -39,6 +42,10 @@ export class AuthService {
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
     this.currentUserSubject.next(user);
     return of(true);
+  }
+
+  register(payload: { name: string; company: string; email: string; password: string }): Observable<unknown> {
+    return this.http.post(`${API_BASE_URL}/auth/register`, payload);
   }
 
   logout(): void {
