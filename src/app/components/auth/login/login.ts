@@ -148,11 +148,20 @@ export class LoginComponent implements OnInit {
 
     this.isLoading = true;
 
-    setTimeout(() => {
-      this.authService.login(this.username, this.password);
-      this.isLoading = false;
-      this.router.navigate(['/dashboard']);
-    }, 450);
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage =
+          err?.error?.message ||
+          'Invalid credentials. Please check your email and password.';
+        this.generateCaptcha();
+        this.captchaInput = this.captchaCode;
+      }
+    });
   }
 
 

@@ -1,6 +1,20 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { API_BASE_URL } from '../../../services/api.config';
+
+export interface ReportStats {
+  totalRevenueYTD: number;
+  totalBillsGenerated: number;
+  collectionRate: number;
+}
+
+export interface MonthlyData {
+  month: string;
+  value: number;
+  amount: string;
+}
 
 @Component({
   selector: 'app-reports-dashboard',
@@ -9,17 +23,23 @@ import { RouterLink } from '@angular/router';
   templateUrl: './reports-dashboard.html',
   styleUrl: './reports-dashboard.css'
 })
-export class ReportsDashboardComponent {
-  totalRevenueYTD = 12450000;
-  totalBillsGenerated = 1245;
-  collectionRate = 96.4;
+export class ReportsDashboardComponent implements OnInit {
+  private http = inject(HttpClient);
 
-  monthlyData = [
-    { month: 'Jan', value: 45, amount: '₹12,40,000' },
-    { month: 'Feb', value: 68, amount: '₹18,20,000' },
-    { month: 'Mar', value: 52, amount: '₹14,90,000' },
-    { month: 'Apr', value: 80, amount: '₹22,50,000' },
-    { month: 'May', value: 95, amount: '₹28,10,000' },
-    { month: 'Jun', value: 72, amount: '₹20,30,000' }
-  ];
+  totalRevenueYTD = 0;
+  totalBillsGenerated = 0;
+  collectionRate = 0;
+  monthlyData: MonthlyData[] = [];
+
+  ngOnInit() {
+    this.http.get<ReportStats>(`${API_BASE_URL}/reports/stats`).subscribe(stats => {
+      this.totalRevenueYTD = stats.totalRevenueYTD;
+      this.totalBillsGenerated = stats.totalBillsGenerated;
+      this.collectionRate = stats.collectionRate;
+    });
+
+    this.http.get<MonthlyData[]>(`${API_BASE_URL}/reports/monthly`).subscribe(data => {
+      this.monthlyData = data;
+    });
+  }
 }

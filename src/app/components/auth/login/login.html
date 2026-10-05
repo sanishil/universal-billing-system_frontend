@@ -1,26 +1,9 @@
 <div class="yono-page-wrapper">
-  <!-- Subtle organic background curves -->
-  <div class="yono-bg-curve-top"></div>
-  <div class="yono-bg-curve-mid"></div>
 
   <div class="yono-content-container">
     <div class="yono-grid">
-      <!-- LEFT HERO COLUMN -->
-      <div class="yono-left-col">
-        <div class="yono-hero-content">
-          <h1 class="yono-greeting">Hello!</h1>
-          <h2 class="yono-welcome-title">Welcome to the world of Universal Billing</h2>
 
-          <div class="yono-newuser-block">
-            <h3 class="yono-newuser-title">Are you a new user?</h3>
-            <div class="yono-action-buttons">
-              <a routerLink="/register" class="yono-btn-register"><i class="fa-solid fa-user-check"></i> Register Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT LOGIN CARD COLUMN -->
+      <!-- LOGIN CARD -->
       <div class="yono-right-col">
         <div class="yono-login-card">
           <!-- Card Tab Header -->
@@ -69,7 +52,6 @@
                   >
                     <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                   </button>
-
                 </div>
               </div>
               <div class="yono-link-row">
@@ -135,6 +117,12 @@
                   Authenticating...
                 </span>
               </button>
+            </div>
+
+            <!-- Register Prompt -->
+            <div class="yono-register-prompt">
+              <span>Don't have an account?</span>
+              <a routerLink="/register" class="yono-register-link">Register Now</a>
             </div>
           </form>
         </div>

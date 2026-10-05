@@ -1,85 +1,99 @@
 <div class="yono-page-wrapper">
-  <!-- Subtle organic background curves -->
-  <div class="yono-bg-curve-top"></div>
-  <div class="yono-bg-curve-mid"></div>
 
   <div class="yono-content-container">
-    <div class="yono-register-card">
-      <!-- Card Tab Header -->
-      <div class="yono-card-tab">
-        <span class="yono-tab-text">Create Your Account</span>
-      </div>
+    <div class="yono-grid">
+      <div class="yono-right-col">
+        <div class="yono-register-card">
 
-      <form (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
-        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
-        <div *ngIf="successMessage" class="alert alert-success" role="status">{{ successMessage }}</div>
+          <!-- Card Tab Header -->
+          <div class="yono-card-tab">
+            <span class="yono-tab-text">Create Your Account</span>
+          </div>
 
-        <!-- Full Name -->
-        <div class="yono-field-wrap">
-          <input
-            [(ngModel)]="name"
-            name="name"
-            type="text"
-            class="yono-underline-input"
-            placeholder="Full Name"
-            required
-          />
+          <form (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
+
+            <!-- Alerts -->
+            <div *ngIf="errorMessage" class="yono-error-banner">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              <span>{{ errorMessage }}</span>
+            </div>
+            <div *ngIf="successMessage" class="yono-success-banner">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>{{ successMessage }}</span>
+            </div>
+
+            <!-- Full Name -->
+            <div class="yono-field-wrap">
+              <input
+                [(ngModel)]="name"
+                name="name"
+                type="text"
+                class="yono-underline-input"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+
+            <!-- Organization Name -->
+            <div class="yono-field-wrap">
+              <input
+                [(ngModel)]="company"
+                name="company"
+                type="text"
+                class="yono-underline-input"
+                placeholder="Organization Name"
+                required
+              />
+            </div>
+
+            <!-- Work Email -->
+            <div class="yono-field-wrap">
+              <input
+                [(ngModel)]="email"
+                name="email"
+                type="email"
+                class="yono-underline-input"
+                placeholder="Work Email Address"
+                required
+              />
+            </div>
+
+            <!-- Password -->
+            <div class="yono-field-wrap">
+              <input
+                [(ngModel)]="password"
+                name="password"
+                type="password"
+                class="yono-underline-input"
+                placeholder="Security Password"
+                required
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="yono-submit-box">
+              <button type="submit" class="yono-register-submit-btn" [disabled]="isLoading">
+                <span *ngIf="!isLoading">
+                  <i class="fa-solid fa-user-check"></i> Register Now
+                </span>
+                <span *ngIf="isLoading" class="yono-spinner-wrap">
+                  <span class="spinner-border spinner-border-sm" role="status"></span>
+                  Provisioning Workspace...
+                </span>
+              </button>
+            </div>
+
+          </form>
+
+          <!-- Footer sign-in prompt -->
+          <div class="yono-register-prompt">
+            <span>Already have an account?</span>
+            <a routerLink="/login" class="yono-register-link">Sign In</a>
+          </div>
+
         </div>
-
-        <!-- Organization Name -->
-        <div class="yono-field-wrap">
-          <input
-            [(ngModel)]="company"
-            name="company"
-            type="text"
-            class="yono-underline-input"
-            placeholder="Organization Name"
-            required
-          />
-        </div>
-
-        <!-- Work Email -->
-        <div class="yono-field-wrap">
-          <input
-            [(ngModel)]="email"
-            name="email"
-            type="email"
-            class="yono-underline-input"
-            placeholder="Work Email Address"
-            required
-          />
-        </div>
-
-        <!-- Password -->
-        <div class="yono-field-wrap">
-          <input
-            [(ngModel)]="password"
-            name="password"
-            type="password"
-            class="yono-underline-input"
-            placeholder="Security Password"
-            required
-          />
-        </div>
-
-        <!-- Submit Button -->
-        <div class="yono-submit-box">
-          <button type="submit" class="yono-register-submit-btn" [disabled]="isLoading">
-            <span *ngIf="!isLoading"><i class="fa-solid fa-user-check"></i>  Register Now</span>
-            <span *ngIf="isLoading" class="yono-spinner-wrap">
-              <span class="spinner-border spinner-border-sm" role="status"></span>
-              Provisioning Workspace...
-            </span>
-          </button>
-        </div>
-      </form>
-
-      <!-- Footer link -->
-      <div class="yono-footer-link-row">
-        <span>Already have an account?</span>
-        <a routerLink="/login" class="yono-footer-link">Sign In</a>
       </div>
     </div>
   </div>
-</div>
 
+</div>

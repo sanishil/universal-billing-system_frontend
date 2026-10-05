@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { API_BASE_URL } from './api.config';
 
 export interface User {
@@ -11,7 +11,13 @@ export interface User {
   avatarUrl?: string;
 }
 
+export interface LoginResponse {
+  token: string;
+  user: User;
+}
+
 const SESSION_KEY = 'ubs_session_user';
+const TOKEN_KEY = 'ubs_token';
 
 @Injectable({
   providedIn: 'root'
@@ -31,17 +37,18 @@ export class AuthService {
     }
   }
 
-  login(email: string, _pass: string): Observable<boolean> {
-    const user: User = {
-      id: 'USR-01',
-      name: email.includes('@') ? email.split('@')[0] : email || 'Administrator',
-      email: email.includes('@') ? email : `${email}@universalbilling.io`,
-      role: 'Administrator'
-    };
+  getToken(): string | null {
+    return sessionStorage.getItem(TOKEN_KEY);
+  }
 
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
-    this.currentUserSubject.next(user);
-    return of(true);
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { email, password }).pipe(
+      tap((res: LoginResponse) => {
+        sessionStorage.setItem(TOKEN_KEY, res.token);
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(res.user));
+        this.currentUserSubject.next(res.user);
+      })
+    );
   }
 
   register(payload: { name: string; company: string; email: string; password: string }): Observable<unknown> {
@@ -50,6 +57,7 @@ export class AuthService {
 
   logout(): void {
     sessionStorage.removeItem(SESSION_KEY);
+    sessionStorage.removeItem(TOKEN_KEY);
     this.currentUserSubject.next(null);
   }
 

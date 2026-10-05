@@ -20,29 +20,23 @@ export class CustomerDetailsComponent implements OnInit {
 
   customer: Customer | null = null;
   customerBills: Bill[] = [];
+  isLoading = true;
+  notFound = false;
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id') || 'CUST-001';
-    this.customerService.getCustomerById(id).subscribe(cust => {
-      if (cust) {
+    const id = this.route.snapshot.paramMap.get('id') || '';
+    this.customerService.getCustomerById(id).subscribe({
+      next: cust => {
         this.customer = cust;
-      } else {
-        this.customer = {
-          id,
-          name: 'Acme Global Technologies',
-          email: 'billing@acmeglobal.tech',
-          phone: '+1 (555) 234-5678',
-          address: '742 Evergreen Terrace, Suite 400, Silicon Valley, CA 94025',
-          company: 'Acme Corp Group',
-          totalSpent: 12850,
-          billsCount: 5,
-          status: 'ACTIVE'
-        };
+        this.isLoading = false;
+        this.billService.getBills().subscribe(bills => {
+          this.customerBills = bills.filter(b => b.customerId === id || b.customerName === cust.name);
+        });
+      },
+      error: () => {
+        this.isLoading = false;
+        this.notFound = true;
       }
-
-      this.billService.getBills().subscribe(bills => {
-        this.customerBills = bills.filter(b => b.customerId === id || b.customerName === this.customer?.name);
-      });
     });
   }
 }

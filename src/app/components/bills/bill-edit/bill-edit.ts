@@ -20,38 +20,20 @@ export class BillEditComponent implements OnInit {
   billId = '';
   bill: Bill | null = null;
   isLoading = true;
+  notFound = false;
 
   ngOnInit() {
     this.billId = this.route.snapshot.paramMap.get('id') || '';
-    this.billService.getBillById(this.billId).subscribe(found => {
-      if (found) {
+    this.billService.getBillById(this.billId).subscribe({
+      next: found => {
         // Deep copy to prevent accidental live mutation until saved
         this.bill = JSON.parse(JSON.stringify(found));
-      } else {
-        // Fallback mock
-        this.bill = {
-          id: this.billId,
-          customerId: 'CUST-001',
-          customerName: 'Infosys Digital Systems Ltd.',
-          customerGstin: '29AAACI4321A1ZG',
-          placeOfSupply: 'Karnataka (29)',
-          isInterState: false,
-          gstRate: 18,
-          items: [{ name: 'Enterprise Cloud Infrastructure', hsnSac: '998315', quantity: 1, price: 85000 }],
-          subtotal: 85000,
-          cgst: 7650,
-          sgst: 7650,
-          igst: 0,
-          tax: 15300,
-          total: 100300,
-          status: 'PENDING',
-          uniqueLink: 'bill-infosys-edit',
-          createdAt: '2026-09-10',
-          dueDate: '2026-09-24',
-          notes: 'Standard Net 14 days'
-        };
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        this.notFound = true;
       }
-      this.isLoading = false;
     });
   }
 

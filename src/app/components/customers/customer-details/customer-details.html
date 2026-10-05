@@ -1,3 +1,15 @@
+<div *ngIf="isLoading" class="ubs-loading-state" style="padding: 60px; text-align: center; color: var(--ubs-ash-muted)">
+  <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+  <p style="margin-top: 12px">Loading customer...</p>
+</div>
+
+<div *ngIf="notFound" class="ubs-not-found-state" style="padding: 60px; text-align: center; color: var(--ubs-ash-muted)">
+  <i class="fa-solid fa-user-slash fa-3x" style="color: #d9534f"></i>
+  <h2 style="margin-top: 16px">Customer not found</h2>
+  <p>This customer record does not exist or has been removed.</p>
+  <a routerLink="/customers" style="margin-top: 16px; display: inline-block" class="ubs-btn-primary">Back to Customers</a>
+</div>
+
 <div class="ubs-page-container" *ngIf="customer">
   <!-- Header -->
   <div class="ubs-page-header">

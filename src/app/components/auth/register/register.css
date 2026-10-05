@@ -1,112 +1,143 @@
 /* ==========================================================================
-   YONO SBI-INSPIRED AUTHENTICATION THEME - REGISTER PAGE
-   Matches /login purple theme: Deep Royal Purple (#5c186e / #440f57)
+   REGISTER PAGE — Identical blue theme to login page
+   Primary Blue: #0077b6  |  Dark: #005f94  |  Background: background.png
    ========================================================================== */
 
 :host {
   display: block;
   width: 100%;
-  --yono-purple-primary: #5c186e;
-  --yono-purple-dark: #440f57;
-  --yono-purple-light: #7c2d94;
-  --yono-purple-subtle: #f3eaf8;
-  --yono-text-dark: #111827;
-  --yono-text-muted: #4b5563;
-  --yono-border-line: #9ca3af;
+  --ub-blue-primary: #0077b6;
+  --ub-blue-dark: #005f94;
+  --ub-blue-light: #1a9fd4;
+  --ub-blue-subtle: #e0f4fc;
+  --ub-text-dark: #0a1628;
+  --ub-text-muted: #334e68;
+  --ub-border: #b3d9ee;
 }
+
+/* ==========================================================================
+   PAGE WRAPPER & BACKGROUND — same as login
+   ========================================================================== */
 
 .yono-page-wrapper {
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f8f7fb;
+  justify-content: space-between;
+  background-color: #0077b6;
+  background-image: url('/background.png');
+  background-size: cover;
+  background-position: center 15%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-/* Organic Background Wavy Blobs */
-.yono-bg-curve-top {
-  position: absolute;
-  top: -120px;
-  left: -100px;
-  width: 540px;
-  height: 540px;
-  background: radial-gradient(circle, #ece4f5 0%, rgba(236, 228, 245, 0) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
+/* ==========================================================================
+   LAYOUT — card pushed to the right, same as login
+   ========================================================================== */
 
-.yono-bg-curve-mid {
-  position: absolute;
-  top: 10%;
-  right: -80px;
-  width: 480px;
-  height: 480px;
-  background: radial-gradient(circle, #f2e9f7 0%, rgba(242, 233, 247, 0) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Content container — centered */
 .yono-content-container {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding: 44px 28px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 96px 40px 48px;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  justify-content: flex-end;
 }
 
-/* Register card */
+.yono-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* ==========================================================================
+   REGISTER CARD — same frosted glass as login card
+   ========================================================================== */
+
+.yono-right-col {
+  display: flex;
+  justify-content: center;
+}
+
 .yono-register-card {
   width: 100%;
-  max-width: 480px;
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 35px -5px rgba(68, 15, 87, 0.1), 0 4px 12px rgba(0, 0, 0, 0.04);
+  max-width: 420px;
+  background: rgba(220, 242, 255, 0.88);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow:
+    0 8px 32px rgba(0, 80, 140, 0.30),
+    0 2px 8px rgba(0, 40, 80, 0.14);
   padding: 36px 38px;
   position: relative;
 }
 
-/* Card tab header */
+/* Card top label — same blue pill as login */
 .yono-card-tab {
   text-align: center;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 2px solid #f3eaf8;
+  border-bottom: 2px solid rgba(0, 119, 182, 0.18);
 }
 
 .yono-tab-text {
   font-size: 1.05rem;
   font-weight: 800;
-  color: #5c186e;
-  letter-spacing: -0.01em;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #0077b6 0%, #005f94 100%);
+  padding: 8px 24px;
+  border-radius: 9999px;
+  display: inline-block;
+  box-shadow: 0 2px 10px rgba(0, 80, 140, 0.28);
 }
 
-/* Error banner */
+/* Alert banners */
 .yono-error-banner {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #dc2626;
+  background-color: #fff0f0;
+  border: 1px solid #fca5a5;
+  color: #c0392b;
   border-radius: 8px;
   font-size: 0.85rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 }
 
-/* Form */
+.yono-success-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   FORM ELEMENTS — identical to login
+   ========================================================================== */
+
 .yono-form {
   display: flex;
   flex-direction: column;
@@ -118,39 +149,34 @@
   flex-direction: column;
 }
 
-.yono-field-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #334155;
-  margin-bottom: 4px;
-}
-
-/* Underline inputs — identical to login */
 .yono-underline-input {
   width: 100%;
   border: none !important;
-  border-bottom: 1.8px solid #9ca3af !important;
+  border-bottom: 1.8px solid #5aaad0 !important;
   background: transparent !important;
   padding: 10px 2px !important;
   font-size: 1rem !important;
   font-family: inherit;
-  color: #111827 !important;
+  color: #03253d !important;
   outline: none !important;
   border-radius: 0 !important;
   transition: border-color 0.2s ease;
 }
 
 .yono-underline-input:focus {
-  border-bottom-color: #5c186e !important;
+  border-bottom-color: #0077b6 !important;
   border-bottom-width: 2.2px !important;
 }
 
 .yono-underline-input::placeholder {
-  color: #6b7280 !important;
+  color: #1e5a7a !important;
   font-size: 0.95rem;
 }
 
-/* Submit button */
+/* ==========================================================================
+   SUBMIT BUTTON — same blue pill as login
+   ========================================================================== */
+
 .yono-submit-box {
   margin-top: 10px;
 }
@@ -159,27 +185,28 @@
   width: 100% !important;
   height: 46px !important;
   border-radius: 9999px !important;
-  background-color: #5c186e !important;
+  background-color: #0077b6 !important;
   color: #ffffff !important;
   font-size: 1.05rem !important;
   font-weight: 700 !important;
   border: none !important;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(92, 24, 110, 0.35) !important;
+  box-shadow: 0 4px 16px rgba(0, 100, 160, 0.42) !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 }
 
 .yono-register-submit-btn:hover {
-  background-color: #440f57 !important;
-  box-shadow: 0 6px 18px rgba(92, 24, 110, 0.45) !important;
+  background-color: #005f94 !important;
+  box-shadow: 0 6px 22px rgba(0, 80, 140, 0.52) !important;
   transform: translateY(-1px);
 }
 
 .yono-register-submit-btn:disabled {
-  opacity: 0.85 !important;
+  opacity: 0.8 !important;
   cursor: wait !important;
 }
 
@@ -190,34 +217,49 @@
   color: #ffffff !important;
 }
 
-/* Footer sign-in link */
-.yono-footer-link-row {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #f3eaf8;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #4b5563;
+/* ==========================================================================
+   SIGN IN PROMPT — same as login "Register Now" row
+   ========================================================================== */
+
+.yono-register-prompt {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 6px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 119, 182, 0.18);
+  font-size: 0.875rem;
+  color: #03253d;
+  font-weight: 600;
 }
 
-.yono-footer-link {
+.yono-register-link {
+  color: #004f7c !important;
   font-weight: 700 !important;
-  color: #5c186e !important;
   text-decoration: underline !important;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-.yono-footer-link:hover {
-  color: #3b0a47 !important;
+.yono-register-link:hover {
+  color: #003559 !important;
 }
 
-/* Responsive */
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .yono-content-container {
+    justify-content: center;
+    padding: 32px 24px 24px 24px;
+  }
+}
+
 @media (max-width: 576px) {
   .yono-content-container {
-    padding: 28px 16px;
+    padding: 28px 16px 24px 16px;
   }
 
   .yono-register-card {

@@ -40,10 +40,10 @@ export class PaymentProcessComponent implements OnInit {
   ];
 
   // Card fields
-  cardNumber = '6073 •••• •••• 9924';
-  cardExpiry = '08/29';
-  cardCvc = '714';
-  cardHolder = 'Rajesh Kumar';
+  cardNumber = '';
+  cardExpiry = '';
+  cardCvc = '';
+  cardHolder = '';
   isRuPay = true;
 
   // NEFT / RTGS fields

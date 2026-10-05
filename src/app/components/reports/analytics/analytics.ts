@@ -1,5 +1,20 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { API_BASE_URL } from '../../../services/api.config';
+
+export interface PaymentMethodStat {
+  name: string;
+  percent: number;
+  volume: string;
+}
+
+export interface BillStatusStat {
+  name: string;
+  count: number;
+  percent: number;
+  colorClass: string;
+}
 
 @Component({
   selector: 'app-analytics',
@@ -8,17 +23,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './analytics.html',
   styleUrl: './analytics.css'
 })
-export class AnalyticsComponent {
-  paymentMethods = [
-    { name: 'UPI (GPay / PhonePe / Paytm / BHIM)', percent: 54, volume: '₹67,23,000' },
-    { name: 'Corporate Net Banking (SBI / HDFC / ICICI)', percent: 28, volume: '₹34,86,000' },
-    { name: 'RuPay & Commercial Cards', percent: 14, volume: '₹17,43,000' },
-    { name: 'Direct Bank Wire (NEFT / RTGS)', percent: 4, volume: '₹4,98,000' }
-  ];
+export class AnalyticsComponent implements OnInit {
+  private http = inject(HttpClient);
 
-  billStatusBreakdown = [
-    { name: 'Paid & Cleared', count: 1204, percent: 85, colorClass: 'ubs-bar-green' },
-    { name: 'Awaiting Settlement', count: 150, percent: 11, colorClass: 'ubs-bar-amber' },
-    { name: 'Overdue / Escalated', count: 52, percent: 4, colorClass: 'ubs-bar-red' }
-  ];
+  paymentMethods: PaymentMethodStat[] = [];
+  billStatusBreakdown: BillStatusStat[] = [];
+
+  ngOnInit() {
+    this.http.get<PaymentMethodStat[]>(`${API_BASE_URL}/analytics/payment-methods`).subscribe(data => {
+      this.paymentMethods = data;
+    });
+
+    this.http.get<BillStatusStat[]>(`${API_BASE_URL}/analytics/bill-status`).subscribe(data => {
+      this.billStatusBreakdown = data;
+    });
+  }
 }

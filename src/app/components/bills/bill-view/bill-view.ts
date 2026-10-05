@@ -18,6 +18,8 @@ export class BillViewComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   bill: Bill | null = null;
+  isLoading = true;
+  notFound = false;
   copied = false;
 
   // Watermark
@@ -33,7 +35,6 @@ export class BillViewComponent implements OnInit {
     if (!this.watermarkActive) {
       this.watermarkActive = true;
     } else {
-      // cycle through options; after last one, turn off
       this.watermarkIndex = (this.watermarkIndex + 1) % this.watermarkOptions.length;
       if (this.watermarkIndex === 0) {
         this.watermarkActive = false;
@@ -49,40 +50,19 @@ export class BillViewComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.billService.getBillById(id).subscribe(b => {
-        if (b) {
+      this.billService.getBillById(id).subscribe({
+        next: b => {
           this.bill = b;
-        } else {
-          // Fallback mock
-          this.bill = {
-            id,
-            customerId: 'CUST-001',
-            customerName: 'Infosys Digital Systems Ltd.',
-            customerGstin: '29AAACI4321A1ZG',
-            supplierGstin: '29AABCU9603R1ZM',
-            placeOfSupply: 'Karnataka (29)',
-            stateCode: '29',
-            items: [
-              { name: 'Enterprise Cloud Infrastructure & Kubernetes', hsnSac: '998315', quantity: 1, price: 85000 },
-              { name: 'Dedicated Support & 24/7 SLA Retainer', hsnSac: '998314', quantity: 1, price: 45000 },
-              { name: 'Security Cert Audit & Vulnerability Assessment', hsnSac: '998316', quantity: 2, price: 12500 }
-            ],
-            subtotal: 155000,
-            cgst: 13950,
-            sgst: 13950,
-            igst: 0,
-            tax: 27900,
-            total: 182900,
-            amountInWords: 'Rupees One Lakh Eighty Two Thousand Nine Hundred Only',
-            currency: 'INR',
-            status: 'PAID',
-            uniqueLink: 'bill-infosys-2026001',
-            createdAt: '2026-09-10',
-            dueDate: '2026-09-24',
-            notes: 'Payment received via SBI Net Banking. Thank you for your business!'
-          };
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+          this.notFound = true;
         }
       });
+    } else {
+      this.isLoading = false;
+      this.notFound = true;
     }
   }
 

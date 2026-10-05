@@ -31,7 +31,7 @@ export class BillCreateComponent implements OnInit {
   notes = 'Payment terms: Net 14 days. Settle via UPI (billing@sbi) or Net Banking. Thank you for your business!';
 
   items: BillItem[] = [
-    { name: 'Cloud Infrastructure Architecture & Security Consulting', hsnSac: '998314', quantity: 1, price: 65000 }
+    { name: '', hsnSac: '998314', quantity: 1, price: 0 }
   ];
 
   ngOnInit() {
@@ -40,7 +40,7 @@ export class BillCreateComponent implements OnInit {
       if (custs.length > 0) {
         this.selectedCustomerId = custs[0].id;
         this.customerName = custs[0].name;
-        this.customerGstin = custs[0].gstin || '29AAACI4321A1ZG';
+        this.customerGstin = custs[0].gstin || '';
         this.placeOfSupply = `${custs[0].state || 'Karnataka'} (${custs[0].stateCode || '29'})`;
         this.isInterState = (custs[0].stateCode || '29') !== '29';
       }

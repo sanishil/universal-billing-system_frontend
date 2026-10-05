@@ -1,7 +1,31 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { API_BASE_URL } from '../../../services/api.config';
+
+export interface SystemSettingsPayload {
+  currency: string;
+  taxRate: number;
+  taxLabel: string;
+  invoicePrefix: string;
+  invoiceStartNumber: number;
+  dueDays: number;
+  companyName: string;
+  companyEmail: string;
+  companyPhone: string;
+  companyAddress: string;
+  companyGstin: string;
+  companyWebsite: string;
+  dateFormat: string;
+  timeZone: string;
+  language: string;
+  emailOnPayment: boolean;
+  emailOnOverdue: boolean;
+  emailOnNewClient: boolean;
+  weeklyReport: boolean;
+}
 
 @Component({
   selector: 'app-system-settings',
@@ -10,58 +34,86 @@ import { RouterLink } from '@angular/router';
   templateUrl: './system-settings.html',
   styleUrl: './system-settings.css'
 })
-export class SystemSettingsComponent {
+export class SystemSettingsComponent implements OnInit {
+  private http = inject(HttpClient);
 
   // Billing & Tax
-  currency = 'INR';
-  taxRate = 18;
-  taxLabel = 'GST';
-  invoicePrefix = 'INV';
-  invoiceStartNumber = 1001;
-  dueDays = 30;
+  currency = '';
+  taxRate = 0;
+  taxLabel = '';
+  invoicePrefix = '';
+  invoiceStartNumber = 0;
+  dueDays = 0;
 
   // Company
-  companyName = 'Universal Billing Pvt. Ltd.';
-  companyEmail = 'billing@universalbilling.in';
-  companyPhone = '+91 98765 43210';
-  companyAddress = '12, Tech Park, Pune, Maharashtra - 411014';
-  companyGstin = '27AABCU9603R1ZX';
-  companyWebsite = 'https://universalbilling.in';
+  companyName = '';
+  companyEmail = '';
+  companyPhone = '';
+  companyAddress = '';
+  companyGstin = '';
+  companyWebsite = '';
 
   // Appearance & Regional
-  dateFormat = 'DD/MM/YYYY';
-  timeZone = 'Asia/Kolkata';
-  language = 'en';
+  dateFormat = '';
+  timeZone = '';
+  language = '';
 
   // Notifications
-  emailOnPayment = true;
-  emailOnOverdue = true;
+  emailOnPayment = false;
+  emailOnOverdue = false;
   emailOnNewClient = false;
-  weeklyReport = true;
+  weeklyReport = false;
+
+  ngOnInit() {
+    this.http.get<SystemSettingsPayload>(`${API_BASE_URL}/settings/system`).subscribe(s => {
+      this.currency = s.currency;
+      this.taxRate = s.taxRate;
+      this.taxLabel = s.taxLabel;
+      this.invoicePrefix = s.invoicePrefix;
+      this.invoiceStartNumber = s.invoiceStartNumber;
+      this.dueDays = s.dueDays;
+      this.companyName = s.companyName;
+      this.companyEmail = s.companyEmail;
+      this.companyPhone = s.companyPhone;
+      this.companyAddress = s.companyAddress;
+      this.companyGstin = s.companyGstin;
+      this.companyWebsite = s.companyWebsite;
+      this.dateFormat = s.dateFormat;
+      this.timeZone = s.timeZone;
+      this.language = s.language;
+      this.emailOnPayment = s.emailOnPayment;
+      this.emailOnOverdue = s.emailOnOverdue;
+      this.emailOnNewClient = s.emailOnNewClient;
+      this.weeklyReport = s.weeklyReport;
+    });
+  }
 
   saveSettings() {
-    console.log('System settings saved');
+    const payload: SystemSettingsPayload = {
+      currency: this.currency,
+      taxRate: this.taxRate,
+      taxLabel: this.taxLabel,
+      invoicePrefix: this.invoicePrefix,
+      invoiceStartNumber: this.invoiceStartNumber,
+      dueDays: this.dueDays,
+      companyName: this.companyName,
+      companyEmail: this.companyEmail,
+      companyPhone: this.companyPhone,
+      companyAddress: this.companyAddress,
+      companyGstin: this.companyGstin,
+      companyWebsite: this.companyWebsite,
+      dateFormat: this.dateFormat,
+      timeZone: this.timeZone,
+      language: this.language,
+      emailOnPayment: this.emailOnPayment,
+      emailOnOverdue: this.emailOnOverdue,
+      emailOnNewClient: this.emailOnNewClient,
+      weeklyReport: this.weeklyReport
+    };
+    this.http.put<SystemSettingsPayload>(`${API_BASE_URL}/settings/system`, payload).subscribe();
   }
 
   resetSettings() {
-    this.currency = 'INR';
-    this.taxRate = 18;
-    this.taxLabel = 'GST';
-    this.invoicePrefix = 'INV';
-    this.invoiceStartNumber = 1001;
-    this.dueDays = 30;
-    this.companyName = 'Universal Billing Pvt. Ltd.';
-    this.companyEmail = 'billing@universalbilling.in';
-    this.companyPhone = '+91 98765 43210';
-    this.companyAddress = '12, Tech Park, Pune, Maharashtra - 411014';
-    this.companyGstin = '27AABCU9603R1ZX';
-    this.companyWebsite = 'https://universalbilling.in';
-    this.dateFormat = 'DD/MM/YYYY';
-    this.timeZone = 'Asia/Kolkata';
-    this.language = 'en';
-    this.emailOnPayment = true;
-    this.emailOnOverdue = true;
-    this.emailOnNewClient = false;
-    this.weeklyReport = true;
+    this.ngOnInit();
   }
 }

@@ -1,12 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BillService } from '../../../services/bill.service';
+import { BillService, BillStats } from '../../../services/bill.service';
 import { CustomerService } from '../../../services/customer.service';
 import { PaymentService } from '../../../services/payment.service';
 import { Bill } from '../../../models/bill';
 import { Customer } from '../../../models/customer';
 import { Payment } from '../../../models/payment';
+
+export interface MonthlyPerformance {
+  month: string;
+  amount: string;
+  heightPercent: number;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -23,23 +29,15 @@ export class DashboardComponent implements OnInit {
   bills: Bill[] = [];
   customers: Customer[] = [];
   recentPayments: Payment[] = [];
+  monthlyPerformance: MonthlyPerformance[] = [];
 
-  stats = {
+  stats: BillStats = {
     totalRevenue: 0,
     paidCount: 0,
     pendingCount: 0,
     overdueCount: 0,
     totalCount: 0
   };
-
-  monthlyPerformance = [
-    { month: 'Apr', amount: '₹3,80,000', heightPercent: 42 },
-    { month: 'May', amount: '₹5,40,000', heightPercent: 60 },
-    { month: 'Jun', amount: '₹6,90,000', heightPercent: 75 },
-    { month: 'Jul', amount: '₹4,20,000', heightPercent: 48 },
-    { month: 'Aug', amount: '₹7,80,000', heightPercent: 86 },
-    { month: 'Sep', amount: '₹9,28,700', heightPercent: 100 }
-  ];
 
   ngOnInit() {
     this.billService.getBills().subscribe(bills => {
