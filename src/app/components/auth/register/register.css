@@ -273,3 +273,25 @@
   justify-content: center;
   margin: 4px 0;
 }
+
+/* Captcha refresh button */
+.yono-captcha-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 3px 10px;
+  background: transparent;
+  border: 1px solid #5aaad0;
+  border-radius: 9999px;
+  color: #0077b6;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.yono-captcha-refresh-btn:hover {
+  background: rgba(0, 119, 182, 0.08);
+  border-color: #0077b6;
+}

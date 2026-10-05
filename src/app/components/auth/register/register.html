@@ -61,8 +61,12 @@
             <!-- Google reCAPTCHA v2 -->
             <div class="yono-recaptcha-wrap">
               <re-captcha
+                #captchaRef
                 (resolved)="onCaptchaResolved($event)">
               </re-captcha>
+              <button type="button" class="yono-captcha-refresh-btn" (click)="resetCaptcha()" title="Refresh Captcha">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+              </button>
             </div>
 
             <!-- Submit Button -->

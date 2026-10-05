@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
 import { AuthService } from '../../../services/auth.service';
 import { environment } from '../../../../environments/environment';
 import { finalize } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
+
+  @ViewChild('captchaRef') captchaRef!: RecaptchaComponent;
 
   siteKey = environment.recaptchaSiteKey;
 
@@ -48,6 +50,11 @@ export class LoginComponent implements OnInit {
 
   onCaptchaResolved(token: string | null): void {
     this.loginForm.patchValue({ captchaToken: token });
+  }
+
+  resetCaptcha(): void {
+    this.captchaRef?.reset();
+    this.loginForm.patchValue({ captchaToken: null });
   }
 
   onLogin(): void {

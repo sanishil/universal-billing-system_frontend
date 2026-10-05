@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
 import { AuthService } from '../../../services/auth.service';
 import { finalize } from 'rxjs/operators';
 
@@ -26,6 +26,8 @@ export class RegisterComponent {
     captchaToken: [null, Validators.required]
   });
 
+  @ViewChild('captchaRef') captchaRef!: RecaptchaComponent;
+
   isLoading = false;
   errorMessage = '';
 
@@ -37,6 +39,11 @@ export class RegisterComponent {
 
   onCaptchaResolved(token: string | null): void {
     this.registerForm.patchValue({ captchaToken: token });
+  }
+
+  resetCaptcha(): void {
+    this.captchaRef?.reset();
+    this.registerForm.patchValue({ captchaToken: null });
   }
 
   onRegister() {
