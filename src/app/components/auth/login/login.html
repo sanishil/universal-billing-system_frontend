@@ -6,42 +6,38 @@
       <!-- LOGIN CARD -->
       <div class="yono-right-col">
         <div class="yono-login-card">
+
           <!-- Card Tab Header -->
           <div class="yono-card-tab">
             <span class="yono-tab-text">Username / Password</span>
           </div>
 
-          <!-- Alert message if any -->
+          <!-- Error Banner -->
           <div *ngIf="errorMessage" class="yono-error-banner">
             <i class="bi bi-exclamation-circle-fill"></i>
             <span>{{ errorMessage }}</span>
           </div>
 
-          <form (ngSubmit)="onLogin()" class="yono-form" autocomplete="off">
-            <!-- Username Underline Input -->
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="yono-form" autocomplete="off">
+
+            <!-- Username -->
             <div class="yono-field-wrap">
               <input
                 type="text"
-                [(ngModel)]="username"
-                name="username"
+                formControlName="username"
                 class="yono-underline-input"
                 placeholder="Username or Email"
-                (focus)="activeInputField = 'username'"
-                required
               />
             </div>
 
-            <!-- Password Underline Input -->
+            <!-- Password -->
             <div class="yono-field-wrap">
               <div class="yono-password-input-group">
                 <input
                   [type]="showPassword ? 'text' : 'password'"
-                  [(ngModel)]="password"
-                  name="password"
+                  formControlName="password"
                   class="yono-underline-input"
                   placeholder="Password"
-                  (focus)="activeInputField = 'password'"
-                  required
                 />
                 <div class="yono-field-tools">
                   <button
@@ -55,66 +51,25 @@
                 </div>
               </div>
               <div class="yono-link-row">
-                <a
-                  href="javascript:void(0)"
-                  (click)="openModal('forgotPassword')"
-                  class="yono-sub-link"
-                >
+                <a href="javascript:void(0)" (click)="openModal('forgotPassword')" class="yono-sub-link">
                   Forgot Password?
                 </a>
               </div>
             </div>
 
-            <!-- Captcha Input & Authentic Security Widget -->
-            <div class="yono-captcha-container">
-              <div class="yono-captcha-input-box">
-                <input
-                  type="text"
-                  name="captchaInput"
-                  class="yono-underline-input"
-                  placeholder="Enter Captcha"
-                  (focus)="activeInputField = 'captcha'"
-                  required
-                />
-              </div>
-
-              <div class="yono-captcha-display-cluster">
-                <!-- Distorted Captcha Box -->
-                <div class="yono-captcha-card">
-                  <div class="yono-captcha-bg-noise"></div>
-                  <span class="yono-captcha-code-text">{{ captchaCode }}</span>
-                  <div class="yono-captcha-strike"></div>
-                </div>
-
-                <!-- Action Controls (Speaker Audio & Refresh) -->
-                <div class="yono-captcha-actions">
-                  <button
-                    type="button"
-                    class="yono-captcha-icon-btn"
-                    (click)="playCaptchaAudio()"
-                    title="Audio Captcha: Listen"
-                  >
-                    <i class="bi bi-volume-up"></i>
-                  </button>
-                  <button
-                    type="button"
-                    class="yono-captcha-icon-btn"
-                    (click)="generateCaptcha()"
-                    title="Refresh Captcha"
-                  >
-                    <i class="bi bi-arrow-clockwise"></i>
-                  </button>
-                </div>
-              </div>
+            <!-- Google reCAPTCHA v2 -->
+            <div class="yono-recaptcha-wrap">
+              <re-captcha
+                (resolved)="onCaptchaResolved($event)">
+              </re-captcha>
             </div>
 
-            <!-- Login Pill Button -->
+            <!-- Login Button -->
             <div class="yono-submit-box">
               <button type="submit" class="yono-login-submit-btn" [disabled]="isLoading">
                 <span *ngIf="!isLoading"><i class="fa-solid fa-right-to-bracket"></i> Login</span>
                 <span *ngIf="isLoading" class="yono-spinner-wrap">
                   <span class="spinner-border spinner-border-sm" role="status"></span>
-                  Authenticating...
                 </span>
               </button>
             </div>
@@ -124,20 +79,18 @@
               <span>Don't have an account?</span>
               <a routerLink="/register" class="yono-register-link">Register Now</a>
             </div>
+
           </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- INTERACTIVE ASSISTANCE MODAL DIALOG -->
+  <!-- FORGOT PASSWORD MODAL -->
   <div *ngIf="activeModal" class="yono-modal-backdrop" (click)="closeModal()">
     <div class="yono-modal-card" (click)="$event.stopPropagation()">
       <div class="yono-modal-header">
-        <h3 class="yono-modal-title">
-
-          <span *ngIf="activeModal === 'forgotPassword'">Reset Security Password</span>
-        </h3>
+        <h3 class="yono-modal-title">Reset Security Password</h3>
         <button type="button" class="yono-modal-close" (click)="closeModal()">
           <i class="bi bi-x-lg"></i>
         </button>
@@ -150,9 +103,7 @@
         </div>
 
         <p *ngIf="!modalSuccessMsg" class="yono-modal-desc">
-          <span *ngIf="activeModal === 'forgotPassword'">
-            Provide your user ID or work email. A temporary secure reset token will be dispatched:
-          </span>
+          Provide your user ID or work email. A temporary secure reset token will be dispatched.
         </p>
 
         <div *ngIf="!modalSuccessMsg" class="yono-modal-form">
@@ -161,7 +112,8 @@
             <input
               type="text"
               [(ngModel)]="modalEmail"
-              placeholder="e.g. alex.vance@universalbilling.io"
+              name="modalEmail"
+              placeholder="e.g. alex@universalbilling.io"
               class="yono-underline-input"
             />
           </div>
@@ -172,4 +124,5 @@
       </div>
     </div>
   </div>
+
 </div>

@@ -266,3 +266,10 @@
     padding: 24px 20px;
   }
 }
+
+/* reCAPTCHA widget */
+.yono-recaptcha-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
+}

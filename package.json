@@ -8,7 +8,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  
   "private": true,
   "packageManager": "npm@12.0.2",
   "dependencies": {
@@ -21,6 +20,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "ng-recaptcha": "^13.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

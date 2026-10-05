@@ -41,8 +41,8 @@ export class AuthService {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
-  login(email: string, password: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { email, password }).pipe(
+  login(email: string, password: string, captchaToken: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { username: email, password, captchaToken }).pipe(
       tap((res: LoginResponse) => {
         sessionStorage.setItem(TOKEN_KEY, res.token);
         sessionStorage.setItem(SESSION_KEY, JSON.stringify(res.user));
@@ -51,7 +51,7 @@ export class AuthService {
     );
   }
 
-  register(payload: { name: string; company: string; email: string; password: string }): Observable<unknown> {
+  register(payload: { name: string; company: string; email: string; password: string; captchaToken: string }): Observable<unknown> {
     return this.http.post(`${API_BASE_URL}/auth/register`, payload);
   }
 

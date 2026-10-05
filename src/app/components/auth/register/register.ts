@@ -1,47 +1,92 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { RecaptchaModule } from 'ng-recaptcha';
 import { AuthService } from '../../../services/auth.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RecaptchaModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
 
-  name = '';
-  email = '';
-  company = '';
-  password = '';
+  registerForm: FormGroup = this.fb.group({
+    name:         ['', Validators.required],
+    company:      [''],
+    email:        ['', [Validators.required, Validators.email]],
+    password:     ['', Validators.required],
+    captchaToken: [null, Validators.required]
+  });
+
   isLoading = false;
   errorMessage = '';
-  successMessage = '';
+
+  get name()         { return this.registerForm.get('name')!; }
+  get company()      { return this.registerForm.get('company')!; }
+  get email()        { return this.registerForm.get('email')!; }
+  get password()     { return this.registerForm.get('password')!; }
+  get captchaToken() { return this.registerForm.get('captchaToken')!; }
+
+  onCaptchaResolved(token: string | null): void {
+    this.registerForm.patchValue({ captchaToken: token });
+  }
 
   onRegister() {
-    this.isLoading = true;
+    // Prevent duplicate submissions
+    if (this.isLoading) return;
+
     this.errorMessage = '';
-    this.successMessage = '';
+
+    if (!this.name.value?.trim()) {
+      this.errorMessage = 'Please enter your full name.';
+      return;
+    }
+    if (!this.email.value?.trim()) {
+      this.errorMessage = 'Please enter your work email.';
+      return;
+    }
+    if (!this.password.value?.trim()) {
+      this.errorMessage = 'Please enter a password.';
+      return;
+    }
+    if (!this.captchaToken.value) {
+      this.errorMessage = 'Please complete the reCAPTCHA verification.';
+      return;
+    }
+
+    this.isLoading = true;
 
     this.authService.register({
-      name: this.name,
-      company: this.company,
-      email: this.email,
-      password: this.password
-    }).subscribe({
+      name:         this.name.value.trim(),
+      company:      this.company.value?.trim() || '',
+      email:        this.email.value.trim(),
+      password:     this.password.value,
+      captchaToken: this.captchaToken.value
+    })
+    .pipe(finalize(() => { this.isLoading = false; }))
+    .subscribe({
       next: () => {
-        this.isLoading = false;
-        this.password = '';
-        this.successMessage = 'Account created. You can now sign in.';
+        this.registerForm.patchValue({ captchaToken: null });
+        alert('Account created successfully! Click OK to sign in.');
+        this.router.navigate(['/login']);
       },
-      error: () => {
-        this.isLoading = false;
-        this.errorMessage = 'Registration failed. Check your details and try again.';
+      error: (err) => {
+        this.registerForm.patchValue({ captchaToken: null });
+        const body = err?.error;
+        this.errorMessage =
+          (typeof body === 'string' && body.trim()) ||
+          body?.message ||
+          body?.error ||
+          body?.detail ||
+          'Registration failed. Please check your details and try again.';
       }
     });
   }
