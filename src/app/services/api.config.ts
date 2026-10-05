@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://decorator-cursor-keep.ngrok-free.dev/api';
+export const API_BASE_URL = 'http://localhost:8080/api';
