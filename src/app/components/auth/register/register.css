@@ -24,7 +24,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #0077b6;
   background-image: url('/background.png');
   background-size: cover;
@@ -48,7 +48,7 @@
   padding: 40px 96px 40px 48px;
   flex: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
 }
 
@@ -105,20 +105,7 @@
   box-shadow: 0 2px 10px rgba(0, 80, 140, 0.28);
 }
 
-/* Alert banners */
-.yono-error-banner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background-color: #fff0f0;
-  border: 1px solid #fca5a5;
-  color: #c0392b;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
+/* Alert banners — removed, replaced by toast notification */
 
 .yono-success-banner {
   display: flex;
@@ -247,80 +234,76 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE
+   RESPONSIVE -- full mobile coverage
    ========================================================================== */
 
+/* Tablet */
 @media (max-width: 992px) {
   .yono-content-container {
     justify-content: center;
-    padding: 32px 24px 24px 24px;
+    padding: 40px 24px;
+    align-items: flex-start;
+  }
+  .yono-grid {
+    max-width: 100%;
   }
 }
 
-@media (max-width: 576px) {
+/* Large phone */
+@media (max-width: 640px) {
+  .yono-page-wrapper {
+    background-attachment: scroll;
+    justify-content: flex-start;
+  }
   .yono-content-container {
-    padding: 28px 16px 24px 16px;
+    padding: 32px 16px;
+    align-items: flex-start;
+    box-sizing: border-box;
   }
-
+  .yono-grid {
+    max-width: 100%;
+    width: 100%;
+  }
   .yono-register-card {
-    padding: 24px 20px;
+    padding: 28px 20px 24px;
+    border-radius: 16px;
+  }
+  .yono-tab-text {
+    font-size: 0.95rem;
+    padding: 7px 18px;
+  }
+  .yono-underline-input {
+    font-size: 0.95rem !important;
+  }
+  .yono-register-submit-btn {
+    font-size: 0.975rem !important;
+    height: 44px !important;
+  }
+  .yono-captcha-scaler {
+    height: 74px;
+  }
+  .yono-captcha-scaler re-captcha {
+    transform: scale(1);
+  }
+  .yono-toast {
+    right: 12px;
+    top: 12px;
+    min-width: unset;
+    max-width: calc(100vw - 24px);
+    width: calc(100vw - 24px);
   }
 }
 
-/* reCAPTCHA widget — scaled to match input width */
-.yono-recaptcha-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 4px 0;
+/* Small phone */
+@media (max-width: 400px) {
+  .yono-content-container {
+    padding: 24px 12px;
+  }
+  .yono-register-card {
+    padding: 22px 16px 20px;
+  }
+  .yono-form {
+    gap: 16px;
+  }
 }
 
-/*
- * The reCAPTCHA iframe is always rendered at 300px × 74px.
- * We scale it up to fill the card's content width (~344px).
- * scale factor = 344 / 300 ≈ 1.147
- * Scaled height = 74 × 1.147 ≈ 85px
- */
-.yono-captcha-scaler {
-  width: 100%;
-  height: 85px;
-  overflow: hidden;
-  border-radius: 6px;
-  border: 1.8px solid #5aaad0;
-  background: #ffffff;
-  box-sizing: border-box;
-}
-
-.yono-captcha-scaler re-captcha {
-  display: block;
-  transform: scale(1.147);
-  transform-origin: top left;
-}
-
-.yono-captcha-refresh-row {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 6px;
-}
-
-/* Captcha refresh button */
-.yono-captcha-refresh-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 10px;
-  background: transparent;
-  border: 1px solid #5aaad0;
-  border-radius: 4px;
-  color: #0077b6;
-  font-size: 0.72rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.yono-captcha-refresh-btn:hover {
-  background: rgba(0, 119, 182, 0.08);
-  border-color: #0077b6;
-}

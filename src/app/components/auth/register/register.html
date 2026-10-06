@@ -1,5 +1,19 @@
 <div class="yono-page-wrapper">
 
+  <!-- Toast Flash Notification -->
+  <div
+    *ngIf="toastVisible"
+    class="yono-toast"
+    [class.yono-toast--exit]="toastExiting"
+    role="alert"
+    aria-live="assertive">
+    <i class="bi bi-exclamation-circle-fill yono-toast__icon"></i>
+    <span class="yono-toast__msg">{{ toastMessage }}</span>
+    <button type="button" class="yono-toast__close" (click)="dismissToast()" aria-label="Dismiss">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
   <div class="yono-content-container">
     <div class="yono-grid">
       <div class="yono-right-col">
@@ -12,12 +26,6 @@
 
           <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
 
-            <!-- Error Banner -->
-            <div *ngIf="errorMessage" class="yono-error-banner">
-              <i class="bi bi-exclamation-circle-fill"></i>
-              <span>{{ errorMessage }}</span>
-            </div>
-
             <!-- Full Name -->
             <div class="yono-field-wrap">
               <input
@@ -25,6 +33,7 @@
                 type="text"
                 class="yono-underline-input"
                 placeholder="Full Name"
+                (input)="dismissToast()"
               />
             </div>
 
@@ -45,6 +54,7 @@
                 type="email"
                 class="yono-underline-input"
                 placeholder="Work Email Address"
+                (input)="dismissToast()"
               />
             </div>
 
@@ -55,6 +65,7 @@
                 type="password"
                 class="yono-underline-input"
                 placeholder="Security Password"
+                (input)="dismissToast()"
               />
             </div>
 

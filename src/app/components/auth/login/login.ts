@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -14,7 +14,7 @@ import { finalize } from 'rxjs/operators';
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
@@ -31,7 +31,13 @@ export class LoginComponent implements OnInit {
 
   showPassword = false;
   isLoading = false;
-  errorMessage = '';
+
+  // Toast flash notification
+  toastMessage = '';
+  toastVisible = false;
+  toastExiting = false;
+  private toastTimer: ReturnType<typeof setTimeout> | null = null;
+  private toastExitTimer: ReturnType<typeof setTimeout> | null = null;
 
   // Modal
   activeModal: 'forgotPassword' | null = null;
@@ -40,9 +46,44 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    if (this.toastExitTimer) clearTimeout(this.toastExitTimer);
+  }
+
   get username() { return this.loginForm.get('username')!; }
   get password() { return this.loginForm.get('password')!; }
   get captchaToken() { return this.loginForm.get('captchaToken')!; }
+
+  /** Show a toast that slides in, stays for 4 s, then fades out */
+  showToast(message: string): void {
+    // Clear any existing timers so rapid errors don't overlap
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    if (this.toastExitTimer) clearTimeout(this.toastExitTimer);
+
+    this.toastMessage = message;
+    this.toastExiting = false;
+    this.toastVisible = true;
+
+    // Start exit animation after 4 s
+    this.toastTimer = setTimeout(() => {
+      this.toastExiting = true;
+      // Remove from DOM after exit animation (300 ms)
+      this.toastExitTimer = setTimeout(() => {
+        this.toastVisible = false;
+        this.toastExiting = false;
+      }, 350);
+    }, 4000);
+  }
+
+  dismissToast(): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.toastExiting = true;
+    this.toastExitTimer = setTimeout(() => {
+      this.toastVisible = false;
+      this.toastExiting = false;
+    }, 350);
+  }
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -58,19 +99,17 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    this.errorMessage = '';
-
     if (this.loginForm.invalid) {
       if (!this.username.value?.trim()) {
-        this.errorMessage = 'Please enter your username or work email.';
+        this.showToast('Please enter your username or work email.');
         return;
       }
       if (!this.password.value?.trim()) {
-        this.errorMessage = 'Please enter your password.';
+        this.showToast('Please enter your password.');
         return;
       }
       if (!this.captchaToken.value) {
-        this.errorMessage = 'Please complete the reCAPTCHA verification.';
+        this.showToast('Please complete the reCAPTCHA verification.');
         return;
       }
       return;
@@ -89,16 +128,17 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        // Reset captcha on error
+        this.captchaRef?.reset();
         this.loginForm.patchValue({ captchaToken: null });
-        const body = err?.error;
-        this.errorMessage =
-          (typeof body === 'string' && body.trim()) ||
-          body?.message ||
-          body?.error ||
-          body?.detail ||
-          err?.message ||
-          'Login failed. Please try again.';
+
+        // Read message directly from backend response
+        // 400 / 409  → err.error.message
+        // 422        → err.error.errors[0].message
+        const msg =
+          err.error?.message ||
+          err.error?.errors?.[0]?.message ||
+          'Something went wrong. Please try again.';
+        this.showToast(msg);
       }
     });
   }

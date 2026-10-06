@@ -1,5 +1,19 @@
 <div class="yono-page-wrapper">
 
+  <!-- Toast Flash Notification -->
+  <div
+    *ngIf="toastVisible"
+    class="yono-toast"
+    [class.yono-toast--exit]="toastExiting"
+    role="alert"
+    aria-live="assertive">
+    <i class="bi bi-exclamation-circle-fill yono-toast__icon"></i>
+    <span class="yono-toast__msg">{{ toastMessage }}</span>
+    <button type="button" class="yono-toast__close" (click)="dismissToast()" aria-label="Dismiss">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
   <div class="yono-content-container">
     <div class="yono-grid">
 
@@ -9,13 +23,7 @@
 
           <!-- Card Tab Header -->
           <div class="yono-card-tab">
-            <span class="yono-tab-text">Username / Password</span>
-          </div>
-
-          <!-- Error Banner -->
-          <div *ngIf="errorMessage" class="yono-error-banner">
-            <i class="bi bi-exclamation-circle-fill"></i>
-            <span>{{ errorMessage }}</span>
+            <span class="yono-tab-text">Login</span>
           </div>
 
           <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="yono-form" autocomplete="off">
@@ -27,6 +35,7 @@
                 formControlName="username"
                 class="yono-underline-input"
                 placeholder="Username or Email"
+                (input)="dismissToast()"
               />
             </div>
 
@@ -38,6 +47,7 @@
                   formControlName="password"
                   class="yono-underline-input"
                   placeholder="Password"
+                  (input)="dismissToast()"
                 />
                 <div class="yono-field-tools">
                   <button
