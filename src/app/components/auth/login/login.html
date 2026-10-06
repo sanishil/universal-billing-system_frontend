@@ -59,13 +59,17 @@
 
             <!-- Google reCAPTCHA v2 -->
             <div class="yono-recaptcha-wrap">
-              <re-captcha
-                #captchaRef
-                (resolved)="onCaptchaResolved($event)">
-              </re-captcha>
-              <button type="button" class="yono-captcha-refresh-btn" (click)="resetCaptcha()" title="Refresh Captcha">
-                <i class="bi bi-arrow-clockwise"></i> Refresh
-              </button>
+              <div class="yono-captcha-scaler">
+                <re-captcha
+                  #captchaRef
+                  (resolved)="onCaptchaResolved($event)">
+                </re-captcha>
+              </div>
+              <div class="yono-captcha-refresh-row">
+                <button type="button" class="yono-captcha-refresh-btn" (click)="resetCaptcha()" title="Refresh Captcha">
+                  <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+              </div>
             </div>
 
             <!-- Login Button -->

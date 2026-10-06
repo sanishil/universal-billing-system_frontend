@@ -219,13 +219,46 @@
 }
 
 /* ==========================================================================
-   reCAPTCHA WIDGET
+   reCAPTCHA WIDGET — scaled to match input width
    ========================================================================== */
 
 .yono-recaptcha-wrap {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 4px 0;
+}
+
+/*
+ * The reCAPTCHA iframe is always rendered at 300px × 74px.
+ * We scale it up to fill the card's content width (~344px).
+ * scale factor = 344 / 300 ≈ 1.147
+ * Scaled height = 74 × 1.147 ≈ 85px  → set as the container height.
+ *
+ * transform-origin: top left so the widget grows right & down,
+ * then overflow:hidden clips any edge bleed.
+ */
+.yono-captcha-scaler {
+  width: 100%;
+  height: 85px;           /* 74px × 1.147 */
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1.8px solid #5aaad0;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.yono-captcha-scaler re-captcha {
+  display: block;
+  transform: scale(1.147);
+  transform-origin: top left;
+}
+
+.yono-captcha-refresh-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
 }
 
 /* ==========================================================================
@@ -430,11 +463,10 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: 6px;
   padding: 3px 10px;
   background: transparent;
   border: 1px solid #5aaad0;
-  border-radius: 9999px;
+  border-radius: 4px;
   color: #0077b6;
   font-size: 0.72rem;
   font-weight: 600;
