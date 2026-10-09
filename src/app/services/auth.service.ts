@@ -51,7 +51,7 @@ export class AuthService {
     );
   }
 
-  register(payload: { name: string; company: string; email: string; password: string; captchaToken: string }): Observable<unknown> {
+  register(payload: { name: string; phone: string; email: string; captchaToken: string }): Observable<unknown> {
     return this.http.post(`${API_BASE_URL}/auth/register`, payload);
   }
 

@@ -48,7 +48,7 @@
   padding: 40px 96px 40px 48px;
   flex: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-end;
 }
 
@@ -106,6 +106,94 @@
 }
 
 /* Alert banners — removed, replaced by toast notification */
+
+/* ==========================================================================
+   TOAST FLASH NOTIFICATION
+   ========================================================================== */
+
+@keyframes yono-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes yono-toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.97);
+  }
+}
+
+.yono-toast {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 99999;
+  min-width: 300px;
+  max-width: 440px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px 13px 16px;
+  background: rgba(0, 60, 120, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-left: 4px solid #f5a623;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 40, 100, 0.40), 0 2px 8px rgba(0, 0, 0, 0.18);
+  animation: yono-toast-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.yono-toast.yono-toast--exit {
+  animation: yono-toast-out 0.30s ease-in both;
+}
+
+.yono-toast__icon {
+  font-size: 1.15rem;
+  color: #f5a623;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.yono-toast__msg {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #e0f4fc;
+  line-height: 1.4;
+}
+
+.yono-toast__close {
+  background: none;
+  border: none;
+  color: rgba(224, 244, 252, 0.65);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+  line-height: 1;
+}
+
+.yono-toast__close:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
 
 .yono-success-banner {
   display: flex;
@@ -242,7 +330,7 @@
   .yono-content-container {
     justify-content: center;
     padding: 40px 24px;
-    align-items: flex-start;
+    align-items: center;
   }
   .yono-grid {
     max-width: 100%;
@@ -257,7 +345,7 @@
   }
   .yono-content-container {
     padding: 32px 16px;
-    align-items: flex-start;
+    align-items: center;
     box-sizing: border-box;
   }
   .yono-grid {

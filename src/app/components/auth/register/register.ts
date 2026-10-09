@@ -23,9 +23,9 @@ export class RegisterComponent implements OnDestroy {
 
   registerForm: FormGroup = this.fb.group({
     name:         ['', Validators.required],
-    company:      [''],
+    // company:      [''],
     email:        ['', [Validators.required, Validators.email]],
-    password:     ['', Validators.required],
+    phone:     ['', Validators.required],
     captchaToken: [null, Validators.required]
   });
 
@@ -46,9 +46,10 @@ export class RegisterComponent implements OnDestroy {
   }
 
   get name()         { return this.registerForm.get('name')!; }
-  get company()      { return this.registerForm.get('company')!; }
+  // get company()      { return this.registerForm.get('company')!; }
   get email()        { return this.registerForm.get('email')!; }
-  get password()     { return this.registerForm.get('password')!; }
+  // get password()     { return this.registerForm.get('password')!; }
+  get phone()     { return this.registerForm.get('phone')!; }
   get captchaToken() { return this.registerForm.get('captchaToken')!; }
 
   /** Show a toast that slides in, stays for 4 s, then fades out */
@@ -98,8 +99,8 @@ export class RegisterComponent implements OnDestroy {
       this.showToast('Please enter your work email.');
       return;
     }
-    if (!this.password.value?.trim()) {
-      this.showToast('Please enter a password.');
+    if (!this.phone.value?.trim()) {
+      this.showToast('Please enter your phone number.');
       return;
     }
     if (!this.captchaToken.value) {
@@ -111,9 +112,9 @@ export class RegisterComponent implements OnDestroy {
 
     this.authService.register({
       name:         this.name.value.trim(),
-      company:      this.company.value?.trim() || '',
+      // company:      this.company.value?.trim() || '',
       email:        this.email.value.trim(),
-      password:     this.password.value,
+      phone:        this.phone.value.trim(),
       captchaToken: this.captchaToken.value
     })
     .pipe(finalize(() => { this.isLoading = false; }))
