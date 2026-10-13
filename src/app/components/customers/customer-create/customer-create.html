@@ -1,3 +1,4 @@
+
 <div class="ubs-form-container">
   <div class="ubs-form-header">
     <div>
@@ -11,8 +12,11 @@
     </div>
     <div class="ubs-form-actions">
       <a routerLink="/customers" class="ubs-btn-secondary">Cancel</a>
-      <button (click)="saveCustomer()" class="ubs-btn-primary">
-        <span>Save Customer Profile</span>
+      <button (click)="saveCustomer()" class="ubs-btn-primary" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Save Customer Profile</span>
+        <span *ngIf="isLoading" class="ubs-saving-spinner">
+          <span class="ubs-spinner"></span> Saving...
+        </span>
       </button>
     </div>
   </div>
@@ -90,15 +94,15 @@
 
         <div class="ubs-form-group">
           <label class="ubs-label">State / Union Territory</label>
-          <select [(ngModel)]="customer.state" name="state" class="ubs-select">
-            <option value="Karnataka">Karnataka (Code: 29)</option>
-            <option value="Maharashtra">Maharashtra (Code: 27)</option>
-            <option value="Delhi">Delhi (Code: 07)</option>
-            <option value="Haryana">Haryana (Code: 06)</option>
-            <option value="Tamil Nadu">Tamil Nadu (Code: 33)</option>
-            <option value="Telangana">Telangana (Code: 36)</option>
-            <option value="Gujarat">Gujarat (Code: 24)</option>
-            <option value="West Bengal">West Bengal (Code: 19)</option>
+          <select
+            [(ngModel)]="customer.state"
+            name="state"
+            class="ubs-select"
+            (ngModelChange)="onStateChange($event)"
+          >
+            <option *ngFor="let s of states" [value]="s.name">
+              {{ s.name }} (Code: {{ s.code }})
+            </option>
           </select>
         </div>
       </div>

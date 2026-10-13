@@ -1,10 +1,12 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { API_BASE_URL } from '../services/api.config';
 
 /**
- * Attaches Authorization token on every outgoing API request.
+ * Attaches Authorization JWT token on every outgoing API request.
+ * Guards only requests that target our own backend (API_BASE_URL).
  */
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
-  if (!req.url.startsWith('http://localhost:8080/api')) {
+  if (!req.url.startsWith(API_BASE_URL)) {
     return next(req);
   }
 

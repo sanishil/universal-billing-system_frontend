@@ -9,6 +9,7 @@ import { SidebarComponent } from './components/layout/sidebar/sidebar';
 import { FooterComponent } from './components/layout/footer/footer';
 import { LayoutService } from './services/layout.service';
 import { AuthService } from './services/auth.service';
+import { ToastComponent } from './components/shared/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,8 @@ import { AuthService } from './services/auth.service';
     NgClass,
     HeaderComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    ToastComponent
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
