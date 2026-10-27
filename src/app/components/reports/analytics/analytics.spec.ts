@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Analytics } from './analytics';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { AnalyticsComponent } from './analytics';
 
-describe('Analytics', () => {
-  let component: Analytics;
-  let fixture: ComponentFixture<Analytics>;
+describe('AnalyticsComponent', () => {
+  let component: AnalyticsComponent;
+  let fixture: ComponentFixture<AnalyticsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Analytics],
+      imports: [AnalyticsComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Analytics);
+    fixture = TestBed.createComponent(AnalyticsComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

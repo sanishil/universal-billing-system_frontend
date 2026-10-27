@@ -3,9 +3,6 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Customers Directory</h1>
-      <!-- <p class="ubs-page-subtitle">
-        Manage client accounts, contact details, and associated invoicing activity
-      </p> -->
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/customers/create" class="ubs-btn-primary">
@@ -44,7 +41,7 @@
         type="text"
         [(ngModel)]="searchQuery"
         (ngModelChange)="applyFilter()"
-        placeholder="Search by client name, email, or company..."
+        placeholder="Search by client name, email, phone, or company..."
         class="ubs-filter-input"
       />
     </div>
@@ -56,7 +53,32 @@
 
   <!-- Table Card -->
   <div class="ubs-card ubs-table-card">
-    <div class="ubs-table-wrap">
+
+    <!-- Loading state -->
+    <div *ngIf="isLoading" class="ubs-empty-state">
+      <div class="ubs-empty-box">
+        <p class="ubs-empty-title">Loading customers…</p>
+      </div>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="!isLoading && errorMessage" class="ubs-empty-state">
+      <div class="ubs-empty-box">
+        <p class="ubs-empty-title" style="color: var(--ubs-danger-text);">{{ errorMessage }}</p>
+        <button type="button" class="ubs-btn-secondary" (click)="loadCustomers()">Retry</button>
+      </div>
+    </div>
+
+    <!-- Data loaded but empty list -->
+    <div *ngIf="!isLoading && !errorMessage && allCustomers.length === 0" class="ubs-empty-state">
+      <div class="ubs-empty-box">
+        <p class="ubs-empty-title">No customers yet</p>
+        <p class="ubs-empty-desc">Click "Add Customer" to create your first client record.</p>
+      </div>
+    </div>
+
+    <!-- Table — only when we actually have data -->
+    <div class="ubs-table-wrap" *ngIf="!isLoading && !errorMessage && allCustomers.length > 0">
       <table class="ubs-table">
         <thead>
           <tr>
@@ -77,20 +99,20 @@
               </a>
             </td>
             <td>
-              <div class="flex flex-col">
-                <span class="ubs-company-text">{{ cust.company || 'Private Client' }}</span>
-                <!-- <span class="text-xs text-gray-500" *ngIf="cust.gstin">GSTIN: {{ cust.gstin }}</span> -->
-              </div>
+              <span class="ubs-company-text">{{ cust.company || 'Private Client' }}</span>
             </td>
             <td>
               <span class="ubs-email-text">{{ cust.email }}</span>
             </td>
             <td>{{ cust.phone }}</td>
             <td>
-              <span class="ubs-spent-amount">₹{{ cust.totalSpent || 0 | number: '1.2-2' }}</span>
+              <span class="ubs-spent-amount">₹{{ (cust.totalSpent || 0) | number: '1.2-2' }}</span>
             </td>
             <td>
-              <span class="ubs-badge ubs-badge-paid">ACTIVE</span>
+              <span
+                class="ubs-badge"
+                [ngClass]="cust.status === 'INACTIVE' ? 'ubs-badge-ash' : 'ubs-badge-paid'"
+              >{{ cust.status || 'ACTIVE' }}</span>
             </td>
             <td style="text-align: right">
               <div class="ubs-row-actions">
@@ -103,13 +125,16 @@
                 </a>
                 <a
                   routerLink="/bills/create"
+                  [queryParams]="{ customerId: cust.id }"
                   class="ubs-btn-table ubs-btn-blue"
                   title="Invoice Client"
                 >
                   + Bill
                 </a>
                 <button
+                  type="button"
                   (click)="deleteCustomer(cust.id)"
+                  [disabled]="deletingId === cust.id"
                   class="ubs-btn-table ubs-btn-del"
                   title="Delete"
                 >
@@ -119,11 +144,12 @@
             </td>
           </tr>
 
+          <!-- Search produced no matches, but data exists -->
           <tr *ngIf="filteredCustomers.length === 0">
             <td colspan="7" class="ubs-empty-state">
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No customers matched your search</p>
-                <p class="ubs-empty-desc">Check the spelling or add a new customer.</p>
+                <p class="ubs-empty-desc">Check the spelling or clear the search to see all {{ allCustomers.length }} customers.</p>
               </div>
             </td>
           </tr>

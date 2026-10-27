@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CustomerList } from './customer-list';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { CustomerListComponent } from './customer-list';
 
-describe('CustomerList', () => {
-  let component: CustomerList;
-  let fixture: ComponentFixture<CustomerList>;
+describe('CustomerListComponent', () => {
+  let component: CustomerListComponent;
+  let fixture: ComponentFixture<CustomerListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomerList],
+      imports: [CustomerListComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CustomerList);
+    fixture = TestBed.createComponent(CustomerListComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

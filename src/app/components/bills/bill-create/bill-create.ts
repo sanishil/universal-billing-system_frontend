@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
 import { CustomerService } from '../../../services/customer.service';
 import { BillItem } from '../../../models/bill';
@@ -18,6 +18,7 @@ export class BillCreateComponent implements OnInit {
   private billService = inject(BillService);
   private customerService = inject(CustomerService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   customers: Customer[] = [];
   customerName = '';
@@ -35,14 +36,13 @@ export class BillCreateComponent implements OnInit {
   ];
 
   ngOnInit() {
+    // "+ Bill" on the customer list passes ?customerId= to preselect that customer
+    const preselectId = this.route.snapshot.queryParamMap.get('customerId');
     this.customerService.getCustomers().subscribe(custs => {
       this.customers = custs;
-      if (custs.length > 0) {
-        this.selectedCustomerId = custs[0].id;
-        this.customerName = custs[0].name;
-        this.customerGstin = custs[0].gstin || '';
-        this.placeOfSupply = `${custs[0].state || 'Karnataka'} (${custs[0].stateCode || '29'})`;
-        this.isInterState = (custs[0].stateCode || '29') !== '29';
+      const initial = custs.find(c => c.id === preselectId) ?? custs[0];
+      if (initial) {
+        this.onCustomerSelect(initial.id);
       }
     });
   }

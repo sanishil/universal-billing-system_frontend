@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BillView } from './bill-view';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { BillViewComponent } from './bill-view';
 
-describe('BillView', () => {
-  let component: BillView;
-  let fixture: ComponentFixture<BillView>;
+describe('BillViewComponent', () => {
+  let component: BillViewComponent;
+  let fixture: ComponentFixture<BillViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BillView],
+      imports: [BillViewComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BillView);
+    fixture = TestBed.createComponent(BillViewComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,1 +1,3 @@
-export const API_BASE_URL = 'http://192.168.1.106:8080/api';
+import { environment } from '../../environments/environment';
+
+export const API_BASE_URL = environment.apiUrl;

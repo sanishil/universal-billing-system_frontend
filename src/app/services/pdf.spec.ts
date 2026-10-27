@@ -1,12 +1,16 @@
 import { TestBed } from '@angular/core/testing';
-import { Pdf } from './pdf';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { PdfService } from './pdf.service';
 
-describe('Pdf', () => {
-  let service: Pdf;
+describe('PdfService', () => {
+  let service: PdfService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Pdf);
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()]
+    });
+    service = TestBed.inject(PdfService);
   });
 
   it('should be created', () => {

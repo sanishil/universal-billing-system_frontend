@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PdfGenerator } from './pdf-generator';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { PdfGeneratorComponent } from './pdf-generator';
 
-describe('PdfGenerator', () => {
-  let component: PdfGenerator;
-  let fixture: ComponentFixture<PdfGenerator>;
+describe('PdfGeneratorComponent', () => {
+  let component: PdfGeneratorComponent;
+  let fixture: ComponentFixture<PdfGeneratorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PdfGenerator],
+      imports: [PdfGeneratorComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PdfGenerator);
+    fixture = TestBed.createComponent(PdfGeneratorComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

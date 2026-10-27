@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NotificationHistory } from './notification-history';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { NotificationHistoryComponent } from './notification-history';
 
-describe('NotificationHistory', () => {
-  let component: NotificationHistory;
-  let fixture: ComponentFixture<NotificationHistory>;
+describe('NotificationHistoryComponent', () => {
+  let component: NotificationHistoryComponent;
+  let fixture: ComponentFixture<NotificationHistoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotificationHistory],
+      imports: [NotificationHistoryComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NotificationHistory);
+    fixture = TestBed.createComponent(NotificationHistoryComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

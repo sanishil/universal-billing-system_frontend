@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NotificationSettings } from './notification-settings';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { NotificationSettingsComponent } from './notification-settings';
 
-describe('NotificationSettings', () => {
-  let component: NotificationSettings;
-  let fixture: ComponentFixture<NotificationSettings>;
+describe('NotificationSettingsComponent', () => {
+  let component: NotificationSettingsComponent;
+  let fixture: ComponentFixture<NotificationSettingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotificationSettings],
+      imports: [NotificationSettingsComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(NotificationSettings);
+    fixture = TestBed.createComponent(NotificationSettingsComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

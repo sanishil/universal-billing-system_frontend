@@ -1,16 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PaymentProcess } from './payment-process';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { PaymentProcessComponent } from './payment-process';
 
-describe('PaymentProcess', () => {
-  let component: PaymentProcess;
-  let fixture: ComponentFixture<PaymentProcess>;
+describe('PaymentProcessComponent', () => {
+  let component: PaymentProcessComponent;
+  let fixture: ComponentFixture<PaymentProcessComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaymentProcess],
+      imports: [PaymentProcessComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: RECAPTCHA_SETTINGS, useValue: { siteKey: 'test-site-key' } }
+      ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PaymentProcess);
+    fixture = TestBed.createComponent(PaymentProcessComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
