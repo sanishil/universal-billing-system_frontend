@@ -7,7 +7,7 @@
       <p class="ubs-page-subtitle">Generate permanent public links for clients to view and pay bills online</p>
     </div>
     <div class="ubs-page-actions">
-      <button class="ubs-btn-primary" (click)="generateNewLink()">
+      <button class="ubs-btn-primary" (click)="generateNewLink()" [disabled]="!selectedBillId || isGenerating">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -89,11 +89,9 @@
           <div class="shl-form-row">
             <div class="shl-form-group">
               <label class="ubs-label" for="shl-bill-select">Select Invoice</label>
-              <select id="shl-bill-select" class="ubs-select">
-                <option>Invoice #INV-001 – Rajesh Kumar Enterprises</option>
-                <option>Invoice #INV-002 – Priya Nair Technologies</option>
-                <option>Invoice #INV-003 – Mehta & Sons Pvt. Ltd</option>
-                <option>Invoice #INV-004 – Ravi Shankar Exports</option>
+              <select id="shl-bill-select" class="ubs-select" [(ngModel)]="selectedBillId">
+                <option value="" disabled>{{ bills.length ? 'Select an invoice' : 'No invoices yet' }}</option>
+                <option *ngFor="let b of bills" [value]="b.id">Invoice #{{ b.id }} – {{ b.customerName }}</option>
               </select>
             </div>
             <div class="shl-form-group">
@@ -138,14 +136,14 @@
           </div>
 
           <div class="shl-gen-actions">
-            <button class="ubs-btn-secondary">
+            <a class="ubs-btn-secondary" *ngIf="shareLink" [href]="shareLink" target="_blank" rel="noopener">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
               Preview Page
-            </button>
-            <button class="ubs-btn-primary" (click)="generateNewLink()">
+            </a>
+            <button class="ubs-btn-primary" (click)="generateNewLink()" [disabled]="!selectedBillId || isGenerating">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>

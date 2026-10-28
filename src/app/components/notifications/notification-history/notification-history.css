@@ -153,6 +153,22 @@
   color: var(--ubs-ash-muted);
 }
 
+.ubs-channel-bill {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-700);
+  border: 1px solid var(--ubs-blue-200);
+}
+
+.ubs-notif-link {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: var(--ubs-blue-600);
+}
+
+.ubs-notif-link:hover {
+  text-decoration: underline;
+}
+
 .ubs-notif-time {
   margin: 0;
   font-size: 0.78rem;

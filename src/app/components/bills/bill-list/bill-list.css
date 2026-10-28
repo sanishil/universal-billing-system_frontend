@@ -102,6 +102,35 @@
   font-weight: 700;
 }
 
+/* Sent / Received scope tabs */
+.ubs-scope-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin-top: 10px;
+  padding: 4px;
+  background-color: var(--ubs-ash-subtle);
+  border-radius: var(--ubs-radius-md);
+}
+
+.ubs-scope-tab {
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  padding: 7px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ubs-scope-tab.active {
+  background-color: var(--ubs-white);
+  color: var(--ubs-blue-700);
+  box-shadow: var(--ubs-shadow-sm);
+  font-weight: 700;
+}
+
 /* Table styles */
 .ubs-bill-link {
   font-family: 'JetBrains Mono', monospace;

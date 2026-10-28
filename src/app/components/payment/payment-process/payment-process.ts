@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { PaymentService } from '../../../services/payment.service';
 import { BillService } from '../../../services/bill.service';
-import { Bill } from '../../../models/bill';
+import { ToastService } from '../../../services/toast.service';
+import { Bill, isIssuer } from '../../../models/bill';
 
 @Component({
   selector: 'app-payment-process',
@@ -17,6 +18,7 @@ export class PaymentProcessComponent implements OnInit {
   private paymentService = inject(PaymentService);
   private billService = inject(BillService);
   private router = inject(Router);
+  private toast = inject(ToastService);
 
   unpaidBills: Bill[] = [];
   selectedBillId = '';
@@ -52,8 +54,9 @@ export class PaymentProcessComponent implements OnInit {
   isProcessing = false;
 
   ngOnInit() {
-    this.billService.getBills().subscribe(bills => {
-      this.unpaidBills = bills.filter(b => b.status !== 'PAID');
+    // Only the issuer records payments, so list unpaid bills this user sent
+    this.billService.getBills({ scope: 'sent', status: 'UNPAID' }).subscribe(bills => {
+      this.unpaidBills = bills.filter(b => b.status !== 'PAID' && isIssuer(b));
 
       if (this.unpaidBills.length > 0) {
         this.selectBill(this.unpaidBills[0].id);
@@ -78,9 +81,15 @@ export class PaymentProcessComponent implements OnInit {
         method: this.paymentMethod,
         upiId: this.paymentMethod === 'UPI' ? this.upiId : undefined,
         bankName: this.paymentMethod === 'NET_BANKING' ? this.selectedBank : undefined
-      }).subscribe(() => {
-        this.isProcessing = false;
-        this.router.navigate(['/payments/success']);
+      }).subscribe({
+        next: () => {
+          this.isProcessing = false;
+          this.router.navigate(['/payments/success']);
+        },
+        error: (err) => {
+          this.isProcessing = false;
+          this.toast.error(err.error?.message || 'Payment could not be recorded. Please try again.');
+        }
       });
     }, 600);
   }

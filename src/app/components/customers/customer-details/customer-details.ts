@@ -29,8 +29,9 @@ export class CustomerDetailsComponent implements OnInit {
       next: cust => {
         this.customer = cust;
         this.isLoading = false;
-        this.billService.getBills().subscribe(bills => {
-          this.customerBills = bills.filter(b => b.customerId === id || b.customerName === cust.name);
+        this.billService.getBills({ scope: 'sent', customerId: id }).subscribe(bills => {
+          // The backend filters by customerId; the check keeps older backends that ignore it correct
+          this.customerBills = bills.filter(b => b.customerId === id);
         });
       },
       error: () => {

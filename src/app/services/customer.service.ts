@@ -26,7 +26,8 @@ export class CustomerService {
     );
   }
 
-  createCustomer(customerData: Partial<Customer>): Observable<Customer> {
+  /** inviteRecipient asks the backend to give this customer a login of their own */
+  createCustomer(customerData: Partial<Customer> & { inviteRecipient?: boolean }): Observable<Customer> {
     return this.http.post<any>(`${API_BASE_URL}/customers`, customerData).pipe(
       map(response => this.normalize(this.unwrapItem(response)))
     );
@@ -64,6 +65,7 @@ export class CustomerService {
 
   private normalize(c: any): Customer {
     const status = String(c.status ?? 'ACTIVE').toUpperCase();
+    const accountStatus = String(c.accountStatus ?? c.account_status ?? 'NONE').toUpperCase();
     return {
       id:         String(c.id ?? c.customerId ?? c.customer_id ?? ''),
       name:       c.name ?? c.customerName ?? c.customer_name ?? '',
@@ -78,6 +80,7 @@ export class CustomerService {
       totalSpent: Number(c.totalSpent ?? c.total_spent ?? c.totalInvoiced ?? 0) || 0,
       billsCount: Number(c.billsCount ?? c.bills_count ?? c.totalBills ?? 0) || 0,
       status:     status === 'INACTIVE' ? 'INACTIVE' : 'ACTIVE',
+      accountStatus: accountStatus === 'REGISTERED' || accountStatus === 'INVITED' ? accountStatus : 'NONE',
     };
   }
 }

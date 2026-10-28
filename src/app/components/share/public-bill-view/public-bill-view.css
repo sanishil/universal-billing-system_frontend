@@ -58,13 +58,10 @@
   gap: 10px;
 }
 
-.ubs-paid-alert {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #ecfdf5;
-  color: #065f46;
-  border: 1px solid #a7f3d0;
+.ubs-download-alert {
+  background: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+  border: 1px solid var(--ubs-danger-border);
   padding: 12px 18px;
   border-radius: var(--ubs-radius-md);
   font-size: 0.88rem;

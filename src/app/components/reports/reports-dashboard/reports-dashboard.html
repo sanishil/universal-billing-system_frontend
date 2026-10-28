@@ -207,6 +207,25 @@
         </div>
       </div>
 
+      <!-- Sales split by GST treatment -->
+      <div class="ubs-card rpt-quick-stats-panel">
+        <h3 class="rpt-side-title" style="margin-bottom: 16px;">Sales by GST</h3>
+        <div class="rpt-stats-list">
+          <div class="rpt-stat-row">
+            <span class="rpt-stat-label">Taxable Sales</span>
+            <span class="rpt-stat-value">₹{{ taxableSales | number: '1.2-2' }}</span>
+          </div>
+          <div class="rpt-stat-row">
+            <span class="rpt-stat-label">GST Collected</span>
+            <span class="rpt-stat-value">₹{{ taxCollected | number: '1.2-2' }}</span>
+          </div>
+          <div class="rpt-stat-row">
+            <span class="rpt-stat-label">Non-GST Sales</span>
+            <span class="rpt-stat-value">₹{{ nonGstSales | number: '1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+
       <!-- Quick Stats -->
       <div class="ubs-card rpt-quick-stats-panel">
         <h3 class="rpt-side-title" style="margin-bottom: 16px;">Billing Health Snapshot</h3>

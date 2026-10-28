@@ -41,6 +41,20 @@
     </div>
   </div>
 
+  <!-- Money in vs money out -->
+  <div class="ubs-balance-grid">
+    <a class="ubs-card ubs-balance-card" routerLink="/bills" [queryParams]="{ scope: 'sent' }">
+      <span class="ubs-balance-label">To collect</span>
+      <span class="ubs-balance-value ubs-balance-in">₹{{ toCollect.amount | number: '1.2-2' }}</span>
+      <span class="ubs-balance-sub">{{ toCollect.count }} unpaid {{ toCollect.count === 1 ? 'bill' : 'bills' }} you sent</span>
+    </a>
+    <a class="ubs-card ubs-balance-card" routerLink="/bills" [queryParams]="{ scope: 'received' }">
+      <span class="ubs-balance-label">To pay</span>
+      <span class="ubs-balance-value ubs-balance-out">₹{{ toPay.amount | number: '1.2-2' }}</span>
+      <span class="ubs-balance-sub">{{ toPay.count }} unpaid {{ toPay.count === 1 ? 'bill' : 'bills' }} sent to you</span>
+    </a>
+  </div>
+
   <!-- 4 Key Metric Cards -->
   <div class="ubs-metrics-grid">
     <!-- Card 1: Total Revenue -->

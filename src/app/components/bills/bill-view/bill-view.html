@@ -15,7 +15,9 @@
   <div class="ubs-view-toolbar no-print">
     <div class="ubs-toolbar-left">
       <div class="ubs-breadcrumb">
-        <a routerLink="/bills">Invoices</a>
+        <a routerLink="/bills" [queryParams]="{ scope: isIssuer ? 'sent' : 'received' }">
+          {{ isIssuer ? 'Sent Invoices' : 'Received Invoices' }}
+        </a>
         <span>/</span>
         <span class="ubs-current">#{{ bill.id }}</span>
       </div>
@@ -35,26 +37,32 @@
     </div>
 
     <div class="ubs-toolbar-actions">
-      <button *ngIf="bill.status !== 'PAID'" (click)="markPaid()" class="ubs-btn-secondary">
-        Mark as Paid
+      <!-- Issuer-only actions -->
+      <ng-container *ngIf="isIssuer">
+        <button *ngIf="bill.status !== 'PAID'" (click)="markPaid()" class="ubs-btn-secondary">
+          Mark as Paid
+        </button>
+        <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
+        <button (click)="deleteBill()" class="ubs-btn-secondary"> Delete </button>
+        <button (click)="showSendDialog = true" class="ubs-btn-secondary">Send by Email</button>
+        <button (click)="copyPublicLink()" class="ubs-btn-secondary" [disabled]="isCopying">
+          {{ copied ? 'Link Copied!' : 'Copy Client Link' }}
+        </button>
+        <button (click)="toggleWatermark()" class="ubs-btn-secondary" [class.ubs-btn-watermark-active]="watermarkActive">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>{{ watermarkButtonLabel }}</span>
+        </button>
+        <a *ngIf="bill.publicUrl" [href]="bill.publicUrl" target="_blank" rel="noopener" class="ubs-btn-outline-blue">
+          Public View
+        </a>
+      </ng-container>
+
+      <!-- Recipient actions -->
+      <button *ngIf="!isIssuer && bill.publicUrl" (click)="downloadPdf()" class="ubs-btn-secondary">
+        Download PDF
       </button>
-      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
-      <button (click)="copyPublicLink()" class="ubs-btn-secondary">
-        {{ copied ? 'Link Copied!' : 'Copy Client Link' }}
-      </button>
-      <button (click)="toggleWatermark()" class="ubs-btn-secondary" [class.ubs-btn-watermark-active]="watermarkActive">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </svg>
-        <span>{{ watermarkButtonLabel }}</span>
-      </button>
-      <a
-        [routerLink]="['/bill/view', bill.uniqueLink]"
-        target="_blank"
-        class="ubs-btn-outline-blue"
-      >
-        Public View
-      </a>
       <button (click)="printInvoice()" class="ubs-btn-primary">
         <svg
           width="15"
@@ -99,15 +107,15 @@
           </svg>
         </div>
         <div>
-          <h2 class="ubs-sheet-company">Universal Billing Solutions India Pvt. Ltd.</h2>
-          <p class="ubs-sheet-subtext"><strong>GSTIN:</strong> 29AABCU9603R1ZM | <strong>PAN:</strong> AABCU9603R</p>
-          <p class="ubs-sheet-subtext">Salarpuria Cyber Towers, 4th Floor, HSR Layout, Bengaluru, Karnataka - 560102</p>
-          <p class="ubs-sheet-subtext">State: Karnataka | State Code: 29 | CIN: U72200KA2024PTC189201</p>
+          <h2 class="ubs-sheet-company">{{ issuerName }}</h2>
+          <p class="ubs-sheet-subtext" *ngIf="issuerGstin"><strong>GSTIN:</strong> {{ issuerGstin }}</p>
+          <p class="ubs-sheet-subtext" *ngIf="issuerAddress">{{ issuerAddress }}</p>
+          <p class="ubs-sheet-subtext">State Code: {{ issuerStateCode }}</p>
         </div>
       </div>
 
       <div class="ubs-sheet-meta">
-        <div class="ubs-meta-badge">TAX INVOICE</div>
+        <div class="ubs-meta-badge">{{ gstApplied ? 'TAX INVOICE' : 'BILL OF SUPPLY' }}</div>
         <p class="ubs-meta-copy-type">(Original for Recipient)</p>
         <p class="ubs-meta-id">Invoice #: {{ bill.id }}</p>
         <p class="ubs-meta-line"><strong>Invoice Date:</strong> {{ bill.createdAt }}</p>
@@ -123,16 +131,17 @@
         <span class="ubs-block-label">BILLED TO (BUYER DETAILS)</span>
         <h3 class="ubs-block-name">{{ bill.customerName }}</h3>
         <p class="ubs-block-line"><strong>Client ID:</strong> {{ bill.customerId }}</p>
-        <p class="ubs-block-line"><strong>Buyer GSTIN:</strong> {{ bill.customerGstin || '29AAACI4321A1ZG' }}</p>
-        <p class="ubs-block-line"><strong>PAN:</strong> {{ bill.pan || 'AAACI4321A' }}</p>
-        <p class="ubs-block-line"><strong>Place of Supply:</strong> {{ bill.placeOfSupply || 'Karnataka (State Code 29)' }}</p>
+        <p class="ubs-block-line" *ngIf="bill.customerGstin"><strong>Buyer GSTIN:</strong> {{ bill.customerGstin }}</p>
+        <p class="ubs-block-line" *ngIf="bill.pan"><strong>PAN:</strong> {{ bill.pan }}</p>
+        <p class="ubs-block-line" *ngIf="bill.placeOfSupply"><strong>Place of Supply:</strong> {{ bill.placeOfSupply }}</p>
       </div>
 
       <div class="ubs-address-block text-right">
         <span class="ubs-block-label">TAX & SETTLEMENT INFO</span>
         <p class="ubs-block-line"><strong>Status:</strong> {{ bill.status }}</p>
         <p class="ubs-block-line"><strong>Currency:</strong> INR (₹ - Indian Rupee)</p>
-        <p class="ubs-block-line"><strong>Supply Type:</strong> {{ bill.isInterState ? 'Inter-State (IGST Applicable)' : 'Intra-State (CGST + SGST)' }}</p>
+        <p class="ubs-block-line" *ngIf="gstApplied"><strong>Supply Type:</strong> {{ bill.isInterState ? 'Inter-State (IGST Applicable)' : 'Intra-State (CGST + SGST)' }}</p>
+        <p class="ubs-block-line" *ngIf="!gstApplied"><strong>GST:</strong> Not applicable</p>
         <p class="ubs-block-line"><strong>Payment Reference:</strong> {{ bill.uniqueLink }}</p>
       </div>
     </div>
@@ -215,26 +224,33 @@
       <!-- Totals & GST Line Items -->
       <div class="ubs-sheet-totals">
         <div class="ubs-total-line">
-          <span>Taxable Amount</span>
+          <span>{{ gstApplied ? 'Taxable Amount' : 'Amount' }}</span>
           <span>₹{{ bill.subtotal | number: '1.2-2' }}</span>
         </div>
 
-        <!-- Intra-state CGST & SGST -->
-        <ng-container *ngIf="!bill.isInterState">
-          <div class="ubs-total-line">
-            <span>CGST (9%)</span>
-            <span>₹{{ (bill.cgst !== undefined ? bill.cgst : bill.tax / 2) | number: '1.2-2' }}</span>
-          </div>
-          <div class="ubs-total-line">
-            <span>SGST (9%)</span>
-            <span>₹{{ (bill.sgst !== undefined ? bill.sgst : bill.tax / 2) | number: '1.2-2' }}</span>
+        <ng-container *ngIf="gstApplied">
+          <!-- Intra-state CGST & SGST -->
+          <ng-container *ngIf="!bill.isInterState">
+            <div class="ubs-total-line">
+              <span>CGST ({{ gstRate / 2 }}%)</span>
+              <span>₹{{ (bill.cgst !== undefined ? bill.cgst : bill.tax / 2) | number: '1.2-2' }}</span>
+            </div>
+            <div class="ubs-total-line">
+              <span>SGST ({{ gstRate / 2 }}%)</span>
+              <span>₹{{ (bill.sgst !== undefined ? bill.sgst : bill.tax / 2) | number: '1.2-2' }}</span>
+            </div>
+          </ng-container>
+
+          <!-- Inter-state IGST -->
+          <div class="ubs-total-line" *ngIf="bill.isInterState">
+            <span>IGST ({{ gstRate }}%)</span>
+            <span>₹{{ (bill.igst !== undefined ? bill.igst : bill.tax) | number: '1.2-2' }}</span>
           </div>
         </ng-container>
 
-        <!-- Inter-state IGST -->
-        <div class="ubs-total-line" *ngIf="bill.isInterState">
-          <span>IGST (18%)</span>
-          <span>₹{{ (bill.igst !== undefined ? bill.igst : bill.tax) | number: '1.2-2' }}</span>
+        <div class="ubs-total-line" *ngIf="!gstApplied">
+          <span>GST not applicable</span>
+          <span>—</span>
         </div>
 
         <div class="ubs-grand-total">
@@ -244,7 +260,7 @@
 
         <!-- Authorized Signature Stamp Area -->
         <div class="ubs-signature-area">
-          <p class="ubs-sign-company">For Universal Billing Solutions India Pvt. Ltd.</p>
+          <p class="ubs-sign-company">For {{ issuerName }}</p>
           <div class="ubs-sign-stamp-placeholder">
             <span class="ubs-stamp-badge">DIGITALLY SIGNED</span>
             <span class="ubs-stamp-date">Date: {{ bill.createdAt }}</span>
@@ -254,4 +270,14 @@
       </div>
     </div>
   </div>
+
+  <app-bill-email-history *ngIf="isIssuer" class="no-print" [billId]="bill.id" [refresh]="emailHistoryRefresh"></app-bill-email-history>
 </div>
+
+<app-send-bill-dialog
+  *ngIf="showSendDialog && bill"
+  [billId]="bill.id"
+  [defaultTo]="customerEmail"
+  (sent)="onEmailSent()"
+  (closed)="showSendDialog = false"
+></app-send-bill-dialog>

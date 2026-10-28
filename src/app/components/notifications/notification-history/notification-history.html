@@ -28,14 +28,27 @@
     </div>
 
     <div class="ubs-notif-item" *ngFor="let n of notifications">
-      <div class="ubs-channel-badge" [class.ubs-channel-email]="n.type === 'EMAIL'" [class.ubs-channel-sms]="n.type === 'SMS'">
+      <div
+        class="ubs-channel-badge"
+        [class.ubs-channel-email]="n.type === 'EMAIL' || n.type === 'BILL_EMAILED'"
+        [class.ubs-channel-sms]="n.type === 'SMS'"
+        [class.ubs-channel-bill]="n.type === 'BILL_RECEIVED' || n.type === 'BILL_VIEWED'"
+      >
         <span class="ubs-channel-icon">{{ getTypeIcon(n.type) }}</span>
-        {{ n.type }}
+        {{ getTypeLabel(n.type) }}
       </div>
 
       <div class="ubs-notif-body">
         <p class="ubs-notif-message">{{ n.message }}</p>
-        <p class="ubs-notif-recipient">&#8594; {{ n.recipient }}</p>
+        <p class="ubs-notif-recipient" *ngIf="!isBillEvent(n.type)">&#8594; {{ n.recipient }}</p>
+        <a
+          *ngIf="isBillEvent(n.type)"
+          class="ubs-notif-link"
+          [routerLink]="billLink(n)"
+          [queryParams]="billLinkParams(n)"
+        >
+          {{ n.type === 'BILL_RECEIVED' ? 'View received bills' : 'Open bill' }} &#8594;
+        </a>
       </div>
 
       <div>

@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   onLogin(): void {
     if (this.loginForm.invalid) {
       if (!this.username.value?.trim()) {
-        this.showToast('Please enter your username or work email.');
+        this.showToast('Please enter your email or phone.');
         return;
       }
       if (!this.password.value?.trim()) {

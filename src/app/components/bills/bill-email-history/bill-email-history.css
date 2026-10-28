@@ -1,0 +1,29 @@
+.ubs-email-history {
+  padding: 20px 22px;
+  margin-top: 20px;
+}
+
+.ubs-email-history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ubs-email-history-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-email-refresh {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+}
+
+.ubs-email-empty {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+}

@@ -57,9 +57,17 @@
 
           <div class="sys-field-grid">
             <div class="sys-form-group">
-              <label class="ubs-label" for="sys-tax-rate">Default Tax Rate (%)</label>
-              <input id="sys-tax-rate" type="number" class="ubs-input" [(ngModel)]="taxRate" name="taxRate" min="0" max="100" placeholder="18" />
+              <label class="ubs-label" for="sys-gst-rates">Allowed GST Rates (%)</label>
+              <input id="sys-gst-rates" type="text" class="ubs-input sys-mono" [ngModel]="gstRatesText" (ngModelChange)="onGstRatesTextChange($event)" name="gstRates" placeholder="0, 5, 18, 40" />
+              <small class="sys-field-hint">Comma-separated. Main slabs: 0, 5, 18, 40; add special rates like 3 (gold).</small>
             </div>
+            <div class="sys-form-group">
+              <label class="ubs-label" for="sys-default-gst">Default GST on New Bills</label>
+              <app-gst-rate-select id="sys-default-gst" [(ngModel)]="defaultGstRate" name="defaultGstRate" [rates]="gstRates"></app-gst-rate-select>
+            </div>
+          </div>
+
+          <div class="sys-field-grid">
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-due-days">Payment Due (Days)</label>
               <input id="sys-due-days" type="number" class="ubs-input" [(ngModel)]="dueDays" name="dueDays" min="1" placeholder="30" />
@@ -273,6 +281,15 @@
               <span class="sys-toggle-hint">Revenue summary every Monday</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="weeklyReport" (click)="weeklyReport = !weeklyReport">
+              <div class="sys-tiny-knob"></div>
+            </div>
+          </div>
+          <div class="sys-toggle-row">
+            <div class="sys-toggle-info">
+              <span class="sys-toggle-label">Email New Bills</span>
+              <span class="sys-toggle-hint">Pre-tick "Email bill to customer" when creating a bill</span>
+            </div>
+            <div class="sys-tiny-toggle" [class.sys-tiny-on]="autoEmailOnCreate" (click)="autoEmailOnCreate = !autoEmailOnCreate">
               <div class="sys-tiny-knob"></div>
             </div>
           </div>

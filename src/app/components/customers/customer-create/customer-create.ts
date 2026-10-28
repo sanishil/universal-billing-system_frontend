@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastService } from '../../../services/toast.service';
+import { INDIAN_STATES } from '../../../shared/utils/indian-states';
 
 @Component({
   selector: 'app-customer-create',
@@ -18,44 +19,7 @@ export class CustomerCreateComponent {
   private toast = inject(ToastService);
 
   /** Full Indian state list with GST state codes */
-  readonly states: { name: string; code: string }[] = [
-    { name: 'Andaman and Nicobar Islands', code: '35' },
-    { name: 'Andhra Pradesh', code: '37' },
-    { name: 'Arunachal Pradesh', code: '12' },
-    { name: 'Assam', code: '18' },
-    { name: 'Bihar', code: '10' },
-    { name: 'Chandigarh', code: '04' },
-    { name: 'Chhattisgarh', code: '22' },
-    { name: 'Dadra and Nagar Haveli and Daman and Diu', code: '26' },
-    { name: 'Delhi', code: '07' },
-    { name: 'Goa', code: '30' },
-    { name: 'Gujarat', code: '24' },
-    { name: 'Haryana', code: '06' },
-    { name: 'Himachal Pradesh', code: '02' },
-    { name: 'Jammu and Kashmir', code: '01' },
-    { name: 'Jharkhand', code: '20' },
-    { name: 'Karnataka', code: '29' },
-    { name: 'Kerala', code: '32' },
-    { name: 'Ladakh', code: '38' },
-    { name: 'Lakshadweep', code: '31' },
-    { name: 'Madhya Pradesh', code: '23' },
-    { name: 'Maharashtra', code: '27' },
-    { name: 'Manipur', code: '14' },
-    { name: 'Meghalaya', code: '17' },
-    { name: 'Mizoram', code: '15' },
-    { name: 'Nagaland', code: '13' },
-    { name: 'Odisha', code: '21' },
-    { name: 'Puducherry', code: '34' },
-    { name: 'Punjab', code: '03' },
-    { name: 'Rajasthan', code: '08' },
-    { name: 'Sikkim', code: '11' },
-    { name: 'Tamil Nadu', code: '33' },
-    { name: 'Telangana', code: '36' },
-    { name: 'Tripura', code: '16' },
-    { name: 'Uttar Pradesh', code: '09' },
-    { name: 'Uttarakhand', code: '05' },
-    { name: 'West Bengal', code: '19' },
-  ];
+  readonly states = INDIAN_STATES;
 
   customer = {
     name: '',
@@ -68,6 +32,9 @@ export class CustomerCreateComponent {
     state: '',
     stateCode: ''
   };
+
+  /** Invite the customer to set a password so they can see the bills sent to them */
+  giveLogin = true;
 
   isLoading = false;
 
@@ -82,16 +49,18 @@ export class CustomerCreateComponent {
       this.toast.error('Please provide the customer\'s full name.');
       return;
     }
-    if (!this.customer.email.trim()) {
-      this.toast.error('Please provide a valid work email address.');
+    if (this.giveLogin && !this.customer.email.trim()) {
+      this.toast.error('An email address is needed to give this customer a login.');
       return;
     }
 
     this.isLoading = true;
-    this.customerService.createCustomer(this.customer).subscribe({
+    this.customerService.createCustomer({ ...this.customer, inviteRecipient: this.giveLogin }).subscribe({
       next: () => {
         this.isLoading = false;
-        this.toast.success('Customer created successfully!');
+        this.toast.success(this.giveLogin
+          ? 'Customer created. They\'ll get a login invite with their first bill.'
+          : 'Customer created successfully!');
         this.router.navigate(['/customers']);
       },
       error: (err) => {

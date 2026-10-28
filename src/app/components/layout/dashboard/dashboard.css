@@ -40,6 +40,52 @@
   gap: 18px;
 }
 
+/* To collect / To pay */
+.ubs-balance-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.ubs-balance-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px;
+}
+
+.ubs-balance-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-balance-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.ubs-balance-in {
+  color: var(--ubs-success-text);
+}
+
+.ubs-balance-out {
+  color: var(--ubs-warning-text);
+}
+
+.ubs-balance-sub {
+  font-size: 0.8125rem;
+  color: var(--ubs-ash-dark);
+}
+
+@media (max-width: 640px) {
+  .ubs-balance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .ubs-metric-card {
   padding: 22px;
   position: relative;

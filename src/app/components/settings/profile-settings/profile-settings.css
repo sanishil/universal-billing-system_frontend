@@ -232,6 +232,18 @@
   gap: 16px;
 }
 
+.prf-optional {
+  font-weight: 400;
+  color: var(--ubs-ash-muted);
+}
+
+.prf-field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
 .prf-form-group {
   display: flex;
   flex-direction: column;

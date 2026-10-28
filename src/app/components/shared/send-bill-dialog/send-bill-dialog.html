@@ -1,0 +1,38 @@
+<div class="ubs-dialog-backdrop" (click)="closed.emit()">
+  <div class="ubs-dialog-card" role="dialog" aria-labelledby="send-bill-title" (click)="$event.stopPropagation()">
+    <div class="ubs-dialog-header">
+      <h3 id="send-bill-title" class="ubs-dialog-title">Send bill by email</h3>
+      <button type="button" class="ubs-dialog-close" (click)="closed.emit()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="ubs-dialog-body">
+      <div class="ubs-dialog-field">
+        <label class="ubs-label" for="send-to">To</label>
+        <input id="send-to" type="email" class="ubs-input" [(ngModel)]="to" placeholder="customer@example.com" />
+      </div>
+
+      <div class="ubs-dialog-field">
+        <label class="ubs-label" for="send-cc">CC <span class="ubs-dialog-hint">(optional, comma-separated)</span></label>
+        <input id="send-cc" type="text" class="ubs-input" [(ngModel)]="cc" placeholder="accounts@example.com" />
+      </div>
+
+      <div class="ubs-dialog-field">
+        <label class="ubs-label" for="send-message">Message <span class="ubs-dialog-hint">(optional)</span></label>
+        <textarea id="send-message" rows="3" class="ubs-textarea" [(ngModel)]="message"
+          placeholder="A short note to include in the email"></textarea>
+      </div>
+
+      <label class="ubs-dialog-check">
+        <input type="checkbox" [(ngModel)]="attachPdf" />
+        <span>Attach PDF</span>
+      </label>
+    </div>
+
+    <div class="ubs-dialog-footer">
+      <button type="button" class="ubs-btn-secondary" (click)="closed.emit()">Cancel</button>
+      <button type="button" class="ubs-btn-primary" (click)="send()" [disabled]="isSending">
+        {{ isSending ? 'Sending…' : 'Send email' }}
+      </button>
+    </div>
+  </div>
+</div>

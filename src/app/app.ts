@@ -82,7 +82,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private evaluateLayout(url: string) {
-    const isAuthRoute = url.includes('/login') || url.includes('/register');
+    const isAuthRoute = url.includes('/login') || url.includes('/register') || url.includes('/set-password');
     const isPublicRoute = url.includes('/bill/view/');
     const isAuthenticated = this.authService.isAuthenticated();
 

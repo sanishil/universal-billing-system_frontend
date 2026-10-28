@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth-guard';
 import { publicBillGuard } from './guards/public-bill-guard';
 import { redirectIfAuthenticatedGuard } from './guards/redirect-if-authenticated.guard';
+import { billIssuerGuard } from './guards/bill-issuer.guard';
 
 export const routes: Routes = [
   // Authentication
@@ -15,6 +16,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/auth/register/register').then(m => m.RegisterComponent),
     canActivate: [redirectIfAuthenticatedGuard]
   },
+  {
+    // Invite link from the "you've received a bill" email lands here (?token=…)
+    path: 'set-password',
+    loadComponent: () => import('./components/auth/set-password/set-password').then(m => m.SetPasswordComponent)
+  },
 
   // Dashboard
   {
@@ -23,7 +29,7 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
-  // Bills Management
+  // Bills Management (?scope=sent | received)
   {
     path: 'bills',
     loadComponent: () => import('./components/bills/bill-list/bill-list').then(m => m.BillListComponent),
@@ -37,7 +43,7 @@ export const routes: Routes = [
   {
     path: 'bills/edit/:id',
     loadComponent: () => import('./components/bills/bill-edit/bill-edit').then(m => m.BillEditComponent),
-    canActivate: [authGuard]
+    canActivate: [authGuard, billIssuerGuard]
   },
   {
     path: 'bills/view/:id',

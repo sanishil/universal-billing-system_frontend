@@ -106,6 +106,13 @@
   gap: 16px;
 }
 
+.sys-field-hint {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
 .sys-form-group {
   display: flex;
   flex-direction: column;

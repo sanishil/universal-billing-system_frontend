@@ -4,6 +4,26 @@
     <div>
       <h1 class="ubs-page-title">Invoices & Bills</h1>
       <!-- <p class="ubs-page-subtitle">Manage, create, review, and track client billing statements</p> -->
+      <div class="ubs-scope-tabs" role="tablist">
+        <button
+          role="tab"
+          class="ubs-scope-tab"
+          [class.active]="scope === 'sent'"
+          [attr.aria-selected]="scope === 'sent'"
+          (click)="setScope('sent')"
+        >
+          Sent
+        </button>
+        <button
+          role="tab"
+          class="ubs-scope-tab"
+          [class.active]="scope === 'received'"
+          [attr.aria-selected]="scope === 'received'"
+          (click)="setScope('received')"
+        >
+          Received
+        </button>
+      </div>
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/pdf/generator" class="ubs-btn-secondary">
@@ -102,7 +122,7 @@
         <thead>
           <tr>
             <th>Invoice ID</th>
-            <th>Client Organization</th>
+            <th>{{ scope === 'received' ? 'From' : 'Client Organization' }}</th>
             <th>Issue Date</th>
             <th>Due Date</th>
             <th>Total Amount</th>
@@ -117,7 +137,8 @@
             </td>
             <td>
               <div class="ubs-client-info">
-                <span class="ubs-client-primary">{{ bill.customerName }}</span>
+                <span class="ubs-client-primary" *ngIf="isIssuer(bill)">{{ bill.customerName }}</span>
+                <span class="ubs-client-primary" *ngIf="!isIssuer(bill)">From: {{ issuerName(bill) }}</span>
                 <span class="ubs-client-items">{{ bill.items.length }} Items included</span>
               </div>
             </td>
@@ -147,38 +168,56 @@
                 >
                   View
                 </a>
-                <a
-                  [routerLink]="['/bills/edit', bill.id]"
-                  class="ubs-btn-table"
-                  title="Edit Invoice"
-                >
-                  Edit
-                </a>
-                <a
-                  [routerLink]="['/bill/view', bill.uniqueLink]"
-                  target="_blank"
-                  class="ubs-btn-table ubs-btn-blue"
-                  title="Open Public Link"
-                >
-                  Public
-                </a>
-                <button
-                  (click)="deleteBill(bill.id)"
-                  class="ubs-btn-table ubs-btn-del"
-                  title="Delete"
-                >
-                  ✕
-                </button>
+                <ng-container *ngIf="isIssuer(bill)">
+                  <a
+                    [routerLink]="['/bills/edit', bill.id]"
+                    class="ubs-btn-table"
+                    title="Edit Invoice"
+                  >
+                    Edit
+                  </a>
+                  <a
+                    *ngIf="bill.publicUrl"
+                    [href]="bill.publicUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="ubs-btn-table ubs-btn-blue"
+                    title="Open Public Link"
+                  >
+                    Public
+                  </a>
+                  <button
+                    (click)="deleteBill(bill.id)"
+                    class="ubs-btn-table ubs-btn-del"
+                    title="Delete"
+                  >
+                    ✕
+                  </button>
+                </ng-container>
               </div>
             </td>
           </tr>
 
-          <tr *ngIf="filteredBills.length === 0">
+          <tr *ngIf="isLoading">
+            <td colspan="7" class="ubs-empty-state">
+              <div class="ubs-empty-box">
+                <p class="ubs-empty-desc">Loading invoices…</p>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngIf="!isLoading && filteredBills.length === 0">
             <td colspan="7" class="ubs-empty-state">
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No bills found</p>
-                <p class="ubs-empty-desc">
+                <p class="ubs-empty-desc" *ngIf="allBills.length > 0">
                   Try clearing your search query or change the status filter.
+                </p>
+                <p class="ubs-empty-desc" *ngIf="allBills.length === 0 && scope === 'received'">
+                  Bills that other businesses send to your email will appear here.
+                </p>
+                <p class="ubs-empty-desc" *ngIf="allBills.length === 0 && scope === 'sent'">
+                  Invoices you issue will appear here.
                 </p>
               </div>
             </td>

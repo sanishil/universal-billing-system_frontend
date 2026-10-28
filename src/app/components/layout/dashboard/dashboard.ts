@@ -43,15 +43,28 @@ export class DashboardComponent implements OnInit {
     totalCount: 0
   };
 
+  /** Unpaid bills this user sent — money to collect */
+  toCollect = { amount: 0, count: 0 };
+  /** Unpaid bills sent to this user — money to pay */
+  toPay = { amount: 0, count: 0 };
+
   ngOnInit() {
     const onError = () => this.reportLoadError();
 
-    this.billService.getBills().subscribe({
-      next: bills => this.bills = bills,
+    this.billService.getBills({ scope: 'sent' }).subscribe({
+      next: bills => {
+        this.bills = bills;
+        this.toCollect = this.sumUnpaid(bills);
+      },
       error: onError
     });
 
-    this.billService.getStats().subscribe({
+    this.billService.getBills({ scope: 'received' }).subscribe({
+      next: bills => this.toPay = this.sumUnpaid(bills.filter(b => b.myRole === 'RECIPIENT')),
+      error: onError
+    });
+
+    this.billService.getStats('sent').subscribe({
       next: stats => this.stats = stats,
       error: onError
     });
@@ -65,6 +78,11 @@ export class DashboardComponent implements OnInit {
       next: payments => this.recentPayments = payments.slice(0, 4),
       error: onError
     });
+  }
+
+  private sumUnpaid(bills: Bill[]): { amount: number; count: number } {
+    const unpaid = bills.filter(b => b.status !== 'PAID');
+    return { amount: unpaid.reduce((sum, b) => sum + Number(b.total || 0), 0), count: unpaid.length };
   }
 
   // Several requests can fail together (e.g. server down); show a single toast for all of them

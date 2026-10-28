@@ -10,7 +10,7 @@
     </div>
     <div class="ubs-page-actions">
       <a [routerLink]="['/bills/view', bill.id]" class="ubs-btn-primary"> Full Printable Sheet </a>
-      <a [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
+      <a *ngIf="isIssuer" [routerLink]="['/bills/edit', bill.id]" class="ubs-btn-secondary"> Edit </a>
     </div>
   </div>
 
@@ -43,9 +43,17 @@
         <span class="ubs-label">Total Amount (INR)</span>
         <span class="ubs-value-amount">₹{{ bill.total | number: '1.2-2' }}</span>
       </div>
-      <div class="ubs-details-item" *ngIf="bill.gstRate">
+      <div class="ubs-details-item" *ngIf="bill.gstRate !== null">
         <span class="ubs-label">GST Tax Applied</span>
-        <span class="ubs-value-bold">{{ bill.gstRate }}% {{ bill.isInterState ? '(IGST)' : '(CGST+SGST)' }}</span>
+        <span class="ubs-value-bold">{{ bill.gstRate ?? 18 }}% {{ bill.isInterState ? '(IGST)' : '(CGST+SGST)' }}</span>
+      </div>
+      <div class="ubs-details-item" *ngIf="bill.gstRate === null">
+        <span class="ubs-label">GST</span>
+        <span class="ubs-value-bold">Not applicable (Bill of Supply)</span>
+      </div>
+      <div class="ubs-details-item" *ngIf="!isIssuer && bill.issuer">
+        <span class="ubs-label">Issued By</span>
+        <span class="ubs-value-bold">{{ bill.issuer.businessName || bill.issuer.name }}</span>
       </div>
     </div>
   </div>

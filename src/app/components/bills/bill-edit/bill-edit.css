@@ -186,3 +186,8 @@
     grid-template-columns: 1fr;
   }
 }
+
+.ubs-btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
 import { API_BASE_URL } from '../../../services/api.config';
+import { BillService } from '../../../services/bill.service';
+import { ToastService } from '../../../services/toast.service';
+import { Bill } from '../../../models/bill';
 
 export interface ShareLinkEntry {
   client: string;
@@ -10,11 +14,6 @@ export interface ShareLinkEntry {
   date: string;
   url: string;
   status: string;
-}
-
-export interface GeneratedLink {
-  url: string;
-  qrCells: boolean[];
 }
 
 @Component({
@@ -26,6 +25,12 @@ export interface GeneratedLink {
 })
 export class ShareLinkComponent implements OnInit {
   private http = inject(HttpClient);
+  private billService = inject(BillService);
+  private toast = inject(ToastService);
+
+  bills: Bill[] = [];
+  selectedBillId = '';
+  isGenerating = false;
 
   shareLink = '';
   copied = false;
@@ -42,6 +47,11 @@ export class ShareLinkComponent implements OnInit {
     this.http.get<ShareLinkEntry[]>(`${API_BASE_URL}/share/links`).subscribe(links => {
       this.activeLinks = links;
     });
+
+    // Only the issuer can create a link, so offer the bills this user sent
+    this.billService.getBills({ scope: 'sent' }).subscribe(bills => {
+      this.bills = bills;
+    });
   }
 
   copyLink() {
@@ -55,15 +65,18 @@ export class ShareLinkComponent implements OnInit {
     navigator.clipboard.writeText('https://' + url);
   }
 
+  /** Same link the bill view copies and the email contains; the backend builds the absolute URL */
   generateNewLink() {
-    this.http.post<GeneratedLink>(`${API_BASE_URL}/share/generate`, {
-      allowPayment: this.allowPayment,
-      allowDownload: this.allowDownload,
-      requireEmail: this.requireEmail
-    }).subscribe(res => {
-      this.shareLink = res.url;
-      this.qrCells = res.qrCells || [];
-      this.copyLink();
-    });
+    if (!this.selectedBillId || this.isGenerating) return;
+    this.isGenerating = true;
+    this.billService.getShareLink(this.selectedBillId)
+      .pipe(finalize(() => { this.isGenerating = false; }))
+      .subscribe({
+        next: res => {
+          this.shareLink = res.url;
+          this.copyLink();
+        },
+        error: (err) => this.toast.error(err.error?.message || 'Could not create the link. Please try again.')
+      });
   }
 }

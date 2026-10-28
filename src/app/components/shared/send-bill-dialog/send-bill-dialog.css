@@ -1,0 +1,78 @@
+.ubs-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(59, 10, 71, 0.45);
+}
+
+.ubs-dialog-card {
+  width: 100%;
+  max-width: 480px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: var(--ubs-white);
+  border-radius: var(--ubs-radius-lg);
+  box-shadow: var(--ubs-shadow-lg);
+}
+
+.ubs-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-dialog-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-dialog-close {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: var(--ubs-ash-muted);
+  cursor: pointer;
+}
+
+.ubs-dialog-body {
+  padding: 18px 22px;
+}
+
+.ubs-dialog-field {
+  margin-bottom: 14px;
+}
+
+.ubs-dialog-hint {
+  font-weight: 400;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-dialog-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-dark);
+  cursor: pointer;
+}
+
+.ubs-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 22px;
+  border-top: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-dialog-footer button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

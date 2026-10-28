@@ -1,0 +1,33 @@
+<div class="ubs-card ubs-email-history">
+  <div class="ubs-email-history-header">
+    <h3 class="ubs-email-history-title">Email history</h3>
+    <button type="button" class="ubs-btn-secondary ubs-email-refresh" (click)="load()" [disabled]="isLoading">Refresh</button>
+  </div>
+
+  <p *ngIf="isLoading" class="ubs-email-empty">Loading…</p>
+  <p *ngIf="!isLoading && loadFailed" class="ubs-email-empty">Email history could not be loaded.</p>
+  <p *ngIf="!isLoading && !loadFailed && emails.length === 0" class="ubs-email-empty">This bill hasn't been emailed yet.</p>
+
+  <div *ngIf="!isLoading && emails.length > 0" class="ubs-table-wrap">
+    <table class="ubs-table">
+      <thead>
+        <tr>
+          <th>To</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Sent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of emails">
+          <td>{{ e.toEmail }}</td>
+          <td>{{ e.type === 'BILL_WITH_INVITE' ? 'Bill + login invite' : 'Bill' }}</td>
+          <td>
+            <span class="ubs-badge" [ngClass]="badgeClass(e.status)" [title]="e.error || ''">{{ e.status }}</span>
+          </td>
+          <td>{{ (e.sentAt || e.createdAt) | date: 'dd MMM yyyy, h:mm a' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,19 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { finalize } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
-import { API_BASE_URL } from '../../../services/api.config';
-
-export interface ProfilePayload {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  gstin: string;
-}
+import { ProfilePayload, SettingsService } from '../../../services/settings.service';
+import { ToastService } from '../../../services/toast.service';
+import { INDIAN_STATES } from '../../../shared/utils/indian-states';
 
 @Component({
   selector: 'app-profile-settings',
@@ -23,17 +16,24 @@ export interface ProfilePayload {
   styleUrl: './profile-settings.css'
 })
 export class ProfileSettingsComponent implements OnInit {
-  private http = inject(HttpClient);
+  private settingsService = inject(SettingsService);
   private authService = inject(AuthService);
+  private toast = inject(ToastService);
+
+  readonly states = INDIAN_STATES;
 
   firstName = '';
   lastName = '';
   email = '';
   phone = '';
-  company = '';
+  businessName = '';
   gstin = '';
+  address = '';
+  /** Supplier state used for GST on every bill this user issues */
+  stateCode = '';
 
   showPersonalInfo = false;
+  isSaving = false;
 
   get name(): string {
     return `${this.firstName} ${this.lastName}`.trim();
@@ -46,14 +46,18 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get<ProfilePayload>(`${API_BASE_URL}/settings/profile`).subscribe({
+    this.settingsService.getProfile().subscribe({
       next: profile => {
         this.firstName = profile.firstName;
         this.lastName = profile.lastName;
         this.email = profile.email;
         this.phone = profile.phone;
-        this.company = profile.company;
-        this.gstin = profile.gstin;
+        this.businessName = profile.businessName || profile.company || '';
+        this.gstin = profile.gstin || '';
+        this.address = profile.address || '';
+        this.stateCode = profile.stateCode || '';
+        // Bills can't be issued without a state, so open the form straight away
+        if (!this.stateCode) this.showPersonalInfo = true;
       },
       error: () => {
         // Fallback: pre-fill from auth session user if API isn't ready
@@ -63,7 +67,12 @@ export class ProfileSettingsComponent implements OnInit {
           this.firstName = parts[0] || '';
           this.lastName = parts.slice(1).join(' ') || '';
           this.email = user.email || '';
+          this.businessName = user.businessName || '';
+          this.gstin = user.gstin || '';
+          this.address = user.address || '';
+          this.stateCode = user.stateCode || '';
         }
+        if (!this.stateCode) this.showPersonalInfo = true;
       }
     });
   }
@@ -73,15 +82,41 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   updateProfile() {
+    if (!this.stateCode) {
+      this.toast.error('Please select your business state.');
+      return;
+    }
+
     const payload: ProfilePayload = {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
       phone: this.phone,
-      company: this.company,
-      gstin: this.gstin
+      company: this.businessName,
+      gstin: this.gstin.trim().toUpperCase(),
+      businessName: this.businessName,
+      address: this.address,
+      stateCode: this.stateCode
     };
-    this.http.put<ProfilePayload>(`${API_BASE_URL}/settings/profile`, payload).subscribe();
+
+    this.isSaving = true;
+    this.settingsService.updateProfile(payload)
+      .pipe(finalize(() => { this.isSaving = false; }))
+      .subscribe({
+        next: () => {
+          // Bill create reads the supplier state from the session user
+          this.authService.updateCurrentUser({
+            name: this.name,
+            email: this.email,
+            businessName: payload.businessName,
+            gstin: payload.gstin || null,
+            address: payload.address,
+            stateCode: payload.stateCode
+          });
+          this.toast.success('Profile saved.');
+        },
+        error: (err) => this.toast.error(err.error?.message || 'Profile could not be saved. Please try again.')
+      });
   }
 
   resetForm() {

@@ -44,6 +44,7 @@
           <li *ngFor="let item of section.items" class="ubs-nav-item">
             <a
               [routerLink]="item.route"
+              [queryParams]="item.queryParams"
               routerLinkActive="ubs-nav-active"
               [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
               class="ubs-nav-link"

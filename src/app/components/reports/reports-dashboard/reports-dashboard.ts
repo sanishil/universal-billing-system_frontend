@@ -8,6 +8,11 @@ export interface ReportStats {
   totalRevenueYTD: number;
   totalBillsGenerated: number;
   collectionRate: number;
+  /** Subtotal of bills with GST applied (gstRate not null) */
+  taxableSales?: number;
+  taxCollected?: number;
+  /** Bills issued with No GST (Bill of Supply), reported separately */
+  nonGstSales?: number;
 }
 
 export interface MonthlyData {
@@ -29,6 +34,9 @@ export class ReportsDashboardComponent implements OnInit {
   totalRevenueYTD = 0;
   totalBillsGenerated = 0;
   collectionRate = 0;
+  taxableSales = 0;
+  taxCollected = 0;
+  nonGstSales = 0;
   monthlyData: MonthlyData[] = [];
 
   ngOnInit() {
@@ -36,6 +44,9 @@ export class ReportsDashboardComponent implements OnInit {
       this.totalRevenueYTD = stats.totalRevenueYTD;
       this.totalBillsGenerated = stats.totalBillsGenerated;
       this.collectionRate = stats.collectionRate;
+      this.taxableSales = stats.taxableSales ?? 0;
+      this.taxCollected = stats.taxCollected ?? 0;
+      this.nonGstSales = stats.nonGstSales ?? 0;
     });
 
     this.http.get<MonthlyData[]>(`${API_BASE_URL}/reports/monthly`).subscribe(data => {

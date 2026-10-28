@@ -87,6 +87,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Total Invoiced</th>
+            <th>Login</th>
             <th>Status</th>
             <th style="text-align: right">Actions</th>
           </tr>
@@ -107,6 +108,11 @@
             <td>{{ cust.phone }}</td>
             <td>
               <span class="ubs-spent-amount">₹{{ (cust.totalSpent || 0) | number: '1.2-2' }}</span>
+            </td>
+            <td>
+              <span *ngIf="cust.accountStatus === 'REGISTERED'" class="ubs-badge ubs-badge-paid">Registered</span>
+              <span *ngIf="cust.accountStatus === 'INVITED'" class="ubs-badge ubs-badge-pending">Invited</span>
+              <span *ngIf="!cust.accountStatus || cust.accountStatus === 'NONE'" class="ubs-email-text">—</span>
             </td>
             <td>
               <span
@@ -146,7 +152,7 @@
 
           <!-- Search produced no matches, but data exists -->
           <tr *ngIf="filteredCustomers.length === 0">
-            <td colspan="7" class="ubs-empty-state">
+            <td colspan="8" class="ubs-empty-state">
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No customers matched your search</p>
                 <p class="ubs-empty-desc">Check the spelling or clear the search to see all {{ allCustomers.length }} customers.</p>

@@ -14,6 +14,17 @@ export class PdfService {
     });
   }
 
+  /** Triggers a browser download for a PDF fetched from the API */
+  saveBlob(blob: Blob, filename: string): void {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  /** Prints the on-screen .ubs-invoice-sheet; tax rows are already omitted there for No GST bills */
   printInvoice(): void {
     if (typeof window === 'undefined') return;
 

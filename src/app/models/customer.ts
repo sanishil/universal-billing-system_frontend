@@ -1,3 +1,5 @@
+export type CustomerAccountStatus = 'NONE' | 'INVITED' | 'REGISTERED';
+
 export interface Customer {
   id: string;
   name: string;
@@ -12,4 +14,6 @@ export interface Customer {
   totalSpent?: number;
   billsCount?: number;
   status?: 'ACTIVE' | 'INACTIVE';
+  /** Whether this customer has a login of their own */
+  accountStatus?: CustomerAccountStatus;
 }

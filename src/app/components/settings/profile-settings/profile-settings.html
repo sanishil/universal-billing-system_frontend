@@ -145,34 +145,56 @@
               </div>
             </div>
             <div class="prf-form-group">
-              <label class="ubs-label" for="prf-company">Company / Business Name</label>
+              <label class="ubs-label" for="prf-business">Business Name</label>
               <input
-                id="prf-company"
+                id="prf-business"
                 type="text"
                 class="ubs-input"
-                [(ngModel)]="company"
-                name="company"
-                placeholder="Enter company name"
+                [(ngModel)]="businessName"
+                name="businessName"
+                placeholder="Shown as the issuer on your bills"
               />
             </div>
           </div>
 
+          <div class="prf-field-grid">
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-gstin">GSTIN <span class="prf-optional">(leave blank if not GST-registered)</span></label>
+              <input
+                id="prf-gstin"
+                type="text"
+                class="ubs-input"
+                [(ngModel)]="gstin"
+                name="gstin"
+                placeholder="27AAAAA0000A1Z5"
+                style="font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;"
+              />
+            </div>
+            <div class="prf-form-group">
+              <label class="ubs-label" for="prf-state">Business State *</label>
+              <select id="prf-state" class="ubs-select" [(ngModel)]="stateCode" name="stateCode" required>
+                <option value="" disabled>Select your state</option>
+                <option *ngFor="let s of states" [value]="s.code">{{ s.name }} ({{ s.code }})</option>
+              </select>
+              <small class="prf-field-hint">Required to issue bills. Decides CGST + SGST vs IGST.</small>
+            </div>
+          </div>
+
           <div class="prf-form-group">
-            <label class="ubs-label" for="prf-gstin">GSTIN</label>
-            <input
-              id="prf-gstin"
-              type="text"
-              class="ubs-input"
-              [(ngModel)]="gstin"
-              name="gstin"
-              placeholder="27AAAAA0000A1Z5"
-              style="font-family: 'JetBrains Mono', monospace; font-size: 0.875rem;"
-            />
+            <label class="ubs-label" for="prf-address">Business Address</label>
+            <textarea
+              id="prf-address"
+              rows="2"
+              class="ubs-textarea"
+              [(ngModel)]="address"
+              name="address"
+              placeholder="Printed under your business name on bills"
+            ></textarea>
           </div>
 
           <div class="prf-form-footer">
             <button type="button" class="ubs-btn-secondary" (click)="resetForm()">Reset</button>
-            <button type="submit" class="ubs-btn-primary">
+            <button type="submit" class="ubs-btn-primary" [disabled]="isSaving">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>

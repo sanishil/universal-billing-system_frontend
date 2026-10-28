@@ -14,7 +14,7 @@
     </div>
     <div class="ubs-form-actions">
       <a routerLink="/bills" class="ubs-btn-secondary">Cancel</a>
-      <button (click)="saveBill()" class="ubs-btn-primary">
+      <button (click)="saveBill()" class="ubs-btn-primary" [disabled]="profileIncomplete || isSaving">
         <svg
           width="16"
           height="16"
@@ -28,6 +28,13 @@
         <span>Generate & Issue Invoice</span>
       </button>
     </div>
+  </div>
+
+  <div *ngIf="profileIncomplete" class="ubs-profile-banner" role="alert">
+    <span>
+      Add your business state in your profile before issuing bills. It decides whether CGST + SGST or IGST applies.
+    </span>
+    <a routerLink="/settings/profile" class="ubs-btn-secondary ubs-btn-sm">Complete profile</a>
   </div>
 
   <div class="ubs-bill-form-grid">
@@ -72,24 +79,16 @@
 
           <div class="ubs-form-group">
             <label class="ubs-label">Place of Supply (State)</label>
-            <select [(ngModel)]="placeOfSupply" class="ubs-select" (ngModelChange)="isInterState = placeOfSupply !== 'Karnataka (29)'">
-              <option value="Karnataka (29)">Karnataka (29) - Intra-State</option>
-              <option value="Maharashtra (27)">Maharashtra (27) - Inter-State</option>
-              <option value="Haryana (06)">Haryana (06) - Inter-State</option>
-              <option value="Delhi (07)">Delhi (07) - Inter-State</option>
-              <option value="Tamil Nadu (33)">Tamil Nadu (33) - Inter-State</option>
-              <option value="Telangana (36)">Telangana (36) - Inter-State</option>
+            <select [(ngModel)]="placeOfSupplyCode" class="ubs-select">
+              <option *ngFor="let s of states" [value]="s.code">
+                {{ s.name }} ({{ s.code }}){{ supplierStateCode ? (s.code === supplierStateCode ? ' - Intra-State' : ' - Inter-State') : '' }}
+              </option>
             </select>
           </div>
 
           <div class="ubs-form-group">
             <label class="ubs-label">GST Tax Rate</label>
-            <select [(ngModel)]="gstRate" class="ubs-select">
-              <option [ngValue]="18">18% GST (Standard Services & Tech)</option>
-              <option [ngValue]="12">12% GST (Standard Goods)</option>
-              <option [ngValue]="5">5% GST (Concessional)</option>
-              <option [ngValue]="0">0% GST (Exempt / Nil Rated)</option>
-            </select>
+            <app-gst-rate-select [(ngModel)]="gstRate" [rates]="gstRates"></app-gst-rate-select>
           </div>
 
           <div class="ubs-form-group">
@@ -194,44 +193,56 @@
       <h3 class="ubs-summary-title">Financial & GST Summary</h3>
 
       <div class="ubs-summary-row">
-        <span class="ubs-summary-label">Taxable Subtotal</span>
-        <span class="ubs-summary-val">₹{{ calculateSubtotal() | number: '1.2-2' }}</span>
+        <span class="ubs-summary-label">{{ gstRate === null ? 'Subtotal' : 'Taxable Subtotal' }}</span>
+        <span class="ubs-summary-val">₹{{ gst.subtotal | number: '1.2-2' }}</span>
       </div>
 
-      <ng-container *ngIf="!isInterState">
-        <div class="ubs-summary-row">
-          <span class="ubs-summary-label">CGST ({{ gstRate / 2 }}%)</span>
-          <span class="ubs-summary-val">₹{{ calculateCGST() | number: '1.2-2' }}</span>
-        </div>
-        <div class="ubs-summary-row">
-          <span class="ubs-summary-label">SGST ({{ gstRate / 2 }}%)</span>
-          <span class="ubs-summary-val">₹{{ calculateSGST() | number: '1.2-2' }}</span>
+      <ng-container *ngIf="gstRate !== null">
+        <ng-container *ngIf="!gst.interState">
+          <div class="ubs-summary-row">
+            <span class="ubs-summary-label">CGST ({{ gstRate / 2 }}%)</span>
+            <span class="ubs-summary-val">₹{{ gst.cgst | number: '1.2-2' }}</span>
+          </div>
+          <div class="ubs-summary-row">
+            <span class="ubs-summary-label">SGST ({{ gstRate / 2 }}%)</span>
+            <span class="ubs-summary-val">₹{{ gst.sgst | number: '1.2-2' }}</span>
+          </div>
+        </ng-container>
+
+        <div class="ubs-summary-row" *ngIf="gst.interState">
+          <span class="ubs-summary-label">IGST ({{ gstRate }}%)</span>
+          <span class="ubs-summary-val">₹{{ gst.igst | number: '1.2-2' }}</span>
         </div>
       </ng-container>
 
-      <div class="ubs-summary-row" *ngIf="isInterState">
-        <span class="ubs-summary-label">IGST ({{ gstRate }}%)</span>
-        <span class="ubs-summary-val">₹{{ calculateIGST() | number: '1.2-2' }}</span>
+      <div class="ubs-summary-row" *ngIf="gstRate === null">
+        <span class="ubs-summary-label">GST not applicable</span>
+        <span class="ubs-summary-val">—</span>
       </div>
 
       <div class="ubs-summary-divider"></div>
 
       <div class="ubs-summary-total-row">
         <span class="ubs-total-label">Total Due (INR)</span>
-        <span class="ubs-total-val">₹{{ calculateTotal() | number: '1.2-2' }}</span>
+        <span class="ubs-total-val">₹{{ gst.total | number: '1.2-2' }}</span>
       </div>
 
-      <div class="ubs-summary-pills">
-        <div class="ubs-info-box">
-          <span class="ubs-info-icon">🇮🇳</span>
-          <span
-            >Invoice formatted with Indian GST compliance, SAC codes, and instant UPI payment link.</span
-          >
-        </div>
+      <div class="ubs-summary-options">
+        <label class="ubs-summary-check">
+          <input type="checkbox" [(ngModel)]="sendEmail" />
+          <span>Email bill to customer after saving</span>
+        </label>
+        <label class="ubs-summary-check" *ngIf="canInviteRecipient">
+          <input type="checkbox" [(ngModel)]="inviteRecipient" />
+          <span>Give this customer a login to see their bills</span>
+        </label>
+        <p class="ubs-summary-note" *ngIf="selectedCustomer?.accountStatus === 'REGISTERED'">
+          {{ selectedCustomer?.name }} already has a login and will see this bill under Received.
+        </p>
       </div>
 
-      <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit">
-        Save & Issue Invoice
+      <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit" [disabled]="profileIncomplete || isSaving">
+        {{ isSaving ? 'Saving…' : 'Save & Issue Invoice' }}
       </button>
     </div>
   </div>
