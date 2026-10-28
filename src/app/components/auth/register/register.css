@@ -22,6 +22,7 @@
 .yono-page-wrapper {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -85,24 +86,40 @@
   position: relative;
 }
 
-/* Card top label — same blue pill as login */
-.yono-card-tab {
+/* Card header — same icon badge, title, subtitle as login */
+.yono-card-head {
   text-align: center;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 2px solid rgba(0, 119, 182, 0.18);
+  margin-bottom: 26px;
 }
 
-.yono-tab-text {
-  font-size: 1.05rem;
-  font-weight: 800;
+.yono-card-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 14px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45rem;
   color: #ffffff;
-  letter-spacing: 0.02em;
-  background: linear-gradient(135deg, #0077b6 0%, #005f94 100%);
-  padding: 8px 24px;
-  border-radius: 9999px;
-  display: inline-block;
-  box-shadow: 0 2px 10px rgba(0, 80, 140, 0.28);
+  background: linear-gradient(135deg, #1a9fd4 0%, #0077b6 55%, #005f94 100%);
+  box-shadow: 0 6px 18px rgba(0, 95, 148, 0.35);
+}
+
+.yono-card-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #03253d;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 6px;
+}
+
+.yono-card-subtitle {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #334e68;
+  margin: 0;
 }
 
 /* Alert banners — removed, replaced by toast notification */
@@ -248,6 +265,91 @@
   font-size: 0.95rem;
 }
 
+/* Touched-but-invalid fields get a red underline (Angular adds these classes) */
+.yono-underline-input.ng-invalid.ng-touched {
+  border-bottom-color: #d64545 !important;
+}
+
+/* Input with a leading icon */
+.yono-input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.yono-input-group .yono-underline-input {
+  padding-left: 30px !important;
+}
+
+.yono-input-icon {
+  position: absolute;
+  left: 2px;
+  font-size: 1.05rem;
+  color: #3f7fa3;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.yono-input-group:focus-within .yono-input-icon {
+  color: #0077b6;
+}
+
+/* ==========================================================================
+   reCAPTCHA WIDGET — same scaling as login
+   ========================================================================== */
+
+.yono-recaptcha-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 4px 0;
+}
+
+/* reCAPTCHA renders at a fixed ~300px wide; scale it to the card width (~344px) */
+.yono-captcha-scaler {
+  width: 100%;
+  height: 85px;           /* 74px × 1.147 */
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1.8px solid #5aaad0;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.yono-captcha-scaler re-captcha {
+  display: block;
+  transform: scale(1.147);
+  transform-origin: top left;
+}
+
+.yono-captcha-refresh-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.yono-captcha-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #004f7c;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.yono-captcha-refresh-btn:hover {
+  background: rgba(0, 119, 182, 0.12);
+  color: #003559;
+}
+
 /* ==========================================================================
    SUBMIT BUTTON — same blue pill as login
    ========================================================================== */
@@ -260,7 +362,7 @@
   width: 100% !important;
   height: 46px !important;
   border-radius: 9999px !important;
-  background-color: #0077b6 !important;
+  background: linear-gradient(135deg, #1a9fd4 0%, #0077b6 50%, #005f94 100%) !important;
   color: #ffffff !important;
   font-size: 1.05rem !important;
   font-weight: 700 !important;
@@ -274,8 +376,14 @@
   gap: 8px;
 }
 
+.yono-register-submit-btn:focus-visible,
+.yono-captcha-refresh-btn:focus-visible {
+  outline: 2px solid #f5a623;
+  outline-offset: 2px;
+}
+
 .yono-register-submit-btn:hover {
-  background-color: #005f94 !important;
+  background: #005f94 !important;
   box-shadow: 0 6px 22px rgba(0, 80, 140, 0.52) !important;
   transform: translateY(-1px);
 }
@@ -300,6 +408,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 6px;
   margin-top: 20px;
   padding-top: 16px;
@@ -356,13 +465,19 @@
     padding: 28px 20px 24px;
     border-radius: 16px;
   }
-  .yono-tab-text {
-    font-size: 0.95rem;
-    padding: 7px 18px;
+  .yono-card-head {
+    margin-bottom: 22px;
   }
-  .yono-underline-input {
-    font-size: 0.95rem !important;
+  .yono-card-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
   }
+  .yono-card-title {
+    font-size: 1.3rem;
+  }
+  /* Inputs stay at 16px so iOS Safari doesn't zoom on focus */
   .yono-register-submit-btn {
     font-size: 0.975rem !important;
     height: 44px !important;
@@ -392,6 +507,16 @@
   }
   .yono-form {
     gap: 16px;
+  }
+}
+
+/* Very narrow phone -- shrink the fixed 304px reCAPTCHA to fit the card */
+@media (max-width: 359px) {
+  .yono-captcha-scaler {
+    height: 64px;
+  }
+  .yono-captcha-scaler re-captcha {
+    transform: scale(0.86);
   }
 }
 

@@ -65,6 +65,22 @@
   gap: 20px;
 }
 
+.ubs-field-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-field-hint a {
+  color: var(--ubs-blue-600);
+  font-weight: 600;
+}
+
+.ubs-field-hint-warn {
+  color: var(--ubs-warning-text);
+}
+
 .ubs-login-check {
   display: flex;
   align-items: flex-start;

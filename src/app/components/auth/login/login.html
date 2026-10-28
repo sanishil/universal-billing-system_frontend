@@ -21,27 +21,33 @@
       <div class="yono-right-col">
         <div class="yono-login-card">
 
-          <!-- Card Tab Header -->
-          <div class="yono-card-tab">
-            <span class="yono-tab-text">Login</span>
+          <!-- Card Header -->
+          <div class="yono-card-head">
+            <div class="yono-card-icon"><i class="bi bi-box-arrow-in-right"></i></div>
+            <h1 class="yono-card-title">Welcome back</h1>
+            <p class="yono-card-subtitle">Sign in to your billing account</p>
           </div>
 
           <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="yono-form" autocomplete="off">
 
             <!-- Username -->
             <div class="yono-field-wrap">
-              <input
-                type="text"
-                formControlName="username"
-                class="yono-underline-input"
-                placeholder="Email or phone"
-                (input)="dismissToast()"
-              />
+              <div class="yono-input-group">
+                <i class="bi bi-person yono-input-icon"></i>
+                <input
+                  type="text"
+                  formControlName="username"
+                  class="yono-underline-input"
+                  placeholder="Email or phone, e.g. 9876543210"
+                  (input)="dismissToast()"
+                />
+              </div>
             </div>
 
             <!-- Password -->
             <div class="yono-field-wrap">
-              <div class="yono-password-input-group">
+              <div class="yono-input-group yono-password-input-group">
+                <i class="bi bi-lock yono-input-icon"></i>
                 <input
                   [type]="showPassword ? 'text' : 'password'"
                   formControlName="password"
@@ -131,7 +137,7 @@
               type="text"
               [(ngModel)]="modalEmail"
               name="modalEmail"
-              placeholder="e.g. alex@universalbilling.io"
+              placeholder="e.g. rahul.sharma@company.in"
               class="yono-underline-input"
             />
           </div>

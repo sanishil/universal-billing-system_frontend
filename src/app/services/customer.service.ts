@@ -73,6 +73,7 @@ export class CustomerService {
       phone:      String(c.phone ?? c.phoneNumber ?? c.phone_number ?? c.mobile ?? ''),
       address:    c.address ?? c.addressLine ?? '',
       company:    c.company ?? c.companyName ?? c.company_name ?? c.organization ?? undefined,
+      businessId: c.businessId ?? c.business_id ?? undefined,
       gstin:      c.gstin ?? c.gstNumber ?? c.gst_number ?? undefined,
       pan:        c.pan ?? c.panNumber ?? undefined,
       state:      c.state ?? c.stateName ?? undefined,

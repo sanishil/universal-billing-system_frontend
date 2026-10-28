@@ -269,6 +269,171 @@
   padding-left: 38px !important;
 }
 
+.prf-mono-input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+/* ─── My Businesses ─── */
+.prf-section-heading {
+  flex: 1;
+  min-width: 0;
+}
+
+.prf-biz-add-btn {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.prf-biz-empty {
+  margin: 0;
+  padding: 16px;
+  font-size: 0.85rem;
+  color: var(--ubs-ash-muted);
+  text-align: center;
+  border: 1.5px dashed var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+}
+
+.prf-biz-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prf-biz-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: var(--ubs-radius-md);
+  background-color: var(--ubs-white);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prf-biz-item:hover {
+  border-color: var(--ubs-blue-200);
+}
+
+.prf-biz-item-editing {
+  border-color: var(--ubs-blue-600);
+  box-shadow: 0 0 0 3px var(--ubs-blue-50);
+}
+
+.prf-biz-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.prf-biz-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.prf-biz-name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prf-biz-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  overflow-wrap: anywhere;
+}
+
+.prf-biz-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 0.78rem;
+  color: var(--ubs-ash-muted);
+}
+
+.prf-biz-gstin {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.prf-biz-address {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--ubs-ash-muted);
+  line-height: 1.4;
+}
+
+.prf-biz-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.prf-biz-icon-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ubs-ash-muted);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.prf-biz-icon-btn:hover {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-600);
+}
+
+.prf-biz-icon-danger:hover {
+  background-color: var(--ubs-danger-bg);
+  color: var(--ubs-danger-text);
+}
+
+.prf-biz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  border-radius: var(--ubs-radius-md);
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+}
+
+.prf-biz-form-title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.prf-input-error {
+  border-color: var(--ubs-danger-text) !important;
+}
+
+.prf-hint-error {
+  color: var(--ubs-danger-text);
+}
+
 /* ─── Password Strength ─── */
 .prf-strength-wrap {
   display: flex;
@@ -423,6 +588,13 @@
   cursor: pointer;
   transition: background-color 0.25s ease;
   flex-shrink: 0;
+  border: none;
+  padding: 0;
+}
+
+.prf-tiny-toggle:focus-visible {
+  outline: 2px solid var(--ubs-blue-600);
+  outline-offset: 2px;
 }
 
 .prf-tiny-toggle.prf-tiny-on {
@@ -445,62 +617,6 @@
   transform: translateX(16px);
 }
 
-/* Danger Zone */
-.prf-danger-card {
-  padding: 18px 20px;
-  border-color: var(--ubs-danger-border) !important;
-  background-color: var(--ubs-danger-bg);
-}
-
-.prf-danger-title {
-  color: var(--ubs-danger-text);
-}
-
-.prf-danger-desc {
-  font-size: 0.8rem;
-  color: var(--ubs-ash-muted);
-  margin: 8px 0 14px;
-  line-height: 1.5;
-}
-
-.prf-danger-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.prf-danger-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 16px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: inherit;
-  border-radius: var(--ubs-radius-md);
-  border: 1.5px solid var(--ubs-danger-border);
-  color: var(--ubs-danger-text);
-  background-color: var(--ubs-white);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-.prf-danger-btn:hover {
-  background-color: var(--ubs-danger-bg);
-}
-
-.prf-danger-primary {
-  background-color: var(--ubs-danger-text);
-  color: white;
-  border-color: var(--ubs-danger-text);
-}
-
-.prf-danger-primary:hover {
-  background-color: #b91c1c;
-}
-
 /* ─── Responsive ─── */
 @media (max-width: 1100px) {
   .prf-main-grid {
@@ -508,7 +624,7 @@
   }
   .prf-sidebar {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   .prf-avatar-section {
     flex-wrap: wrap;
@@ -525,5 +641,15 @@
   .prf-avatar-stats {
     width: 100%;
     justify-content: center;
+  }
+  .prf-form-section-header {
+    flex-wrap: wrap;
+  }
+  .prf-biz-item {
+    padding: 12px;
+    gap: 10px;
+  }
+  .prf-biz-form {
+    padding: 14px;
   }
 }

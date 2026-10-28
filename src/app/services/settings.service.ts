@@ -2,18 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from './api.config';
+import { Business, BusinessPayload } from '../models/business';
 
 export interface ProfilePayload {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  company: string;
-  gstin: string;
-  businessName: string;
-  address: string;
-  /** Supplier state for GST; bills can't be issued until this is set */
-  stateCode: string;
+  role?: string;
+  status?: string;
+  /** Business details now live in /settings/businesses; kept for older responses */
+  company?: string;
+  gstin?: string;
+  businessName?: string;
+  address?: string;
+  stateCode?: string;
 }
 
 export interface SystemSettingsPayload {
@@ -59,6 +62,27 @@ export class SettingsService {
 
   updateProfile(payload: ProfilePayload): Observable<ProfilePayload> {
     return this.http.put<ProfilePayload>(`${API_BASE_URL}/settings/profile`, payload);
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${API_BASE_URL}/settings/password`, { currentPassword, newPassword });
+  }
+
+  /** The user's businesses, oldest first; the first one is the default */
+  getBusinesses(): Observable<Business[]> {
+    return this.http.get<Business[]>(`${API_BASE_URL}/settings/businesses`);
+  }
+
+  createBusiness(payload: BusinessPayload): Observable<Business> {
+    return this.http.post<Business>(`${API_BASE_URL}/settings/businesses`, payload);
+  }
+
+  updateBusiness(id: string, payload: BusinessPayload): Observable<Business> {
+    return this.http.put<Business>(`${API_BASE_URL}/settings/businesses/${id}`, payload);
+  }
+
+  deleteBusiness(id: string): Observable<void> {
+    return this.http.delete<void>(`${API_BASE_URL}/settings/businesses/${id}`);
   }
 
   getSystemSettings(): Observable<SystemSettingsPayload> {

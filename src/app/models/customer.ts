@@ -7,6 +7,8 @@ export interface Customer {
   phone: string;
   address: string;
   company?: string;
+  /** The creator's business this customer is billed from */
+  businessId?: string;
   gstin?: string;
   pan?: string;
   state?: string;

@@ -19,45 +19,55 @@
       <div class="yono-right-col">
         <div class="yono-register-card">
 
-          <!-- Card Tab Header -->
-          <div class="yono-card-tab">
-            <span class="yono-tab-text">Create Your Account</span>
+          <!-- Card Header -->
+          <div class="yono-card-head">
+            <div class="yono-card-icon"><i class="bi bi-person-plus"></i></div>
+            <h1 class="yono-card-title">Create your account</h1>
+            <p class="yono-card-subtitle">Get started with Universal Billing</p>
           </div>
 
           <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="yono-form" autocomplete="off">
 
             <!-- Full Name -->
             <div class="yono-field-wrap">
-              <input
-                formControlName="name"
-                type="text"
-                class="yono-underline-input"
-                placeholder="Full Name"
-                (input)="dismissToast()"
-              />
+              <div class="yono-input-group">
+                <i class="bi bi-person yono-input-icon"></i>
+                <input
+                  formControlName="name"
+                  type="text"
+                  class="yono-underline-input"
+                  placeholder="Full name, e.g. Rahul Sharma"
+                  (input)="dismissToast()"
+                />
+              </div>
             </div>
-
 
             <!-- Work Email -->
             <div class="yono-field-wrap">
-              <input
-                formControlName="email"
-                type="email"
-                class="yono-underline-input"
-                placeholder="Work Email Address"
-                (input)="dismissToast()"
-              />
+              <div class="yono-input-group">
+                <i class="bi bi-envelope yono-input-icon"></i>
+                <input
+                  formControlName="email"
+                  type="email"
+                  class="yono-underline-input"
+                  placeholder="Work email, e.g. rahul@company.in"
+                  (input)="dismissToast()"
+                />
+              </div>
             </div>
 
             <!-- Phone Number -->
             <div class="yono-field-wrap">
-              <input
-                formControlName="phone"
-                type="text"
-                class="yono-underline-input"
-                placeholder="Phone Number"
-                (input)="dismissToast()"
-              />
+              <div class="yono-input-group">
+                <i class="bi bi-telephone yono-input-icon"></i>
+                <input
+                  formControlName="phone"
+                  type="tel"
+                  class="yono-underline-input"
+                  placeholder="Mobile number, e.g. 9876543210"
+                  (input)="dismissToast()"
+                />
+              </div>
             </div>
 
             <!-- Google reCAPTCHA v2 -->
