@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -26,6 +26,8 @@ export class ProfileSettingsComponent implements OnInit {
   private authService = inject(AuthService);
   private billService = inject(BillService);
   private toast = inject(ToastService);
+  // The app runs without zone.js, so HTTP responses don't re-render on their own
+  private cdr = inject(ChangeDetectorRef);
 
   readonly states = INDIAN_STATES;
 
@@ -97,46 +99,52 @@ export class ProfileSettingsComponent implements OnInit {
     this.loadProfile();
     this.loadBusinesses();
     this.loadStats();
-    this.settingsService.getSystemSettings().subscribe({
-      next: settings => this.systemSettings = settings,
-      error: () => this.systemSettings = null
-    });
+    this.settingsService.getSystemSettings()
+      .pipe(finalize(() => this.cdr.markForCheck()))
+      .subscribe({
+        next: settings => this.systemSettings = settings,
+        error: () => this.systemSettings = null
+      });
   }
 
   loadStats() {
-    this.billService.getStats('sent').subscribe({
-      next: stats => {
-        this.billCount = stats.totalCount;
-        this.paidPercent = stats.totalCount ? Math.round((stats.paidCount / stats.totalCount) * 100) : null;
-      },
-      error: () => {
-        this.billCount = null;
-        this.paidPercent = null;
-      }
-    });
+    this.billService.getStats('sent')
+      .pipe(finalize(() => this.cdr.markForCheck()))
+      .subscribe({
+        next: stats => {
+          this.billCount = stats.totalCount;
+          this.paidPercent = stats.totalCount ? Math.round((stats.paidCount / stats.totalCount) * 100) : null;
+        },
+        error: () => {
+          this.billCount = null;
+          this.paidPercent = null;
+        }
+      });
   }
 
   loadProfile() {
-    this.settingsService.getProfile().subscribe({
-      next: profile => {
-        this.firstName = profile.firstName;
-        this.lastName = profile.lastName;
-        this.email = profile.email;
-        this.phone = profile.phone;
-        if (profile.role) this.role = profile.role;
-        this.accountActive = !profile.status || profile.status === 'ACTIVE';
-      },
-      error: () => {
-        // Fallback: pre-fill from auth session user if API isn't ready
-        const user = this.authService.getCurrentUser();
-        if (user) {
-          const parts = (user.name || '').split(' ');
-          this.firstName = parts[0] || '';
-          this.lastName = parts.slice(1).join(' ') || '';
-          this.email = user.email || '';
+    this.settingsService.getProfile()
+      .pipe(finalize(() => this.cdr.markForCheck()))
+      .subscribe({
+        next: profile => {
+          this.firstName = profile.firstName;
+          this.lastName = profile.lastName;
+          this.email = profile.email;
+          this.phone = profile.phone;
+          if (profile.role) this.role = profile.role;
+          this.accountActive = !profile.status || profile.status === 'ACTIVE';
+        },
+        error: () => {
+          // Fallback: pre-fill from auth session user if API isn't ready
+          const user = this.authService.getCurrentUser();
+          if (user) {
+            const parts = (user.name || '').split(' ');
+            this.firstName = parts[0] || '';
+            this.lastName = parts.slice(1).join(' ') || '';
+            this.email = user.email || '';
+          }
         }
-      }
-    });
+      });
   }
 
   focusPersonalInfo() {
@@ -155,7 +163,7 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.isSaving = true;
     this.settingsService.updateProfile(payload)
-      .pipe(finalize(() => { this.isSaving = false; }))
+      .pipe(finalize(() => { this.isSaving = false; this.cdr.markForCheck(); }))
       .subscribe({
         next: () => {
           this.authService.updateCurrentUser({ name: this.name, email: this.email });
@@ -185,7 +193,7 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.isChangingPassword = true;
     this.settingsService.changePassword(this.currentPassword, this.newPassword)
-      .pipe(finalize(() => { this.isChangingPassword = false; }))
+      .pipe(finalize(() => { this.isChangingPassword = false; this.cdr.markForCheck(); }))
       .subscribe({
         next: () => {
           this.currentPassword = '';
@@ -205,6 +213,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.settingsService.updateSystemSettings(settings).subscribe({
       error: () => {
         settings[key] = previous;
+        this.cdr.markForCheck();
         this.toast.error('Preference could not be saved. Please try again.');
       }
     });
@@ -213,19 +222,21 @@ export class ProfileSettingsComponent implements OnInit {
   // ── Businesses ─────────────────────────────────────────────────────────────
 
   loadBusinesses() {
-    this.settingsService.getBusinesses().subscribe({
-      next: list => {
-        this.businesses = list;
-        this.businessesLoaded = true;
-        this.syncSessionBusiness();
-        // Customers and bills need a business, so open the add form straight away
-        if (!list.length) this.startAddBusiness();
-      },
-      error: () => {
-        this.businessesLoaded = true;
-        this.toast.error('Your businesses could not be loaded.');
-      }
-    });
+    this.settingsService.getBusinesses()
+      .pipe(finalize(() => this.cdr.markForCheck()))
+      .subscribe({
+        next: list => {
+          this.businesses = list;
+          this.businessesLoaded = true;
+          this.syncSessionBusiness();
+          // Customers and bills need a business, so open the add form straight away
+          if (!list.length) this.startAddBusiness();
+        },
+        error: () => {
+          this.businessesLoaded = true;
+          this.toast.error('Your businesses could not be loaded.');
+        }
+      });
   }
 
   stateName(code: string): string {
@@ -274,7 +285,7 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.isSavingBusiness = true;
     request
-      .pipe(finalize(() => { this.isSavingBusiness = false; }))
+      .pipe(finalize(() => { this.isSavingBusiness = false; this.cdr.markForCheck(); }))
       .subscribe({
         next: saved => {
           const index = this.businesses.findIndex(b => b.id === saved.id);
@@ -294,15 +305,17 @@ export class ProfileSettingsComponent implements OnInit {
   deleteBusiness(business: Business) {
     if (!confirm(`Remove "${business.name}"? Customers already created under it keep the name.`)) return;
 
-    this.settingsService.deleteBusiness(business.id).subscribe({
-      next: () => {
-        this.businesses = this.businesses.filter(b => b.id !== business.id);
-        if (this.editingBusinessId === business.id) this.editingBusinessId = null;
-        this.syncSessionBusiness();
-        this.toast.success('Business removed.');
-      },
-      error: (err) => this.toast.error(err.error?.message || 'Business could not be removed. Please try again.')
-    });
+    this.settingsService.deleteBusiness(business.id)
+      .pipe(finalize(() => this.cdr.markForCheck()))
+      .subscribe({
+        next: () => {
+          this.businesses = this.businesses.filter(b => b.id !== business.id);
+          if (this.editingBusinessId === business.id) this.editingBusinessId = null;
+          this.syncSessionBusiness();
+          this.toast.success('Business removed.');
+        },
+        error: (err) => this.toast.error(err.error?.message || 'Business could not be removed. Please try again.')
+      });
   }
 
   /** Bill create reads the supplier state from the session user, so mirror the default business there */

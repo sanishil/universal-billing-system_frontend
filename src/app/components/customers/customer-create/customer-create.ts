@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -20,6 +20,8 @@ export class CustomerCreateComponent implements OnInit {
   private settingsService = inject(SettingsService);
   private router = inject(Router);
   private toast = inject(ToastService);
+  // The app runs without zone.js, so HTTP responses don't re-render on their own
+  private cdr = inject(ChangeDetectorRef);
 
   /** Full Indian state list with GST state codes */
   readonly states = INDIAN_STATES;
@@ -53,9 +55,11 @@ export class CustomerCreateComponent implements OnInit {
         this.businessesLoaded = true;
         // Pre-select the default (first) business
         if (list.length) this.customer.businessId = list[0].id;
+        this.cdr.markForCheck();
       },
       error: () => {
         this.businessesLoaded = true;
+        this.cdr.markForCheck();
         this.toast.error('Your businesses could not be loaded.');
       }
     });
@@ -93,6 +97,7 @@ export class CustomerCreateComponent implements OnInit {
       },
       error: (err) => {
         this.isLoading = false;
+        this.cdr.markForCheck();
         const msg =
           err.error?.message ||
           err.error?.errors?.[0]?.message ||
