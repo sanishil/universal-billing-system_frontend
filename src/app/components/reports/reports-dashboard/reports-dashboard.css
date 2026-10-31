@@ -438,3 +438,14 @@
     display: none;
   }
 }
+
+/* Loading, error and "nothing yet" messages */
+.rpt-state-msg {
+  margin: 12px 0;
+  font-size: 13px;
+  color: var(--ubs-ash-muted);
+}
+
+.rpt-state-error {
+  color: var(--ubs-danger-text);
+}

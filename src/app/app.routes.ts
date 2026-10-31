@@ -108,11 +108,8 @@ export const routes: Routes = [
     loadComponent: () => import('./components/pdf/pdf-generator/pdf-generator').then(m => m.PdfGeneratorComponent),
     canActivate: [authGuard]
   },
-  {
-    path: 'pdf/preview',
-    loadComponent: () => import('./components/pdf/pdf-preview/pdf-preview').then(m => m.PdfPreviewComponent),
-    canActivate: [authGuard]
-  },
+  // The old sample invoice page; real invoices are viewed and printed at /bills/view/:id
+  { path: 'pdf/preview', redirectTo: 'bills', pathMatch: 'full' },
 
   // Notifications
   {

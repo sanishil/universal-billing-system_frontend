@@ -65,16 +65,6 @@
           </div>
 
           <div class="ubs-form-group">
-            <label class="ubs-label">Customer GSTIN (Buyer)</label>
-            <input
-              type="text"
-              [(ngModel)]="customerGstin"
-              placeholder="e.g. 29AAACI4321A1ZG"
-              class="ubs-input"
-            />
-          </div>
-
-          <div class="ubs-form-group">
             <label class="ubs-label">Place of Supply (State)</label>
             <select [(ngModel)]="placeOfSupplyCode" class="ubs-select">
               <option *ngFor="let s of states" [value]="s.code">
@@ -129,12 +119,25 @@
             <tbody>
               <tr *ngFor="let item of items; let i = index">
                 <td>
-                  <input
-                    type="text"
-                    [(ngModel)]="item.name"
-                    placeholder="Item title or deliverable"
-                    class="ubs-input"
-                  />
+                  <div class="ubs-item-desc">
+                    <select
+                      class="ubs-select"
+                      [ngModel]="itemKinds[i]"
+                      (ngModelChange)="onItemKindChange(i, $event)"
+                      [name]="'itemKind' + i"
+                      aria-label="Item type"
+                    >
+                      <option *ngFor="let t of itemTypes" [value]="t.key">{{ t.label }}</option>
+                    </select>
+                    <input
+                      *ngIf="itemKinds[i] === 'other'"
+                      type="text"
+                      [(ngModel)]="item.name"
+                      [name]="'itemName' + i"
+                      placeholder="Describe the item"
+                      class="ubs-input"
+                    />
+                  </div>
                 </td>
                 <td>
                   <input
@@ -223,9 +226,12 @@
 
       <div class="ubs-summary-options">
         <label class="ubs-summary-check">
-          <input type="checkbox" [(ngModel)]="sendEmail" />
+          <input type="checkbox" [(ngModel)]="sendEmail" [disabled]="!customerHasEmail" />
           <span>Email bill to customer after saving</span>
         </label>
+        <p class="ubs-summary-note" *ngIf="selectedCustomer && !customerHasEmail">
+          {{ selectedCustomer.name }} has no email address, so the bill can't be emailed.
+        </p>
         <label class="ubs-summary-check" *ngIf="canInviteRecipient">
           <input type="checkbox" [(ngModel)]="inviteRecipient" />
           <span>Give this customer a login to see their bills</span>

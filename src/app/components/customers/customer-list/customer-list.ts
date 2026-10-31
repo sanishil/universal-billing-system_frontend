@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { Customer } from '../../../models/customer';
 export class CustomerListComponent implements OnInit {
   private customerService = inject(CustomerService);
   private toast = inject(ToastService);
+  // The app runs without zone.js, so HTTP responses don't re-render on their own
+  private cdr = inject(ChangeDetectorRef);
 
   allCustomers: Customer[] = [];
   filteredCustomers: Customer[] = [];
@@ -37,9 +39,11 @@ export class CustomerListComponent implements OnInit {
         this.allCustomers = custs;
         this.applyFilter();
         this.isLoading = false;
+        this.cdr.markForCheck();
       },
       error: (err) => {
         this.isLoading = false;
+        this.cdr.markForCheck();
         if (err.status === 0) {
           this.errorMessage = 'Unable to reach the server. Please check your connection and try again.';
           return;
@@ -76,10 +80,12 @@ export class CustomerListComponent implements OnInit {
         this.deletingId = null;
         this.allCustomers = this.allCustomers.filter(c => c.id !== id);
         this.applyFilter();
+        this.cdr.markForCheck();
         this.toast.success('Customer removed successfully.');
       },
       error: (err) => {
         this.deletingId = null;
+        this.cdr.markForCheck();
         this.toast.error(err.error?.message || 'Failed to delete customer. Please try again.');
       }
     });

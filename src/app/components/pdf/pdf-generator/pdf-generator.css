@@ -491,3 +491,47 @@
     justify-content: center;
   }
 }
+
+/* Option cards are buttons now */
+button.pdf-option-card {
+  width: 100%;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+button.pdf-option-card:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Selected invoice summary */
+.pdf-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.pdf-summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+}
+
+.pdf-summary-row strong {
+  color: var(--ubs-black);
+  text-align: right;
+}
+
+.pdf-summary-total {
+  font-size: 1rem;
+}
+
+.pdf-summary-divider {
+  height: 1px;
+  background: var(--ubs-ash-border);
+}
