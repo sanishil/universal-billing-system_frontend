@@ -65,6 +65,52 @@
   gap: 20px;
 }
 
+.ubs-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ubs-form-section + .ubs-form-section {
+  padding-top: 24px;
+  border-top: 1px solid var(--ubs-ash-border);
+}
+
+.ubs-section-title {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-span-2 {
+  grid-column: 1 / -1;
+}
+
+.ubs-optional {
+  font-weight: 400;
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-mono {
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+.ubs-input-invalid {
+  border-color: var(--ubs-danger-text) !important;
+}
+
+.ubs-field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ubs-danger-text);
+}
+
 .ubs-field-hint {
   display: block;
   margin-top: 6px;
@@ -111,6 +157,7 @@
 .ubs-submit-row {
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
   padding-top: 16px;
   border-top: 1px solid var(--ubs-ash-border);
 }
@@ -118,6 +165,17 @@
 @media (max-width: 640px) {
   .ubs-grid-2 {
     grid-template-columns: 1fr;
+  }
+  .ubs-customer-card {
+    padding: 20px 16px;
+  }
+  .ubs-form-actions {
+    display: none; /* the Save button at the bottom of the form is enough on phones */
+  }
+  .ubs-submit-row .ubs-btn-primary,
+  .ubs-submit-row .ubs-btn-secondary {
+    flex: 1;
+    justify-content: center;
   }
 }
 

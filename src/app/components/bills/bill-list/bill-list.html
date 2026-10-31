@@ -3,7 +3,6 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Invoices & Bills</h1>
-      <!-- <p class="ubs-page-subtitle">Manage, create, review, and track client billing statements</p> -->
       <div class="ubs-scope-tabs" role="tablist">
         <button
           role="tab"
@@ -211,7 +210,7 @@
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No bills found</p>
                 <p class="ubs-empty-desc" *ngIf="allBills.length > 0">
-                  Try clearing your search query or change the status filter.
+                  Try a different search or filter.
                 </p>
                 <p class="ubs-empty-desc" *ngIf="allBills.length === 0 && scope === 'received'">
                   Bills that other businesses send to your email will appear here.

@@ -16,7 +16,17 @@ export class CustomerService {
 
   getCustomers(): Observable<Customer[]> {
     return this.http.get<unknown>(`${API_BASE_URL}/customers`).pipe(
-      map(response => this.unwrapList(response).map(c => this.normalize(c)))
+      map(response => {
+        const list = this.unwrapList(response);
+        const normalized = list.map(c => this.normalize(c));
+        console.log('[CustomerService] GET /customers complete:', {
+          rawType: Array.isArray(response) ? 'array' : typeof response,
+          wrappedCount: list.length,
+          normalizedCount: normalized.length,
+          firstItem: normalized[0] || null
+        });
+        return normalized;
+      })
     );
   }
 

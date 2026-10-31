@@ -4,7 +4,6 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">System Settings</h1>
-      <p class="ubs-page-subtitle">Configure billing preferences, company details & system behaviour</p>
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/settings/profile" class="ubs-btn-secondary">
@@ -33,7 +32,6 @@
           </div>
           <div>
             <h2 class="sys-section-title">Billing & Tax</h2>
-            <p class="sys-section-desc">Default tax rates, invoice numbering and payment terms</p>
           </div>
         </div>
 
@@ -59,7 +57,7 @@
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-gst-rates">Allowed GST Rates (%)</label>
               <input id="sys-gst-rates" type="text" class="ubs-input sys-mono" [ngModel]="gstRatesText" (ngModelChange)="onGstRatesTextChange($event)" name="gstRates" placeholder="0, 5, 18, 40" />
-              <small class="sys-field-hint">Comma-separated. Main slabs: 0, 5, 18, 40; add special rates like 3 (gold).</small>
+              <small class="sys-field-hint">Comma-separated, e.g. 0, 5, 18, 40</small>
             </div>
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-default-gst">Default GST on New Bills</label>
@@ -103,7 +101,6 @@
           </div>
           <div>
             <h2 class="sys-section-title">Company Details</h2>
-            <p class="sys-section-desc">Business information printed on invoices and statements</p>
           </div>
         </div>
 
@@ -181,7 +178,6 @@
           </div>
           <div>
             <h2 class="sys-section-title">Regional & Appearance</h2>
-            <p class="sys-section-desc">Date format, timezone and language preferences</p>
           </div>
         </div>
 
@@ -251,7 +247,6 @@
           <div class="sys-toggle-row">
             <div class="sys-toggle-info">
               <span class="sys-toggle-label">Payment Received</span>
-              <span class="sys-toggle-hint">Alert when a payment is logged</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="emailOnPayment" (click)="emailOnPayment = !emailOnPayment">
               <div class="sys-tiny-knob"></div>
@@ -260,7 +255,6 @@
           <div class="sys-toggle-row">
             <div class="sys-toggle-info">
               <span class="sys-toggle-label">Overdue Invoices</span>
-              <span class="sys-toggle-hint">Notify when invoice passes due date</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="emailOnOverdue" (click)="emailOnOverdue = !emailOnOverdue">
               <div class="sys-tiny-knob"></div>
@@ -269,7 +263,6 @@
           <div class="sys-toggle-row">
             <div class="sys-toggle-info">
               <span class="sys-toggle-label">New Client Signup</span>
-              <span class="sys-toggle-hint">When a new client is added</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="emailOnNewClient" (click)="emailOnNewClient = !emailOnNewClient">
               <div class="sys-tiny-knob"></div>
@@ -278,7 +271,6 @@
           <div class="sys-toggle-row">
             <div class="sys-toggle-info">
               <span class="sys-toggle-label">Weekly Report</span>
-              <span class="sys-toggle-hint">Revenue summary every Monday</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="weeklyReport" (click)="weeklyReport = !weeklyReport">
               <div class="sys-tiny-knob"></div>
@@ -286,8 +278,7 @@
           </div>
           <div class="sys-toggle-row">
             <div class="sys-toggle-info">
-              <span class="sys-toggle-label">Email New Bills</span>
-              <span class="sys-toggle-hint">Pre-tick "Email bill to customer" when creating a bill</span>
+              <span class="sys-toggle-label">Auto-email New Bills</span>
             </div>
             <div class="sys-tiny-toggle" [class.sys-tiny-on]="autoEmailOnCreate" (click)="autoEmailOnCreate = !autoEmailOnCreate">
               <div class="sys-tiny-knob"></div>

@@ -51,11 +51,11 @@ export class ProfileSettingsComponent implements OnInit {
 
   /** Shared with System Settings; null until loaded */
   systemSettings: SystemSettingsPayload | null = null;
-  readonly notificationOptions: { key: NotificationKey; label: string; hint: string }[] = [
-    { key: 'emailOnPayment',   label: 'Payment Alerts',    hint: 'Notify when payment received' },
-    { key: 'emailOnOverdue',   label: 'Overdue Reminders', hint: 'Auto-send overdue notices' },
-    { key: 'weeklyReport',     label: 'Weekly Reports',    hint: 'Revenue summary every Monday' },
-    { key: 'emailOnNewClient', label: 'New Client Signup', hint: 'When a new client registers' }
+  readonly notificationOptions: { key: NotificationKey; label: string }[] = [
+    { key: 'emailOnPayment',   label: 'Payment Alerts' },
+    { key: 'emailOnOverdue',   label: 'Overdue Reminders' },
+    { key: 'weeklyReport',     label: 'Weekly Reports' },
+    { key: 'emailOnNewClient', label: 'New Client Signup' }
   ];
 
   /** The user's businesses; customers are created under one of these */

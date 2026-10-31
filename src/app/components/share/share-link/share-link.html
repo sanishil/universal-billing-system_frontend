@@ -4,7 +4,6 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Share Bill Link</h1>
-      <p class="ubs-page-subtitle">Generate permanent public links for clients to view and pay bills online</p>
     </div>
     <div class="ubs-page-actions">
       <button class="ubs-btn-primary" (click)="generateNewLink()" [disabled]="!selectedBillId || isGenerating">
@@ -34,7 +33,6 @@
           </div>
           <div>
             <h2 class="shl-card-title">Active Public Link</h2>
-            <p class="shl-card-desc">Copy this link and share it with your customer</p>
           </div>
           <span class="ubs-badge ubs-badge-paid">Active</span>
         </div>
@@ -109,7 +107,6 @@
             <div class="shl-toggle-row">
               <div class="shl-toggle-info">
                 <label class="shl-toggle-label">Allow Online Payment</label>
-                <span class="shl-toggle-hint">Client can pay directly from the shared link</span>
               </div>
               <div class="shl-toggle" [class.on]="allowPayment" (click)="allowPayment = !allowPayment">
                 <div class="shl-knob"></div>
@@ -118,7 +115,6 @@
             <div class="shl-toggle-row">
               <div class="shl-toggle-info">
                 <label class="shl-toggle-label">Allow PDF Download</label>
-                <span class="shl-toggle-hint">Client can download the invoice as PDF</span>
               </div>
               <div class="shl-toggle" [class.on]="allowDownload" (click)="allowDownload = !allowDownload">
                 <div class="shl-knob"></div>
@@ -127,7 +123,6 @@
             <div class="shl-toggle-row">
               <div class="shl-toggle-info">
                 <label class="shl-toggle-label">Require Email Verification</label>
-                <span class="shl-toggle-hint">Client must verify email before viewing</span>
               </div>
               <div class="shl-toggle" [class.on]="requireEmail" (click)="requireEmail = !requireEmail">
                 <div class="shl-knob"></div>
@@ -203,7 +198,6 @@
             </div>
           </div>
           <div class="shl-qr-info">
-            <p class="shl-qr-desc">Scan with any UPI or camera app to open the invoice payment page</p>
             <button class="ubs-btn-secondary shl-qr-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>

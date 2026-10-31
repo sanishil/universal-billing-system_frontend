@@ -4,7 +4,6 @@
   <div class="ubs-page-header">
     <div>
       <h1 class="ubs-page-title">Profile Settings</h1>
-      <p class="ubs-page-subtitle">Manage your personal details, businesses, password & notifications</p>
     </div>
     <div class="ubs-page-actions">
       <a routerLink="/settings/system" class="ubs-btn-secondary">
@@ -75,7 +74,6 @@
           </div>
           <div>
             <h2 class="prf-section-title">Personal Information</h2>
-            <p class="prf-section-desc">Update your name, email, and contact details</p>
           </div>
         </div>
 
@@ -167,7 +165,6 @@
           </div>
           <div class="prf-section-heading">
             <h2 class="prf-section-title">My Businesses</h2>
-            <p class="prf-section-desc">Each customer is created under one of these. The first one is your default.</p>
           </div>
           <button
             *ngIf="editingBusinessId !== 'new' && businesses.length"
@@ -258,7 +255,6 @@
                 <option value="" disabled>Select the state</option>
                 <option *ngFor="let s of states" [value]="s.code">{{ s.name }} ({{ s.code }})</option>
               </select>
-              <small class="prf-field-hint">Required to issue bills. Decides CGST + SGST vs IGST.</small>
             </div>
 
             <div class="prf-form-group">
@@ -297,7 +293,6 @@
           </div>
           <div>
             <h2 class="prf-section-title">Security & Password</h2>
-            <p class="prf-section-desc">Change your password and manage 2FA</p>
           </div>
         </div>
 
@@ -385,7 +380,6 @@
           <div class="prf-notif-row" *ngFor="let opt of notificationOptions">
             <div class="prf-notif-info">
               <span class="prf-notif-label">{{ opt.label }}</span>
-              <span class="prf-notif-hint">{{ opt.hint }}</span>
             </div>
             <button
               type="button"

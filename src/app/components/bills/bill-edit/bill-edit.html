@@ -22,9 +22,6 @@
         <span class="ubs-current">Edit</span>
       </div>
       <h1 class="ubs-form-title">Edit Invoice #{{ bill.id }}</h1>
-      <p class="ubs-form-subtitle">
-        Update deliverables, line item pricing, or extended payment terms
-      </p>
     </div>
     <div class="ubs-form-actions">
       <button (click)="cancel()" class="ubs-btn-secondary">Cancel</button>
@@ -81,7 +78,6 @@
         <div class="ubs-items-header">
           <div>
             <h2 class="ubs-section-title">Line Items</h2>
-            <p class="ubs-section-subtitle">Modify quantities or price rates</p>
           </div>
           <button type="button" (click)="addItem()" class="ubs-btn-secondary ubs-btn-sm">
             + Add Row

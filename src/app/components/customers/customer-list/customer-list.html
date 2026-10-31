@@ -73,7 +73,6 @@
     <div *ngIf="!isLoading && !errorMessage && allCustomers.length === 0" class="ubs-empty-state">
       <div class="ubs-empty-box">
         <p class="ubs-empty-title">No customers yet</p>
-        <p class="ubs-empty-desc">Click "Add Customer" to create your first client record.</p>
       </div>
     </div>
 
@@ -155,7 +154,7 @@
             <td colspan="8" class="ubs-empty-state">
               <div class="ubs-empty-box">
                 <p class="ubs-empty-title">No customers matched your search</p>
-                <p class="ubs-empty-desc">Check the spelling or clear the search to see all {{ allCustomers.length }} customers.</p>
+                <p class="ubs-empty-desc">Try a different search.</p>
               </div>
             </td>
           </tr>
