@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PaymentService } from '../../../services/payment.service';
@@ -6,6 +6,7 @@ import { Payment } from '../../../models/payment';
 
 @Component({
   selector: 'app-payment-history',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './payment-history.html',

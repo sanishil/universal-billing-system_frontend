@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -9,6 +9,7 @@ import { Bill } from '../../../models/bill';
 
 @Component({
   selector: 'app-pdf-generator',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './pdf-generator.html',
@@ -18,7 +19,6 @@ export class PdfGeneratorComponent implements OnInit {
   private billService = inject(BillService);
   private toast = inject(ToastService);
   private router = inject(Router);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   bills: Bill[] = [];

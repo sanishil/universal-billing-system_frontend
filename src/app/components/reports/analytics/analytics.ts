@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { API_BASE_URL } from '../../../services/api.config';
 
@@ -18,6 +18,7 @@ export interface BillStatusStat {
 
 @Component({
   selector: 'app-analytics',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule],
   templateUrl: './analytics.html',

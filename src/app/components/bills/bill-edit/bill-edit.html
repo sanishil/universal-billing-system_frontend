@@ -99,7 +99,25 @@
             <tbody>
               <tr *ngFor="let item of bill.items; let i = index">
                 <td>
-                  <input type="text" [(ngModel)]="item.name" class="ubs-input" />
+                  <div class="ubs-item-desc">
+                    <select
+                      class="ubs-select"
+                      [ngModel]="itemKinds[i]"
+                      (ngModelChange)="onItemKindChange(i, $event)"
+                      [name]="'itemKind' + i"
+                      aria-label="Item type"
+                    >
+                      <option *ngFor="let t of itemTypes" [value]="t.key">{{ t.label }}</option>
+                    </select>
+                    <input
+                      *ngIf="itemKinds[i] === 'other'"
+                      type="text"
+                      [(ngModel)]="item.name"
+                      [name]="'itemName' + i"
+                      placeholder="Describe the item"
+                      class="ubs-input"
+                    />
+                  </div>
                 </td>
                 <td>
                   <input type="text" [(ngModel)]="item.hsnSac" placeholder="998314" class="ubs-input" />

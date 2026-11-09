@@ -191,3 +191,10 @@
   opacity: 0.55;
   cursor: not-allowed;
 }
+
+/* Item type dropdown, with the description box under it for "Others" */
+.ubs-item-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

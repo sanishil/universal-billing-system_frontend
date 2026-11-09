@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -44,6 +44,7 @@ export interface ReportDashboard {
 
 @Component({
   selector: 'app-reports-dashboard',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './reports-dashboard.html',
@@ -51,7 +52,6 @@ export interface ReportDashboard {
 })
 export class ReportsDashboardComponent implements OnInit {
   private http = inject(HttpClient);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   readonly categoryColors = [

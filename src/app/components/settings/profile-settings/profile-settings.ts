@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -16,6 +16,7 @@ type NotificationKey = 'emailOnPayment' | 'emailOnOverdue' | 'weeklyReport' | 'e
 
 @Component({
   selector: 'app-profile-settings',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './profile-settings.html',
@@ -26,7 +27,6 @@ export class ProfileSettingsComponent implements OnInit {
   private authService = inject(AuthService);
   private billService = inject(BillService);
   private toast = inject(ToastService);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   readonly states = INDIAN_STATES;

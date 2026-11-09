@@ -1,4 +1,4 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DEFAULT_GST_RATES } from '../../../services/settings.service';
@@ -9,6 +9,7 @@ import { DEFAULT_GST_RATES } from '../../../services/settings.service';
  */
 @Component({
   selector: 'app-gst-rate-select',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `

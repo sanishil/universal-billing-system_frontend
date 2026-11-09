@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BillEmailLog } from '../../../models/bill-email';
 import { BillService } from '../../../services/bill.service';
@@ -6,6 +6,7 @@ import { BillService } from '../../../services/bill.service';
 /** Emails sent for one bill, shown inside bill-view. Bump `refresh` to reload. */
 @Component({
   selector: 'app-bill-email-history',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule],
   templateUrl: './bill-email-history.html',

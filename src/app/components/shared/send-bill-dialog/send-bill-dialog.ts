@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -8,6 +8,7 @@ import { ToastService } from '../../../services/toast.service';
 /** To / CC / message / attach-PDF form → POST /bills/:id/send-email */
 @Component({
   selector: 'app-send-bill-dialog',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './send-bill-dialog.html',

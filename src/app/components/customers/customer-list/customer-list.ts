@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { Customer } from '../../../models/customer';
 
 @Component({
   selector: 'app-customer-list',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './customer-list.html',
@@ -16,7 +17,6 @@ import { Customer } from '../../../models/customer';
 export class CustomerListComponent implements OnInit {
   private customerService = inject(CustomerService);
   private toast = inject(ToastService);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   allCustomers: Customer[] = [];

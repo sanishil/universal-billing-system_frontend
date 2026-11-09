@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -13,19 +13,12 @@ import { Customer } from '../../../models/customer';
 import { Business } from '../../../models/business';
 import { GstBreakdown, calculateGst } from '../../../shared/utils/gst-calculator';
 import { INDIAN_STATES, stateNameForCode } from '../../../shared/utils/indian-states';
+import { ITEM_TYPES } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
-
-/** Ready-made line items; 'other' lets the user type any description */
-export const ITEM_TYPES: { key: string; label: string; hsnSac?: string }[] = [
-  { key: 'room-rent',   label: 'Room Rent',           hsnSac: '997211' },
-  { key: 'electricity', label: 'Electricity Charges', hsnSac: '996912' },
-  { key: 'water',       label: 'Water Charges',       hsnSac: '996922' },
-  { key: 'maintenance', label: 'Maintenance Charges' },
-  { key: 'other',       label: 'Others' }
-];
 
 @Component({
   selector: 'app-bill-create',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, GstRateSelectComponent],
   templateUrl: './bill-create.html',
@@ -39,7 +32,6 @@ export class BillCreateComponent implements OnInit {
   private toast = inject(ToastService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   readonly states = INDIAN_STATES;
@@ -68,7 +60,7 @@ export class BillCreateComponent implements OnInit {
   isSaving = false;
 
   customerGstin = '';
-  notes = 'Payment terms: Net 14 days. Settle via UPI (billing@sbi) or Net Banking. Thank you for your business!';
+  notes = '';
   items: BillItem[] = [
     { name: '', hsnSac: '998314', quantity: 1, price: 0 }
   ];

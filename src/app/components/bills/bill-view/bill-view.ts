@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
@@ -20,6 +20,7 @@ const FALLBACK_ISSUER = {
 
 @Component({
   selector: 'app-bill-view',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink, SendBillDialogComponent, BillEmailHistoryComponent],
   templateUrl: './bill-view.html',

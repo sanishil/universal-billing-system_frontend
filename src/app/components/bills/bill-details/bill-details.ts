@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
@@ -6,6 +6,7 @@ import { Bill, isIssuer } from '../../../models/bill';
 
 @Component({
   selector: 'app-bill-details',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './bill-details.html',

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
@@ -14,6 +14,7 @@ const TYPE_META: Record<NotificationType, { icon: string; label: string }> = {
 
 @Component({
   selector: 'app-notification-history',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './notification-history.html',

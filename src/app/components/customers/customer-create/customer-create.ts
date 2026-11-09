@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -19,6 +19,7 @@ type FieldErrors = Partial<Record<'name' | 'businessId' | 'email' | 'phone' | 'g
 
 @Component({
   selector: 'app-customer-create',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './customer-create.html',
@@ -29,7 +30,6 @@ export class CustomerCreateComponent implements OnInit {
   private settingsService = inject(SettingsService);
   private router = inject(Router);
   private toast = inject(ToastService);
-  // The app runs without zone.js, so HTTP responses don't re-render on their own
   private cdr = inject(ChangeDetectorRef);
 
   /** Full Indian state list with GST state codes */

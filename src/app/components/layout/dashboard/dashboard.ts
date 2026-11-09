@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BillService, BillStats } from '../../../services/bill.service';
@@ -17,6 +17,7 @@ export interface MonthlyPerformance {
 
 @Component({
   selector: 'app-dashboard',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.html',

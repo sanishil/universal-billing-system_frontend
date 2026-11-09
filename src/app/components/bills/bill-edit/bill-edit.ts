@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,10 +9,12 @@ import { DEFAULT_GST_RATES, SettingsService } from '../../../services/settings.s
 import { ToastService } from '../../../services/toast.service';
 import { Bill } from '../../../models/bill';
 import { GstBreakdown, calculateGst, stateCodeFromPlaceOfSupply } from '../../../shared/utils/gst-calculator';
+import { ITEM_TYPES, itemKindOf } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
 
 @Component({
   selector: 'app-bill-edit',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink, GstRateSelectComponent],
   templateUrl: './bill-edit.html',
@@ -32,6 +34,9 @@ export class BillEditComponent implements OnInit {
   notFound = false;
   isSaving = false;
   gstRates: number[] = DEFAULT_GST_RATES;
+  readonly itemTypes = ITEM_TYPES;
+  /** Item type picked for each row of bill.items, same index */
+  itemKinds: string[] = [];
 
   /** Supplier state snapshotted on the bill; older bills fall back to the current profile */
   private supplierStateCode = '';
@@ -49,6 +54,7 @@ export class BillEditComponent implements OnInit {
         this.bill = JSON.parse(JSON.stringify(found)) as Bill;
         // Bills saved before optional GST have no gstRate; they were 18%
         if (this.bill.gstRate === undefined) this.bill.gstRate = 18;
+        this.itemKinds = this.bill.items.map(i => itemKindOf(i.name));
 
         this.placeOfSupplyCode = this.bill.stateCode || stateCodeFromPlaceOfSupply(this.bill.placeOfSupply);
         this.supplierStateCode =
@@ -73,17 +79,37 @@ export class BillEditComponent implements OnInit {
   addItem() {
     if (this.bill) {
       this.bill.items.push({ name: '', hsnSac: '998314', quantity: 1, price: 0 });
+      this.itemKinds.push('other');
     }
   }
 
   removeItem(index: number) {
     if (this.bill && this.bill.items.length > 1) {
       this.bill.items.splice(index, 1);
+      this.itemKinds.splice(index, 1);
     }
+  }
+
+  /** A preset fills the description and its SAC code; Others clears a preset name for typing */
+  onItemKindChange(index: number, key: string) {
+    const item = this.bill?.items[index];
+    if (!item) return;
+    const preset = ITEM_TYPES.find(t => t.key === key);
+    this.itemKinds[index] = key;
+    if (!preset || key === 'other') {
+      if (ITEM_TYPES.some(t => t.label === item.name)) item.name = '';
+      return;
+    }
+    item.name = preset.label;
+    if (preset.hsnSac) item.hsnSac = preset.hsnSac;
   }
 
   saveBill() {
     if (!this.bill) return;
+    if (this.bill.items.some(i => !i.name.trim())) {
+      this.toast.error('Please describe every item, or pick its type.');
+      return;
+    }
 
     const gst = this.gst;
     this.bill.subtotal = gst.subtotal;
