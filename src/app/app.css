@@ -14,6 +14,9 @@
 
 .ubs-main-content {
   flex: 1;
+  /* Flex items won't shrink below their content by default; without this a wide
+     table widens the whole page instead of scrolling inside its card */
+  min-width: 0;
   margin-left: 260px; /* Offset for fixed sidebar */
   display: flex;
   flex-direction: column;

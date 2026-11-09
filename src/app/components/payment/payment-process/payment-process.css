@@ -202,8 +202,78 @@
   border: 1px solid var(--ubs-ash-border);
 }
 
+/* Settlement breakdown card */
+.ubs-invoice-preview-card {
+  padding: 24px;
+}
+
+.ubs-summary-title {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-summary-row,
+.ubs-summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: 0.85rem;
+}
+
+.ubs-summary-label {
+  color: var(--ubs-ash-muted);
+}
+
+.ubs-summary-val {
+  font-weight: 600;
+  color: var(--ubs-black);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.ubs-summary-divider {
+  height: 1px;
+  margin: 8px 0;
+  background-color: var(--ubs-ash-border);
+}
+
+.ubs-total-label {
+  font-weight: 700;
+  color: var(--ubs-black);
+}
+
+.ubs-total-val {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ubs-blue-700);
+}
+
 @media (max-width: 900px) {
   .ubs-pay-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .ubs-pay-card,
+  .ubs-invoice-preview-card {
+    padding: 18px 16px;
+  }
+  /* Four payment methods as a 2 × 2 grid */
+  .ubs-channel-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  /* QR code above the UPI ID field */
+  .ubs-upi-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ubs-upi-scan-pane {
+    min-width: 0;
   }
 }

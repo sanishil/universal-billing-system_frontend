@@ -250,3 +250,41 @@
     display: none;
   }
 }
+
+/* Phones: everything must fit in one row, so buttons go icon-only */
+@media (max-width: 640px) {
+  .ubs-header {
+    padding: 0 12px;
+  }
+  .ubs-header-brand {
+    gap: 8px;
+    min-width: 0;
+  }
+  .ubs-header-actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .ubs-header-create-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+  .ubs-header-create-btn span {
+    display: none;
+  }
+  .ubs-profile-pill {
+    gap: 2px;
+    padding: 2px;
+  }
+  .ubs-logout-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .ubs-logo-text {
+    display: none;
+  }
+}

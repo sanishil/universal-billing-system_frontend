@@ -396,6 +396,13 @@ a {
 
 /* Two-column pages (form + side panel) become one column */
 @media (max-width: 1024px) {
+  /* Grid and flex children default to min-width: auto, so a wide table or chart
+     inside stretches its column past the screen. Let every page block shrink;
+     :where() keeps this at zero specificity so components can still set their own. */
+  .ubs-content-viewport :where(div, section, aside, form, article, header, ul, li) {
+    min-width: 0;
+  }
+
   .prf-main-grid,
   .sys-main-grid,
   .shl-main-grid,

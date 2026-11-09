@@ -423,6 +423,7 @@
 
   .ubs-public-topbar { padding: 12px 14px; flex-wrap: nowrap; }
   .ubs-topbar-brand { min-width: 0; }
+  .ubs-topbar-brand > div { min-width: 0; }
   .ubs-topbar-title { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .ubs-invoice-sheet { padding: 18px 16px; border-radius: 12px; }
