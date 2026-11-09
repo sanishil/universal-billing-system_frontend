@@ -109,7 +109,7 @@
             <thead>
               <tr>
                 <th style="width: 42%">Item Description</th>
-                <th style="width: 16%">HSN / SAC</th>
+                <th *ngIf="showHsn" style="width: 16%">HSN / SAC</th>
                 <th style="width: 12%">Quantity</th>
                 <th style="width: 15%">Unit Rate (₹)</th>
                 <th style="width: 15%; text-align: right">Amount</th>
@@ -130,6 +130,16 @@
                       <option *ngFor="let t of itemTypes" [value]="t.key">{{ t.label }}</option>
                     </select>
                     <input
+                      *ngIf="isMonthly(itemKinds[i])"
+                      type="month"
+                      class="ubs-input"
+                      [ngModel]="itemMonths[i]"
+                      (ngModelChange)="onItemMonthChange(i, $event)"
+                      [name]="'itemMonth' + i"
+                      aria-label="Billing month"
+                      title="Month this charge is for"
+                    />
+                    <input
                       *ngIf="itemKinds[i] === 'other'"
                       type="text"
                       [(ngModel)]="item.name"
@@ -139,7 +149,7 @@
                     />
                   </div>
                 </td>
-                <td>
+                <td *ngIf="showHsn">
                   <input
                     type="text"
                     [(ngModel)]="item.hsnSac"

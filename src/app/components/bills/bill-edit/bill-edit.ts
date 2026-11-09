@@ -9,7 +9,7 @@ import { DEFAULT_GST_RATES, SettingsService } from '../../../services/settings.s
 import { ToastService } from '../../../services/toast.service';
 import { Bill } from '../../../models/bill';
 import { GstBreakdown, calculateGst, stateCodeFromPlaceOfSupply } from '../../../shared/utils/gst-calculator';
-import { ITEM_TYPES, itemKindOf } from '../../../shared/utils/item-types';
+import { ITEM_TYPES, currentMonth, isMonthly, itemName, parseItemName } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
 
 @Component({
@@ -37,10 +37,18 @@ export class BillEditComponent implements OnInit {
   readonly itemTypes = ITEM_TYPES;
   /** Item type picked for each row of bill.items, same index */
   itemKinds: string[] = [];
+  /** Billing month of each row ("2026-11"), used by Room Rent, Electricity, Water and Maintenance */
+  itemMonths: string[] = [];
+  readonly isMonthly = isMonthly;
 
   /** Supplier state snapshotted on the bill; older bills fall back to the current profile */
   private supplierStateCode = '';
   private placeOfSupplyCode = '';
+
+  /** HSN/SAC codes only matter when GST is charged; hidden for No GST and 0 percent */
+  get showHsn(): boolean {
+    return !!this.bill?.gstRate;
+  }
 
   get gst(): GstBreakdown {
     return calculateGst(this.bill?.items ?? [], this.bill?.gstRate ?? null, this.supplierStateCode, this.placeOfSupplyCode);
@@ -54,7 +62,9 @@ export class BillEditComponent implements OnInit {
         this.bill = JSON.parse(JSON.stringify(found)) as Bill;
         // Bills saved before optional GST have no gstRate; they were 18%
         if (this.bill.gstRate === undefined) this.bill.gstRate = 18;
-        this.itemKinds = this.bill.items.map(i => itemKindOf(i.name));
+        const parsed = this.bill.items.map(i => parseItemName(i.name));
+        this.itemKinds = parsed.map(p => p.kind);
+        this.itemMonths = parsed.map(p => p.month);
 
         this.placeOfSupplyCode = this.bill.stateCode || stateCodeFromPlaceOfSupply(this.bill.placeOfSupply);
         this.supplierStateCode =
@@ -80,6 +90,7 @@ export class BillEditComponent implements OnInit {
     if (this.bill) {
       this.bill.items.push({ name: '', hsnSac: '998314', quantity: 1, price: 0 });
       this.itemKinds.push('other');
+      this.itemMonths.push(currentMonth());
     }
   }
 
@@ -87,21 +98,29 @@ export class BillEditComponent implements OnInit {
     if (this.bill && this.bill.items.length > 1) {
       this.bill.items.splice(index, 1);
       this.itemKinds.splice(index, 1);
+      this.itemMonths.splice(index, 1);
     }
   }
 
-  /** A preset fills the description and its SAC code; Others clears a preset name for typing */
+  /** A preset fills the description (with its month) and its SAC code; Others clears a preset name for typing */
   onItemKindChange(index: number, key: string) {
     const item = this.bill?.items[index];
     if (!item) return;
     const preset = ITEM_TYPES.find(t => t.key === key);
     this.itemKinds[index] = key;
     if (!preset || key === 'other') {
-      if (ITEM_TYPES.some(t => t.label === item.name)) item.name = '';
+      if (parseItemName(item.name).kind !== 'other') item.name = '';
       return;
     }
-    item.name = preset.label;
+    item.name = preset.monthly ? itemName(preset.label, this.itemMonths[index]) : preset.label;
     if (preset.hsnSac) item.hsnSac = preset.hsnSac;
+  }
+
+  onItemMonthChange(index: number, month: string) {
+    this.itemMonths[index] = month;
+    const preset = ITEM_TYPES.find(t => t.key === this.itemKinds[index]);
+    const item = this.bill?.items[index];
+    if (item && preset?.monthly) item.name = itemName(preset.label, month);
   }
 
   saveBill() {

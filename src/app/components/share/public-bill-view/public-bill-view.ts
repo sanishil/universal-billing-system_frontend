@@ -38,6 +38,11 @@ export class PublicBillViewComponent implements OnInit {
   isDownloading = false;
   downloadFailed = false;
 
+  /** HSN/SAC codes only matter when GST is charged; hidden for No GST and 0 percent */
+  get showHsn(): boolean {
+    return this.gstApplied && Number(this.gstRate) !== 0;
+  }
+
   get gstApplied(): boolean {
     return !!this.bill && isGstApplied(this.bill);
   }

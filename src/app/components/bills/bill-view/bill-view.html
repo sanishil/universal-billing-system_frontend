@@ -142,7 +142,7 @@
         <thead>
           <tr>
             <th style="width: 44%">Service Description / Deliverable</th>
-            <th style="width: 14%; text-align: center">HSN/SAC</th>
+            <th *ngIf="showHsn" style="width: 14%; text-align: center">HSN/SAC</th>
             <th style="width: 10%; text-align: center">Qty</th>
             <th style="width: 16%; text-align: right">Unit Rate (₹)</th>
             <th style="width: 16%; text-align: right">Taxable Value (₹)</th>
@@ -153,7 +153,7 @@
             <td data-label="Item">
               <span class="ubs-item-name">{{ item.name }}</span>
             </td>
-            <td data-label="HSN/SAC" style="text-align: center">
+            <td *ngIf="showHsn" data-label="HSN/SAC" style="text-align: center">
               <span class="ubs-hsn-badge">{{ item.hsnSac || '998314' }}</span>
             </td>
             <td data-label="Qty" style="text-align: center">{{ item.quantity }}</td>

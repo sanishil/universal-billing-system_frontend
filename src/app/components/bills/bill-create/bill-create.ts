@@ -13,7 +13,7 @@ import { Customer } from '../../../models/customer';
 import { Business } from '../../../models/business';
 import { GstBreakdown, calculateGst } from '../../../shared/utils/gst-calculator';
 import { INDIAN_STATES, stateNameForCode } from '../../../shared/utils/indian-states';
-import { ITEM_TYPES } from '../../../shared/utils/item-types';
+import { ITEM_TYPES, currentMonth, isMonthly, itemName, parseItemName } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
 
 @Component({
@@ -66,6 +66,14 @@ export class BillCreateComponent implements OnInit {
   ];
   /** Item type picked for each row of items, same index */
   itemKinds: string[] = ['other'];
+  /** Billing month of each row ("2026-11"), used by Room Rent, Electricity, Water and Maintenance */
+  itemMonths: string[] = [currentMonth()];
+  readonly isMonthly = isMonthly;
+
+  /** HSN/SAC codes only matter when GST is charged; hidden for No GST and 0 percent */
+  get showHsn(): boolean {
+    return !!this.gstRate;
+  }
 
   get profileIncomplete(): boolean {
     return !this.supplierStateCode;
@@ -148,26 +156,36 @@ export class BillCreateComponent implements OnInit {
   addItem() {
     this.items.push({ name: '', hsnSac: '998314', quantity: 1, price: 0 });
     this.itemKinds.push('other');
+    this.itemMonths.push(currentMonth());
   }
 
   removeItem(index: number) {
     if (this.items.length > 1) {
       this.items.splice(index, 1);
       this.itemKinds.splice(index, 1);
+      this.itemMonths.splice(index, 1);
     }
   }
 
-  /** A preset fills the description and its SAC code; Others clears a preset name for typing */
+  /** A preset fills the description (with its month) and its SAC code; Others clears a preset name for typing */
   onItemKindChange(index: number, key: string) {
     const item = this.items[index];
+    if (!item) return;
     const preset = ITEM_TYPES.find(t => t.key === key);
     this.itemKinds[index] = key;
     if (!preset || key === 'other') {
-      if (ITEM_TYPES.some(t => t.label === item.name)) item.name = '';
+      if (parseItemName(item.name).kind !== 'other') item.name = '';
       return;
     }
-    item.name = preset.label;
+    item.name = preset.monthly ? itemName(preset.label, this.itemMonths[index]) : preset.label;
     if (preset.hsnSac) item.hsnSac = preset.hsnSac;
+  }
+
+  onItemMonthChange(index: number, month: string) {
+    this.itemMonths[index] = month;
+    const preset = ITEM_TYPES.find(t => t.key === this.itemKinds[index]);
+    const item = this.items[index];
+    if (item && preset?.monthly) item.name = itemName(preset.label, month);
   }
 
   saveBill() {
