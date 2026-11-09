@@ -409,6 +409,71 @@
   color: #777777;
 }
 
+/* ── Tablet ── */
+@media (max-width: 860px) {
+  .ubs-invoice-sheet { padding: 28px; }
+  .ubs-sheet-bottom { flex-direction: column; }
+  .ubs-sheet-notes { max-width: none; width: 100%; }
+  .ubs-sheet-totals { width: 100%; }
+}
+
+/* ── Phone ── */
+@media (max-width: 640px) {
+  .ubs-public-page { margin: 12px auto; padding: 0 12px; gap: 12px; }
+
+  .ubs-public-topbar { padding: 12px 14px; flex-wrap: nowrap; }
+  .ubs-topbar-brand { min-width: 0; }
+  .ubs-topbar-title { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .ubs-invoice-sheet { padding: 18px 16px; border-radius: 12px; }
+
+  /* Seller, then invoice details, stacked and left-aligned */
+  .ubs-sheet-header { flex-direction: column; gap: 14px; }
+  .ubs-sheet-meta { text-align: left; }
+  .ubs-meta-id { font-size: 1rem; word-break: break-all; }
+  .ubs-sheet-divider { margin: 18px 0; }
+
+  .ubs-sheet-addresses { flex-direction: column; gap: 16px; margin-bottom: 18px; }
+  .ubs-sheet-addresses .text-right { text-align: left; }
+
+  /* Items: one card per item, label on the left and value on the right */
+  .ubs-sheet-table-wrap { overflow: visible; margin-bottom: 18px; }
+  .ubs-sheet-table, .ubs-sheet-table tbody, .ubs-sheet-table tr, .ubs-sheet-table td { display: block; width: 100%; }
+  .ubs-sheet-table { border: none; }
+  .ubs-sheet-table thead { display: none; }
+  .ubs-sheet-table tr {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+  }
+  .ubs-sheet-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+    border-right: none;
+    border-bottom: 1px dashed #e5e5e5;
+    text-align: right !important;
+  }
+  .ubs-sheet-table td::before {
+    content: attr(data-label);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #777777;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: left;
+  }
+  .ubs-sheet-table tbody tr:last-child td,
+  .ubs-sheet-table td:last-child { border-bottom: none; }
+  .ubs-sheet-table tbody tr:last-child td:not(:last-child) { border-bottom: 1px dashed #e5e5e5; }
+
+  .ubs-grand-total span:last-child { font-size: 1.25rem; }
+  .ubs-signature-area { text-align: left; }
+}
+
 /* Print */
 @media print {
   .no-print {

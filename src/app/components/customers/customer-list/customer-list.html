@@ -114,30 +114,33 @@
               >{{ cust.status || 'ACTIVE' }}</span>
             </td>
             <td style="text-align: right">
-              <div class="ubs-row-actions">
+              <div class="ubs-row-actions ubs-icon-group">
                 <a
                   [routerLink]="['/customers', cust.id]"
-                  class="ubs-btn-table"
-                  title="View Profile"
+                  class="ubs-icon-btn"
+                  title="View profile"
+                  aria-label="View profile"
                 >
-                  Profile
+                  <i class="fa-solid fa-user"></i>
                 </a>
                 <a
                   routerLink="/bills/create"
                   [queryParams]="{ customerId: cust.id }"
-                  class="ubs-btn-table ubs-btn-blue"
-                  title="Invoice Client"
+                  class="ubs-icon-btn ubs-icon-btn-accent"
+                  title="Create a bill for this customer"
+                  aria-label="Create a bill for this customer"
                 >
-                  + Bill
+                  <i class="fa-solid fa-file-invoice"></i>
                 </a>
                 <button
                   type="button"
                   (click)="deleteCustomer(cust.id)"
                   [disabled]="deletingId === cust.id"
-                  class="ubs-btn-table ubs-btn-del"
-                  title="Delete"
+                  class="ubs-icon-btn ubs-icon-btn-danger"
+                  title="Delete customer"
+                  aria-label="Delete customer"
                 >
-                  ✕
+                  <i class="fa-solid fa-trash"></i>
                 </button>
               </div>
             </td>

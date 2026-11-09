@@ -159,38 +159,43 @@
               </span>
             </td>
             <td style="text-align: right">
-              <div class="ubs-row-actions">
+              <div class="ubs-row-actions ubs-icon-group">
                 <a
                   [routerLink]="['/bills/view', bill.id]"
-                  class="ubs-btn-table"
-                  title="View Full Invoice"
+                  class="ubs-icon-btn"
+                  title="View invoice"
+                  aria-label="View invoice"
                 >
-                  View
+                  <i class="fa-solid fa-eye"></i>
                 </a>
                 <ng-container *ngIf="isIssuer(bill)">
                   <a
                     [routerLink]="['/bills/edit', bill.id]"
-                    class="ubs-btn-table"
-                    title="Edit Invoice"
+                    class="ubs-icon-btn"
+                    title="Edit invoice"
+                    aria-label="Edit invoice"
                   >
-                    Edit
+                    <i class="fa-solid fa-pen"></i>
                   </a>
                   <a
                     *ngIf="bill.publicUrl"
                     [href]="bill.publicUrl"
                     target="_blank"
                     rel="noopener"
-                    class="ubs-btn-table ubs-btn-blue"
-                    title="Open Public Link"
+                    class="ubs-icon-btn ubs-icon-btn-accent"
+                    title="Open public link"
+                    aria-label="Open public link"
                   >
-                    Public
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
                   </a>
                   <button
+                    type="button"
                     (click)="deleteBill(bill.id)"
-                    class="ubs-btn-table ubs-btn-del"
-                    title="Delete"
+                    class="ubs-icon-btn ubs-icon-btn-danger"
+                    title="Delete invoice"
+                    aria-label="Delete invoice"
                   >
-                    ✕
+                    <i class="fa-solid fa-trash"></i>
                   </button>
                 </ng-container>
               </div>

@@ -72,3 +72,14 @@
     padding: 20px;
   }
 }
+
+@media (max-width: 640px) {
+  .ubs-content-viewport {
+    padding: 14px 12px;
+  }
+  /* nothing in the page may push the screen wider than the phone */
+  .ubs-main-content {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+}

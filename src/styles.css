@@ -300,3 +300,238 @@ a {
 .ubs-table tbody tr:hover {
   background-color: #fafbfc;
 }
+
+/* ── Button sizing: every text button is the same height ─────────────── */
+.ubs-btn-primary,
+.ubs-btn-secondary,
+.ubs-btn-dark,
+.ubs-btn-outline-blue {
+  height: 40px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* ── Icon-only buttons (row actions, invoice toolbar); title= gives the tooltip ── */
+.ubs-icon-btn {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: 9px;
+  border: 1px solid var(--ubs-ash-border);
+  background: var(--ubs-white);
+  color: var(--ubs-black);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.ubs-icon-btn:hover {
+  background: var(--ubs-ash-subtle);
+  border-color: var(--ubs-ash-border-focus);
+}
+.ubs-icon-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ubs-icon-btn.ubs-icon-btn-lg {
+  width: 40px;
+  height: 40px;
+  flex-basis: 40px;
+  border-radius: 10px;
+}
+.ubs-icon-btn-primary {
+  background: var(--ubs-blue-600);
+  border-color: var(--ubs-blue-600);
+  color: #ffffff;
+}
+.ubs-icon-btn-primary:hover {
+  background: var(--ubs-blue-700);
+  border-color: var(--ubs-blue-700);
+  color: #ffffff;
+}
+.ubs-icon-btn-accent {
+  color: var(--ubs-blue-600);
+  border-color: var(--ubs-blue-200);
+  background: var(--ubs-blue-50);
+}
+.ubs-icon-btn-success {
+  color: var(--ubs-success-text);
+}
+.ubs-icon-btn-danger {
+  color: var(--ubs-danger-text);
+  border-color: var(--ubs-danger-border);
+  background: var(--ubs-danger-bg);
+}
+.ubs-icon-btn-active {
+  background: var(--ubs-blue-50);
+  border-color: var(--ubs-blue-600);
+  color: var(--ubs-blue-600);
+}
+
+/* A row of icon buttons */
+.ubs-icon-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PHONE & TABLET LAYOUT
+   Pages style these classes in their own files; these rules override them
+   on small screens, so they need !important to win over component styles.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Two-column pages (form + side panel) become one column */
+@media (max-width: 1024px) {
+  .prf-main-grid,
+  .sys-main-grid,
+  .shl-main-grid,
+  .pdf-main-grid,
+  .rpt-main-grid,
+  .ubs-bill-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ubs-details-grid,
+  .ubs-profile-grid,
+  .ubs-metrics-grid,
+  .rpt-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Page and form headers: title on top, buttons below */
+  .ubs-page-header,
+  .ubs-form-header,
+  .ubs-panel-header,
+  .ubs-items-header,
+  .ubs-view-toolbar,
+  .ubs-view-title-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .ubs-page-actions,
+  .ubs-form-actions,
+  .ubs-toolbar-actions,
+  .ubs-success-actions,
+  .ubs-submit-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+  /* icon toolbars stay compact and left-aligned */
+  .ubs-icon-group.ubs-toolbar-actions,
+  .ubs-icon-group.ubs-page-actions {
+    justify-content: flex-start !important;
+  }
+  .ubs-page-actions > :not(.ubs-icon-btn),
+  .ubs-form-actions > :not(.ubs-icon-btn),
+  .ubs-toolbar-actions > :not(.ubs-icon-btn),
+  .ubs-success-actions > :not(.ubs-icon-btn),
+  .ubs-submit-row > :not(.ubs-icon-btn) {
+    flex: 1 1 auto !important;
+    justify-content: center !important;
+  }
+
+  /* Search and filters wrap instead of squeezing */
+  .ubs-filters-bar,
+  .ubs-status-tabs,
+  .ubs-scope-tabs {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+  .ubs-filters-bar input,
+  .ubs-filters-bar .ubs-search-wrap,
+  .ubs-filters-bar > div:first-child {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  /* Form grids: one field per row */
+  .ubs-grid-2,
+  .prf-field-grid,
+  .pdf-settings-grid,
+  .ubs-balance-grid,
+  .ubs-bank-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Data tables scroll sideways inside their card, not the whole page */
+  .ubs-table-wrap,
+  .ubs-items-table-wrap,
+  .ubs-table-card,
+  .ubs-table-panel {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ubs-table,
+  .ubs-items-table {
+    min-width: 640px;
+  }
+  .ubs-table th,
+  .ubs-table td {
+    white-space: nowrap;
+  }
+
+  /* Notification log rows: stack the columns */
+  .ubs-notif-list-header {
+    display: none !important;
+  }
+  .ubs-notif-item {
+    grid-template-columns: 1fr !important;
+    gap: 4px !important;
+  }
+
+  /* Dialogs fill the screen width */
+  .ubs-dialog-card {
+    width: calc(100vw - 24px) !important;
+    max-width: none !important;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .ubs-details-grid,
+  .ubs-profile-grid,
+  .ubs-metrics-grid,
+  .rpt-metrics-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ubs-page-title,
+  .ubs-form-title {
+    font-size: 1.35rem !important;
+  }
+
+  /* Bigger touch targets */
+  .ubs-btn-primary,
+  .ubs-btn-secondary {
+    min-height: 42px;
+  }
+
+  /* Stop iOS zooming into inputs (needs at least 16px text) */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
