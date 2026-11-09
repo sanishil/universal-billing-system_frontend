@@ -134,13 +134,13 @@
                       type="text"
                       [(ngModel)]="item.name"
                       [name]="'itemName' + i"
-                      placeholder="Describe the item"
+                      aria-label="Item description"
                       class="ubs-input"
                     />
                   </div>
                 </td>
                 <td *ngIf="showHsn">
-                  <input type="text" [(ngModel)]="item.hsnSac" placeholder="998314" class="ubs-input" />
+                  <input type="text" [(ngModel)]="item.hsnSac" aria-label="HSN/SAC code" class="ubs-input" />
                 </td>
                 <td>
                   <input type="number" min="1" [(ngModel)]="item.quantity" class="ubs-input" />

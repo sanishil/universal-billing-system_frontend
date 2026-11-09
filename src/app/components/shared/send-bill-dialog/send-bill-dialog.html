@@ -8,18 +8,17 @@
     <div class="ubs-dialog-body">
       <div class="ubs-dialog-field">
         <label class="ubs-label" for="send-to">To</label>
-        <input id="send-to" type="email" class="ubs-input" [(ngModel)]="to" placeholder="e.g. priya.patel@guptaenterprises.in" />
+        <input id="send-to" type="email" class="ubs-input" [(ngModel)]="to" />
       </div>
 
       <div class="ubs-dialog-field">
         <label class="ubs-label" for="send-cc">CC <span class="ubs-dialog-hint">(optional, comma-separated)</span></label>
-        <input id="send-cc" type="text" class="ubs-input" [(ngModel)]="cc" placeholder="e.g. accounts@guptaenterprises.in" />
+        <input id="send-cc" type="text" class="ubs-input" [(ngModel)]="cc" />
       </div>
 
       <div class="ubs-dialog-field">
         <label class="ubs-label" for="send-message">Message <span class="ubs-dialog-hint">(optional)</span></label>
-        <textarea id="send-message" rows="3" class="ubs-textarea" [(ngModel)]="message"
-          placeholder="A short note to include in the email"></textarea>
+        <textarea id="send-message" rows="3" class="ubs-textarea" [(ngModel)]="message"></textarea>
       </div>
 
       <label class="ubs-dialog-check">

@@ -265,6 +265,14 @@
   font-size: 0.95rem;
 }
 
+/* Field label above each underline input */
+.yono-field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e5a7a;
+  letter-spacing: 0.02em;
+}
+
 /* Touched-but-invalid fields get a red underline (Angular adds these classes) */
 .yono-underline-input.ng-invalid.ng-touched {
   border-bottom-color: #d64545 !important;

@@ -49,14 +49,14 @@
             </div>
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-tax-label">Tax Label</label>
-              <input id="sys-tax-label" type="text" class="ubs-input" [(ngModel)]="taxLabel" name="taxLabel" placeholder="e.g. GST, VAT, Tax" />
+              <input id="sys-tax-label" type="text" class="ubs-input" [(ngModel)]="taxLabel" name="taxLabel" />
             </div>
           </div>
 
           <div class="sys-field-grid">
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-gst-rates">Allowed GST Rates (%)</label>
-              <input id="sys-gst-rates" type="text" class="ubs-input sys-mono" [ngModel]="gstRatesText" (ngModelChange)="onGstRatesTextChange($event)" name="gstRates" placeholder="0, 5, 18, 40" />
+              <input id="sys-gst-rates" type="text" class="ubs-input sys-mono" [ngModel]="gstRatesText" (ngModelChange)="onGstRatesTextChange($event)" name="gstRates" />
               <small class="sys-field-hint">Comma-separated, e.g. 0, 5, 18, 40</small>
             </div>
             <div class="sys-form-group">
@@ -68,18 +68,18 @@
           <div class="sys-field-grid">
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-due-days">Payment Due (Days)</label>
-              <input id="sys-due-days" type="number" class="ubs-input" [(ngModel)]="dueDays" name="dueDays" min="1" placeholder="30" />
+              <input id="sys-due-days" type="number" class="ubs-input" [(ngModel)]="dueDays" name="dueDays" min="1" />
             </div>
           </div>
 
           <div class="sys-field-grid">
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-inv-prefix">Invoice Prefix</label>
-              <input id="sys-inv-prefix" type="text" class="ubs-input sys-mono" [(ngModel)]="invoicePrefix" name="invoicePrefix" placeholder="INV" />
+              <input id="sys-inv-prefix" type="text" class="ubs-input sys-mono" [(ngModel)]="invoicePrefix" name="invoicePrefix" />
             </div>
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-inv-start">Starting Number</label>
-              <input id="sys-inv-start" type="number" class="ubs-input sys-mono" [(ngModel)]="invoiceStartNumber" name="invoiceStartNumber" min="1" placeholder="1001" />
+              <input id="sys-inv-start" type="number" class="ubs-input sys-mono" [(ngModel)]="invoiceStartNumber" name="invoiceStartNumber" min="1" />
             </div>
           </div>
 
@@ -108,11 +108,11 @@
           <div class="sys-field-grid">
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-company-name">Company Name</label>
-              <input id="sys-company-name" type="text" class="ubs-input" [(ngModel)]="companyName" name="companyName" placeholder="e.g. Sharma Traders Pvt. Ltd." />
+              <input id="sys-company-name" type="text" class="ubs-input" [(ngModel)]="companyName" name="companyName" />
             </div>
             <div class="sys-form-group">
               <label class="ubs-label" for="sys-company-gstin">GSTIN</label>
-              <input id="sys-company-gstin" type="text" class="ubs-input sys-mono" [(ngModel)]="companyGstin" name="companyGstin" placeholder="27AAAAA0000A1Z5" />
+              <input id="sys-company-gstin" type="text" class="ubs-input sys-mono" [(ngModel)]="companyGstin" name="companyGstin" />
             </div>
           </div>
 
@@ -126,7 +126,7 @@
                     <polyline points="22,6 12,13 2,6"></polyline>
                   </svg>
                 </div>
-                <input id="sys-company-email" type="email" class="ubs-input sys-icon-input" [(ngModel)]="companyEmail" name="companyEmail" placeholder="e.g. billing@sharmatraders.in" />
+                <input id="sys-company-email" type="email" class="ubs-input sys-icon-input" [(ngModel)]="companyEmail" name="companyEmail" />
               </div>
             </div>
             <div class="sys-form-group">
@@ -137,7 +137,7 @@
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
                   </svg>
                 </div>
-                <input id="sys-company-phone" type="tel" class="ubs-input sys-icon-input" [(ngModel)]="companyPhone" name="companyPhone" placeholder="+91 98765 43210" />
+                <input id="sys-company-phone" type="tel" class="ubs-input sys-icon-input" [(ngModel)]="companyPhone" name="companyPhone" />
               </div>
             </div>
           </div>
@@ -152,13 +152,13 @@
                   <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                 </svg>
               </div>
-              <input id="sys-company-website" type="url" class="ubs-input sys-icon-input" [(ngModel)]="companyWebsite" name="companyWebsite" placeholder="https://sharmatraders.in" />
+              <input id="sys-company-website" type="url" class="ubs-input sys-icon-input" [(ngModel)]="companyWebsite" name="companyWebsite" />
             </div>
           </div>
 
           <div class="sys-form-group">
             <label class="ubs-label" for="sys-company-address">Registered Address</label>
-            <textarea id="sys-company-address" class="ubs-input sys-textarea" [(ngModel)]="companyAddress" name="companyAddress" rows="2" placeholder="e.g. 12, MG Road, Shivajinagar, Pune, Maharashtra 411005"></textarea>
+            <textarea id="sys-company-address" class="ubs-input sys-textarea" [(ngModel)]="companyAddress" name="companyAddress" rows="2"></textarea>
           </div>
         </div>
       </div>

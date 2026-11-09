@@ -30,13 +30,13 @@
 
             <!-- Full Name -->
             <div class="yono-field-wrap">
+              <label class="yono-field-label" for="reg-name">Full name</label>
               <div class="yono-input-group">
                 <i class="bi bi-person yono-input-icon"></i>
-                <input
+                <input id="reg-name"
                   formControlName="name"
                   type="text"
                   class="yono-underline-input"
-                  placeholder="Full name, e.g. Rahul Sharma"
                   (input)="dismissToast()"
                 />
               </div>
@@ -44,13 +44,13 @@
 
             <!-- Work Email -->
             <div class="yono-field-wrap">
+              <label class="yono-field-label" for="reg-email">Email</label>
               <div class="yono-input-group">
                 <i class="bi bi-envelope yono-input-icon"></i>
-                <input
+                <input id="reg-email"
                   formControlName="email"
                   type="email"
                   class="yono-underline-input"
-                  placeholder="Work email, e.g. rahul@company.in"
                   (input)="dismissToast()"
                 />
               </div>
@@ -58,13 +58,13 @@
 
             <!-- Phone Number -->
             <div class="yono-field-wrap">
+              <label class="yono-field-label" for="reg-phone">Mobile number</label>
               <div class="yono-input-group">
                 <i class="bi bi-telephone yono-input-icon"></i>
-                <input
+                <input id="reg-phone"
                   formControlName="phone"
                   type="tel"
                   class="yono-underline-input"
-                  placeholder="Mobile number, e.g. 9876543210"
                   (input)="dismissToast()"
                 />
               </div>
