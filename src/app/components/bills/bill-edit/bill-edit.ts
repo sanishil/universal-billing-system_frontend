@@ -9,7 +9,7 @@ import { DEFAULT_GST_RATES, SettingsService } from '../../../services/settings.s
 import { ToastService } from '../../../services/toast.service';
 import { Bill } from '../../../models/bill';
 import { GstBreakdown, calculateGst, stateCodeFromPlaceOfSupply } from '../../../shared/utils/gst-calculator';
-import { ITEM_TYPES, currentMonth, isMonthly, itemName, parseItemName } from '../../../shared/utils/item-types';
+import { ITEM_TYPES, MONTH_OPTIONS, currentMonth, isMonthly, itemName, parseItemName, setMonthPart, yearOptions } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
 
 @Component({
@@ -40,6 +40,12 @@ export class BillEditComponent implements OnInit {
   /** Billing month of each row ("2026-11"), used by Room Rent, Electricity, Water and Maintenance */
   itemMonths: string[] = [];
   readonly isMonthly = isMonthly;
+  readonly setMonthPart = setMonthPart;
+  readonly monthOptions = MONTH_OPTIONS;
+  /** Last year to next year, plus any year already on this bill */
+  get yearOptions(): string[] {
+    return [...new Set([...yearOptions(), ...this.itemMonths.map(m => m.split('-')[0])])].sort();
+  }
 
   /** Supplier state snapshotted on the bill; older bills fall back to the current profile */
   private supplierStateCode = '';

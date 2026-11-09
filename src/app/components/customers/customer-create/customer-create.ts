@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
-import { CustomerService } from '../../../services/customer.service';
+import { CustomerLookup, CustomerService } from '../../../services/customer.service';
 import { SettingsService } from '../../../services/settings.service';
 import { Business } from '../../../models/business';
 import { ToastService } from '../../../services/toast.service';
@@ -57,6 +57,13 @@ export class CustomerCreateComponent implements OnInit {
   businesses: Business[] = [];
   businessesLoaded = false;
 
+  /** Result of checking the typed email against the system */
+  lookup: CustomerLookup | null = null;
+  checkingEmail = false;
+  /** The user said yes to adding a customer who is already in the system */
+  addExisting = false;
+  private checkedEmail = '';
+
   ngOnInit(): void {
     this.settingsService.getBusinesses().subscribe({
       next: list => {
@@ -85,8 +92,11 @@ export class CustomerCreateComponent implements OnInit {
 
     if (!email && this.giveLogin) errors.email = 'Needed to send the login details.';
     else if (email && !EMAIL_PATTERN.test(email)) errors.email = 'Enter a valid email, e.g. rahul.sharma@gmail.com.';
+    else if (this.lookup?.status === 'MINE') errors.email = 'This customer is already in your list.';
+    else if (this.lookup?.status === 'EXISTS' && !this.addExisting) errors.email = 'Choose whether to add this existing customer.';
 
-    if (!phone && this.giveLogin) errors.phone = 'Needed to give this customer a login.';
+    // Someone with their own account needs no new login, so no phone is required for one
+    if (!phone && this.giveLogin && !this.lookup?.hasAccount) errors.phone = 'Needed to give this customer a login.';
     else if (phone && !PHONE_PATTERN.test(phone)) errors.phone = 'Enter a 10-digit mobile number, e.g. 9876543210.';
 
     if (c.gstin && !GSTIN_PATTERN.test(c.gstin)) errors.gstin = 'GSTIN must be 15 characters, e.g. 29AAACI4321A1ZG.';
@@ -98,6 +108,47 @@ export class CustomerCreateComponent implements OnInit {
   /** Error text for a field, only after the first save attempt */
   error(field: keyof FieldErrors): string | undefined {
     return this.submitted ? this.errors[field] : undefined;
+  }
+
+  /** Typing a different email forgets the previous check */
+  onEmailChange(): void {
+    if (this.customer.email.trim().toLowerCase() !== this.checkedEmail) {
+      this.lookup = null;
+      this.addExisting = false;
+    }
+  }
+
+  /** On leaving the email field: is this customer new, already yours, or known in the system? */
+  checkEmail(): void {
+    const email = this.customer.email.trim().toLowerCase();
+    if (!EMAIL_PATTERN.test(email) || email === this.checkedEmail) return;
+
+    this.checkingEmail = true;
+    this.customerService.lookupEmail(email)
+      .pipe(finalize(() => { this.checkingEmail = false; }))
+      .subscribe({
+        next: result => {
+          this.checkedEmail = email;
+          this.lookup = result.status === 'NEW' ? null : result;
+          this.addExisting = false;
+        },
+        // If the check fails, saving still works; the backend rejects duplicates
+        error: () => { this.checkedEmail = ''; }
+      });
+  }
+
+  confirmAddExisting(): void {
+    this.addExisting = true;
+    if (!this.customer.name.trim() && this.lookup?.name) this.customer.name = this.lookup.name;
+    if (this.lookup?.hasAccount) this.giveLogin = false;
+  }
+
+  declineAddExisting(): void {
+    this.customer.email = '';
+    this.lookup = null;
+    this.checkedEmail = '';
+    this.addExisting = false;
+    document.getElementById('cust-email')?.focus();
   }
 
   onGstinChange(value: string): void {
@@ -143,8 +194,9 @@ export class CustomerCreateComponent implements OnInit {
       .pipe(finalize(() => { this.isLoading = false; this.cdr.markForCheck(); }))
       .subscribe({
         next: () => {
-          this.toast.success(this.giveLogin
-            ? 'Customer created. Their login details have been emailed to them.'
+          this.toast.success(
+            this.lookup?.hasAccount ? 'Customer added. Your bills will show in their own account.'
+            : this.giveLogin ? 'Customer created. Their login details have been emailed to them.'
             : 'Customer created.');
           this.router.navigate(['/customers']);
         },

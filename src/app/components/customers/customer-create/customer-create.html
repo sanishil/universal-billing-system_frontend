@@ -27,6 +27,48 @@
       <section class="ubs-form-section">
         <h2 class="ubs-section-title">Customer Details</h2>
         <div class="ubs-grid-2">
+          <div class="ubs-form-group ubs-span-2">
+            <label class="ubs-label" for="cust-email">Email Address{{ giveLogin ? ' *' : '' }}</label>
+            <input
+              id="cust-email"
+              type="email"
+              [(ngModel)]="customer.email"
+              (ngModelChange)="onEmailChange()"
+              (blur)="checkEmail()"
+              name="email"
+              [required]="giveLogin"
+              autocomplete="off"
+              inputmode="email"
+              placeholder="e.g. rahul.sharma@gmail.com"
+              class="ubs-input"
+              [class.ubs-input-invalid]="error('email')"
+            />
+            <small *ngIf="error('email')" class="ubs-field-error">{{ error('email') }}</small>
+            <small *ngIf="checkingEmail" class="ubs-field-hint">Checking this email…</small>
+
+            <!-- Already one of your customers -->
+            <div *ngIf="lookup?.status === 'MINE'" class="ubs-lookup-box ubs-lookup-warn" role="alert">
+              <strong>{{ lookup?.name }}</strong> is already in your customers.
+              <a [routerLink]="['/customers', lookup?.customerId]">Open their profile</a>
+            </div>
+
+            <!-- Known in the system: ask before adding -->
+            <div *ngIf="lookup?.status === 'EXISTS' && !addExisting" class="ubs-lookup-box" role="alert">
+              <p>
+                <strong>{{ lookup?.name || 'This customer' }}</strong> is already registered in the system.
+                Do you want to add this customer to your customers?
+              </p>
+              <div class="ubs-lookup-actions">
+                <button type="button" class="ubs-btn-primary" (click)="confirmAddExisting()">Yes, add to my customers</button>
+                <button type="button" class="ubs-btn-secondary" (click)="declineAddExisting()">No</button>
+              </div>
+            </div>
+            <small *ngIf="lookup?.status === 'EXISTS' && addExisting" class="ubs-field-hint">
+              Adding <strong>{{ lookup?.name }}</strong> to your customers.
+              {{ lookup?.hasAccount ? 'They already have a login, so your bills will show in their account.' : '' }}
+            </small>
+          </div>
+
           <div class="ubs-form-group">
             <label class="ubs-label" for="cust-name">Contact / Client Full Name *</label>
             <input
@@ -67,23 +109,6 @@
               Add your business first in
               <a routerLink="/settings/profile">Profile Settings</a>.
             </small>
-          </div>
-
-          <div class="ubs-form-group">
-            <label class="ubs-label" for="cust-email">Email Address{{ giveLogin ? ' *' : '' }}</label>
-            <input
-              id="cust-email"
-              type="email"
-              [(ngModel)]="customer.email"
-              name="email"
-              [required]="giveLogin"
-              autocomplete="off"
-              inputmode="email"
-              placeholder="e.g. rahul.sharma@gmail.com"
-              class="ubs-input"
-              [class.ubs-input-invalid]="error('email')"
-            />
-            <small *ngIf="error('email')" class="ubs-field-error">{{ error('email') }}</small>
           </div>
 
           <div class="ubs-form-group">
@@ -177,7 +202,7 @@
       </section>
 
       <!-- Login access -->
-      <label class="ubs-login-check">
+      <label class="ubs-login-check" *ngIf="!lookup?.hasAccount">
         <input type="checkbox" [(ngModel)]="giveLogin" name="giveLogin" />
         <span>
           <strong>Give this customer a login</strong>

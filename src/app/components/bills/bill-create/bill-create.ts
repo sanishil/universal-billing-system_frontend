@@ -13,7 +13,7 @@ import { Customer } from '../../../models/customer';
 import { Business } from '../../../models/business';
 import { GstBreakdown, calculateGst } from '../../../shared/utils/gst-calculator';
 import { INDIAN_STATES, stateNameForCode } from '../../../shared/utils/indian-states';
-import { ITEM_TYPES, currentMonth, isMonthly, itemName, parseItemName } from '../../../shared/utils/item-types';
+import { ITEM_TYPES, MONTH_OPTIONS, currentMonth, isMonthly, itemName, parseItemName, setMonthPart, yearOptions } from '../../../shared/utils/item-types';
 import { GstRateSelectComponent } from '../../shared/gst-rate-select/gst-rate-select';
 
 @Component({
@@ -69,6 +69,12 @@ export class BillCreateComponent implements OnInit {
   /** Billing month of each row ("2026-11"), used by Room Rent, Electricity, Water and Maintenance */
   itemMonths: string[] = [currentMonth()];
   readonly isMonthly = isMonthly;
+  readonly setMonthPart = setMonthPart;
+  readonly monthOptions = MONTH_OPTIONS;
+  /** Last year to next year, plus any year already on this bill */
+  get yearOptions(): string[] {
+    return [...new Set([...yearOptions(), ...this.itemMonths.map(m => m.split('-')[0])])].sort();
+  }
 
   /** HSN/SAC codes only matter when GST is charged; hidden for No GST and 0 percent */
   get showHsn(): boolean {

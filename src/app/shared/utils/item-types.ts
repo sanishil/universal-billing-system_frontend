@@ -14,6 +14,23 @@ export const ITEM_TYPES: { key: string; label: string; hsnSac?: string; monthly?
 const MONTH_SEPARATOR = ' – ';
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+/** Month dropdown options: value "01".."12", label "January".."December" */
+export const MONTH_OPTIONS = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+  'August', 'September', 'October', 'November', 'December']
+  .map((label, i) => ({ value: String(i + 1).padStart(2, '0'), label }));
+
+/** Year dropdown options: last year to next year */
+export function yearOptions(): string[] {
+  const y = new Date().getFullYear();
+  return [y - 1, y, y + 1].map(String);
+}
+
+/** Replace the year ("2026") or month ("11") part of a "2026-11" value */
+export function setMonthPart(month: string, part: 'year' | 'month', value: string): string {
+  const [y, m] = (month || currentMonth()).split('-');
+  return part === 'year' ? `${value}-${m}` : `${y}-${value}`;
+}
+
 /** This month as an <input type="month"> value, e.g. "2026-11" */
 export function currentMonth(): string {
   const d = new Date();

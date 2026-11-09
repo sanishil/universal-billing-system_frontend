@@ -200,3 +200,30 @@
   to { transform: rotate(360deg); }
 }
 
+
+/* Email check result under the email field */
+.ubs-lookup-box {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: var(--ubs-radius-md);
+  border: 1px solid var(--ubs-blue-200);
+  background: var(--ubs-blue-50);
+  font-size: 0.875rem;
+  color: var(--ubs-black);
+}
+.ubs-lookup-box p {
+  margin: 0 0 10px;
+}
+.ubs-lookup-warn {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+.ubs-lookup-warn a {
+  margin-left: 6px;
+  font-weight: 600;
+}
+.ubs-lookup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

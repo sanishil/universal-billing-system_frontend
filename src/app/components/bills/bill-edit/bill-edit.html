@@ -109,16 +109,26 @@
                     >
                       <option *ngFor="let t of itemTypes" [value]="t.key">{{ t.label }}</option>
                     </select>
-                    <input
-                      *ngIf="isMonthly(itemKinds[i])"
-                      type="month"
-                      class="ubs-input"
-                      [ngModel]="itemMonths[i]"
-                      (ngModelChange)="onItemMonthChange(i, $event)"
-                      [name]="'itemMonth' + i"
-                      aria-label="Billing month"
-                      title="Month this charge is for"
-                    />
+                    <div *ngIf="isMonthly(itemKinds[i])" class="ubs-item-month">
+                      <select
+                        class="ubs-select"
+                        [ngModel]="itemMonths[i].split('-')[1]"
+                        (ngModelChange)="onItemMonthChange(i, setMonthPart(itemMonths[i], 'month', $event))"
+                        [name]="'itemMonth' + i"
+                        aria-label="Billing month"
+                      >
+                        <option *ngFor="let m of monthOptions" [value]="m.value">{{ m.label }}</option>
+                      </select>
+                      <select
+                        class="ubs-select"
+                        [ngModel]="itemMonths[i].split('-')[0]"
+                        (ngModelChange)="onItemMonthChange(i, setMonthPart(itemMonths[i], 'year', $event))"
+                        [name]="'itemYear' + i"
+                        aria-label="Billing year"
+                      >
+                        <option *ngFor="let y of yearOptions" [value]="y">{{ y }}</option>
+                      </select>
+                    </div>
                     <input
                       *ngIf="itemKinds[i] === 'other'"
                       type="text"

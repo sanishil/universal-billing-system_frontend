@@ -248,3 +248,10 @@
   flex-direction: column;
   gap: 6px;
 }
+
+/* Month and year dropdowns for monthly items */
+.ubs-item-month {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  gap: 6px;
+}

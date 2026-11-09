@@ -5,6 +5,18 @@ import { map } from 'rxjs/operators';
 import { Customer } from '../models/customer';
 import { API_BASE_URL } from './api.config';
 
+/**
+ * GET /customers/lookup — what Add Customer should say about an email:
+ * MINE (already your customer), EXISTS (known in the system; only the name is shared), NEW.
+ */
+export interface CustomerLookup {
+  status: 'MINE' | 'EXISTS' | 'NEW';
+  customerId?: string;
+  name?: string | null;
+  /** They already have their own login; the new customer is linked to it */
+  hasAccount?: boolean;
+}
+
 // Keys the backend may use to wrap a list of customers
 const LIST_WRAPPER_KEYS = ['customers', 'data', 'content', 'result', 'customerList', 'items', 'records', 'body'];
 
@@ -34,6 +46,10 @@ export class CustomerService {
     return this.http.get<any>(`${API_BASE_URL}/customers/${id}`).pipe(
       map(response => this.normalize(this.unwrapItem(response)))
     );
+  }
+
+  lookupEmail(email: string): Observable<CustomerLookup> {
+    return this.http.get<CustomerLookup>(`${API_BASE_URL}/customers/lookup`, { params: { email } });
   }
 
   /** inviteRecipient asks the backend to give this customer a login of their own */
