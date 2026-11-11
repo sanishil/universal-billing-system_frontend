@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaidStampComponent } from '../../shared/paid-stamp/paid-stamp';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PublicBillService } from '../../../services/public-bill.service';
 import { PdfService } from '../../../services/pdf.service';
-import { Bill, isGstApplied } from '../../../models/bill';
+import { Bill, isGstApplied, statusWatermark, StatusWatermark } from '../../../models/bill';
 
 // Settlement account printed on the invoice; also the payee of the UPI deep link
 const UPI_VPA = 'billing@sbi';
@@ -17,7 +18,7 @@ const UPI_VPA = 'billing@sbi';
   selector: 'app-public-bill-view',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PaidStampComponent],
   templateUrl: './public-bill-view.html',
   styleUrl: './public-bill-view.css'
 })
@@ -41,6 +42,10 @@ export class PublicBillViewComponent implements OnInit {
   /** HSN/SAC codes only matter when GST is charged; hidden for No GST and 0 percent */
   get showHsn(): boolean {
     return this.gstApplied && Number(this.gstRate) !== 0;
+  }
+
+  get watermark(): StatusWatermark {
+    return statusWatermark(this.bill?.status);
   }
 
   get gstApplied(): boolean {
@@ -92,10 +97,18 @@ export class PublicBillViewComponent implements OnInit {
     this.pdfService.printInvoice();
   }
 
-  downloadPdf() {
+  /** Saves the invoice exactly as shown here; falls back to the server PDF if the capture fails */
+  async downloadPdf() {
     if (this.isDownloading) return;
     this.isDownloading = true;
     this.downloadFailed = false;
+    try {
+      await this.pdfService.downloadInvoiceSheet(`Invoice-${this.bill?.id ?? this.uniqueId}.pdf`);
+      this.isDownloading = false;
+      return;
+    } catch {
+      // fall through to the server-generated PDF
+    }
     this.publicBillService.getPdf(this.uniqueId).subscribe({
       next: blob => {
         this.isDownloading = false;

@@ -9,6 +9,7 @@ import { ProfilePayload, SettingsService, SystemSettingsPayload } from '../../..
 import { ToastService } from '../../../services/toast.service';
 import { Business, BusinessPayload } from '../../../models/business';
 import { INDIAN_STATES } from '../../../shared/utils/indian-states';
+import { MobileInputDirective, MOBILE_ERROR, MOBILE_PATTERN, toMobileDigits } from '../../../shared/mobile-input.directive';
 
 const emptyBusinessForm = (): BusinessPayload => ({ name: '', gstin: '', address: '', stateCode: '' });
 
@@ -18,7 +19,7 @@ type NotificationKey = 'emailOnPayment' | 'emailOnOverdue' | 'weeklyReport' | 'e
   selector: 'app-profile-settings',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, MobileInputDirective],
   templateUrl: './profile-settings.html',
   styleUrl: './profile-settings.css'
 })
@@ -154,6 +155,13 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   updateProfile() {
+    // Older profiles may hold "+91 98765 43210"; save the plain 10 digits
+    this.phone = toMobileDigits(this.phone);
+    if (this.phone && !MOBILE_PATTERN.test(this.phone)) {
+      this.toast.error(MOBILE_ERROR);
+      document.getElementById('prf-phone')?.focus();
+      return;
+    }
     const payload: ProfilePayload = {
       firstName: this.firstName,
       lastName: this.lastName,

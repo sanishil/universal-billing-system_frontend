@@ -59,13 +59,14 @@
                 [title]="watermarkButtonLabel" [attr.aria-label]="watermarkButtonLabel">
           <i class="fa-solid fa-stamp"></i>
         </button>
-        <button type="button" (click)="deleteBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-icon-btn-danger" title="Delete invoice" aria-label="Delete invoice">
+        <button type="button" (click)="deleteBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" title="Delete invoice" aria-label="Delete invoice">
           <i class="fa-solid fa-trash"></i>
         </button>
       </ng-container>
 
-      <button *ngIf="bill.publicUrl" type="button" (click)="downloadPdf()" class="ubs-icon-btn ubs-icon-btn-lg" title="Download PDF" aria-label="Download PDF">
-        <i class="fa-solid fa-download"></i>
+      <button type="button" (click)="downloadPdf()" class="ubs-icon-btn ubs-icon-btn-lg" [disabled]="isDownloading"
+              [title]="isDownloading ? 'Creating PDF…' : 'Download PDF'" aria-label="Download PDF">
+        <i class="fa-solid" [class.fa-download]="!isDownloading" [class.fa-spinner]="isDownloading" [class.fa-spin]="isDownloading"></i>
       </button>
       <button type="button" (click)="printInvoice()" class="ubs-icon-btn ubs-icon-btn-lg ubs-icon-btn-primary" title="Print" aria-label="Print">
         <i class="fa-solid fa-print"></i>
@@ -76,8 +77,9 @@
   <!-- Document Paper / Indian Tax Invoice Card -->
   <div class="ubs-card ubs-invoice-sheet" [class.ubs-invoice-sheet--watermarked]="watermarkActive">
     <!-- Watermark Overlay -->
-    <div class="ubs-watermark" *ngIf="watermarkActive" [attr.data-text]="watermarkText">
-      <span>{{ watermarkText }}</span>
+    <div class="ubs-status-watermark" *ngIf="watermarkActive" [ngClass]="'ubs-status-watermark--' + watermark.tone" aria-hidden="true">
+      <app-paid-stamp *ngIf="watermark.tone === 'paid'; else wmText" class="ubs-paid-stamp"></app-paid-stamp>
+      <ng-template #wmText><span>{{ watermark.text }}</span></ng-template>
     </div>
     <!-- Sheet Header -->
     <div class="ubs-sheet-header">

@@ -8,6 +8,7 @@ import { SettingsService } from '../../../services/settings.service';
 import { Business } from '../../../models/business';
 import { ToastService } from '../../../services/toast.service';
 import { INDIAN_STATES } from '../../../shared/utils/indian-states';
+import { MobileInputDirective } from '../../../shared/mobile-input.directive';
 
 // Same rules the backend applies
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -21,7 +22,7 @@ type FieldErrors = Partial<Record<'name' | 'businessId' | 'email' | 'phone' | 'g
   selector: 'app-customer-create',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, MobileInputDirective],
   templateUrl: './customer-create.html',
   styleUrl: './customer-create.css'
 })
@@ -62,6 +63,8 @@ export class CustomerCreateComponent implements OnInit {
   checkingEmail = false;
   /** The user said yes to adding a customer who is already in the system */
   addExisting = false;
+  /** Name of a customer you removed earlier; saving brings them back */
+  restoringName: string | null = null;
   private checkedEmail = '';
 
   ngOnInit(): void {
@@ -114,6 +117,7 @@ export class CustomerCreateComponent implements OnInit {
   onEmailChange(): void {
     if (this.customer.email.trim().toLowerCase() !== this.checkedEmail) {
       this.lookup = null;
+      this.restoringName = null;
       this.addExisting = false;
     }
   }
@@ -123,17 +127,33 @@ export class CustomerCreateComponent implements OnInit {
     const email = this.customer.email.trim().toLowerCase();
     if (!EMAIL_PATTERN.test(email) || email === this.checkedEmail) return;
 
+    this.runLookup(email);
+  }
+
+  /** Checks the email, then calls `then` (Save uses this so the check can never be skipped) */
+  private runLookup(email: string, then?: () => void): void {
     this.checkingEmail = true;
     this.customerService.lookupEmail(email)
-      .pipe(finalize(() => { this.checkingEmail = false; }))
+      .pipe(finalize(() => { this.checkingEmail = false; this.cdr.markForCheck(); }))
       .subscribe({
         next: result => {
+          // A newer email was typed while this one was being checked
+          if (this.customer.email.trim().toLowerCase() !== email) return;
           this.checkedEmail = email;
           this.lookup = result.status === 'NEW' ? null : result;
+          this.restoringName = result.status === 'NEW' && result.removedCustomerId ? (result.name || 'This customer') : null;
           this.addExisting = false;
+          then?.();
         },
-        // If the check fails, saving still works; the backend rejects duplicates
-        error: () => { this.checkedEmail = ''; }
+        // If the check fails, saving still works; the backend rejects duplicates in your own list
+        error: () => {
+          if (then) {
+            this.checkedEmail = email;
+            then();
+          } else {
+            this.checkedEmail = '';
+          }
+        }
       });
   }
 
@@ -165,11 +185,22 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   saveCustomer(): void {
-    if (this.isLoading) return;
+    if (this.isLoading || this.checkingEmail) return;
+
+    // Pressing Save straight after typing the email: check it first, so a customer who is
+    // already yours, or already in the system, is never added without the right message
+    const email = this.customer.email.trim().toLowerCase();
+    if (EMAIL_PATTERN.test(email) && email !== this.checkedEmail) {
+      this.runLookup(email, () => this.saveCustomer());
+      return;
+    }
+
     this.submitted = true;
     const firstError = Object.values(this.errors)[0];
     if (firstError) {
       this.toast.error(firstError);
+      // Bring the "already yours" / "add this customer?" box into view
+      if (this.lookup) document.getElementById('cust-email')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
@@ -195,7 +226,9 @@ export class CustomerCreateComponent implements OnInit {
       .subscribe({
         next: () => {
           this.toast.success(
-            this.lookup?.hasAccount ? 'Customer added. Your bills will show in their own account.'
+            this.restoringName ? 'Customer restored, with their earlier bills.'
+            : this.lookup?.hasAccount ? 'Customer added. We emailed them, and your bills will show in their own account.'
+            : this.lookup?.status === 'EXISTS' ? 'Customer added. We emailed them to let them know.'
             : this.giveLogin ? 'Customer created. Their login details have been emailed to them.'
             : 'Customer created.');
           this.router.navigate(['/customers']);

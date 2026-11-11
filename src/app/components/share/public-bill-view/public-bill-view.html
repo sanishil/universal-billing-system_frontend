@@ -47,6 +47,10 @@
 
   <!-- Document Paper / Indian Tax Invoice Card -->
   <div class="ubs-card ubs-invoice-sheet">
+    <div class="ubs-status-watermark" [ngClass]="'ubs-status-watermark--' + watermark.tone" aria-hidden="true">
+      <app-paid-stamp *ngIf="watermark.tone === 'paid'; else wmText" class="ubs-paid-stamp"></app-paid-stamp>
+      <ng-template #wmText><span>{{ watermark.text }}</span></ng-template>
+    </div>
     <div class="ubs-sheet-header">
       <div class="ubs-sheet-brand">
         <div>

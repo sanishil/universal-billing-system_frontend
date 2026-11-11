@@ -41,4 +41,31 @@ export class CustomerDetailsComponent implements OnInit {
       }
     });
   }
+
+  /** Up to two initials for the avatar, e.g. "Ravi Kumar" → "RK" */
+  get initials(): string {
+    const parts = (this.customer?.name || '').trim().split(/\s+/).filter(Boolean);
+    return parts.slice(0, 2).map(p => p[0].toUpperCase()).join('') || '?';
+  }
+
+  get paidTotal(): number {
+    return this.sumBills(b => b.status === 'PAID');
+  }
+
+  get outstandingTotal(): number {
+    return this.sumBills(b => b.status !== 'PAID');
+  }
+
+  /** Backend value when it sends one, otherwise what this customer has paid so far */
+  get lifetimeValue(): number {
+    return this.customer?.totalSpent ?? this.paidTotal;
+  }
+
+  get overdueCount(): number {
+    return this.customerBills.filter(b => b.status === 'OVERDUE').length;
+  }
+
+  private sumBills(match: (b: Bill) => boolean): number {
+    return this.customerBills.filter(match).reduce((sum, b) => sum + (Number(b.total) || 0), 0);
+  }
 }

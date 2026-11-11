@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" class="paid-stamp-svg" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- worn rubber-stamp ink: noise punches small gaps out of the red -->
+    <filter id="ubs-stamp-worn" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035 0.5" numOctaves="2" seed="11" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -9 6.4" result="mask"/>
+      <feComposite in="SourceGraphic" in2="mask" operator="in"/>
+    </filter>
+    <path id="ubs-stamp-arc-top" d="M 78,200 A 122,122 0 0 1 322,200"/>
+    <path id="ubs-stamp-arc-bottom" d="M 72,200 A 128,128 0 0 0 328,200"/>
+  </defs>
+  <g opacity="0.32" fill="#e3000f" stroke="#e3000f" filter="url(#ubs-stamp-worn)" font-family="'Arial Black', 'Arial Bold', Arial, Helvetica, sans-serif" font-weight="900">
+    <!-- jagged seal edge with a white band inside it -->
+    <polygon points="200.0,4.0 215.3,24.7 234.0,7.0 245.6,30.0 267.0,15.8 274.4,40.5 298.0,30.3 300.9,55.8 326.0,49.9 324.5,75.5 350.1,74.0 344.2,99.1 369.7,102.0 359.5,125.6 384.2,133.0 370.0,154.4 393.0,166.0 375.3,184.7 396.0,200.0 375.3,215.3 393.0,234.0 370.0,245.6 384.2,267.0 359.5,274.4 369.7,298.0 344.2,300.9 350.1,326.0 324.5,324.5 326.0,350.1 300.9,344.2 298.0,369.7 274.4,359.5 267.0,384.2 245.6,370.0 234.0,393.0 215.3,375.3 200.0,396.0 184.7,375.3 166.0,393.0 154.4,370.0 133.0,384.2 125.6,359.5 102.0,369.7 99.1,344.2 74.0,350.1 75.5,324.5 49.9,326.0 55.8,300.9 30.3,298.0 40.5,274.4 15.8,267.0 30.0,245.6 7.0,234.0 24.7,215.3 4.0,200.0 24.7,184.7 7.0,166.0 30.0,154.4 15.8,133.0 40.5,125.6 30.3,102.0 55.8,99.1 49.9,74.0 75.5,75.5 74.0,49.9 99.1,55.8 102.0,30.3 125.6,40.5 133.0,15.8 154.4,30.0 166.0,7.0 184.7,24.7" stroke="none"/>
+    <circle cx="200" cy="200" r="168" fill="#ffffff" stroke="none"/>
+    <circle cx="200" cy="200" r="160" fill="none" stroke-width="6"/>
+    <!-- inner broken ring the PAID word sits across -->
+    <path d="M 118,128 A 108,108 0 0 1 292,140" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 282,272 A 108,108 0 0 1 108,260" fill="none" stroke-width="5" stroke-linecap="round"/>
+    <text font-size="30" letter-spacing="2" stroke="none" text-anchor="middle"><textPath href="#ubs-stamp-arc-top" startOffset="50%">THANK YOU</textPath></text>
+    <text font-size="30" letter-spacing="2" stroke="none" text-anchor="middle" dominant-baseline="hanging"><textPath href="#ubs-stamp-arc-bottom" startOffset="50%">THANK YOU</textPath></text>
+    <g stroke="none"><circle cx="324.0" cy="154.9" r="4.5"/><circle cx="331.5" cy="188.5" r="4.5"/><circle cx="330.0" cy="222.9" r="4.5"/><circle cx="70.0" cy="222.9" r="4.5"/><circle cx="68.5" cy="188.5" r="4.5"/><circle cx="76.0" cy="154.9" r="4.5"/></g>
+    <text x="200" y="200" font-size="104" stroke="none" text-anchor="middle" dominant-baseline="central" transform="rotate(-14 200 200)" letter-spacing="2">PAID</text>
+  </g>
+</svg>

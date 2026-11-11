@@ -432,37 +432,7 @@
   overflow: hidden;
 }
 
-.ubs-watermark {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.ubs-watermark span {
-  font-size: 7rem;
-  font-weight: 900;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(0, 0, 0, 0.08);
-  transform: rotate(-35deg);
-  white-space: nowrap;
-  user-select: none;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  border: 6px solid rgba(0, 0, 0, 0.06);
-  padding: 12px 32px;
-  border-radius: 8px;
-}
-
-/* Button active state */
-.ubs-btn-watermark-active {
-  background-color: #111111 !important;
-  color: #ffffff !important;
-  border-color: #111111 !important;
-}
+/* Watermark itself is global: .ubs-status-watermark in src/styles.css */
 
 /* Print fallback — if browser blocks popup, fall back to full-page print with layout hidden */
 /* ── Tablet ── */
@@ -537,11 +507,5 @@
     box-shadow: none !important;
     border-radius: 0 !important;
     padding: 32px !important;
-  }
-  .ubs-watermark span {
-    color: rgba(0, 0, 0, 0.12) !important;
-    border-color: rgba(0, 0, 0, 0.09) !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
   }
 }

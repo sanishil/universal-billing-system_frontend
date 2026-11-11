@@ -24,20 +24,8 @@
       <h1 class="ubs-form-title">Edit Invoice #{{ bill.id }}</h1>
     </div>
     <div class="ubs-form-actions">
-      <button (click)="cancel()" class="ubs-btn-secondary">Cancel</button>
-      <button (click)="saveBill()" class="ubs-btn-primary" [disabled]="isSaving">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-        >
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>Save Changes</span>
-      </button>
+      <button (click)="cancel()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" title="Cancel" aria-label="Cancel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      <button (click)="saveBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" [disabled]="isSaving" title="Save Changes" aria-label="Save Changes"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i></button>
     </div>
   </div>
 
@@ -155,12 +143,10 @@
                   <button
                     type="button"
                     (click)="removeItem(i)"
-                    class="ubs-remove-item-btn"
+                    class="ubs-icon-btn ubs-btn-danger"
                     title="Remove item"
                     [disabled]="bill.items.length <= 1"
-                  >
-                    ✕
-                  </button>
+                   aria-label="Remove item"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -214,9 +200,7 @@
         <span class="ubs-total-val">₹{{ gst.total | number: '1.2-2' }}</span>
       </div>
 
-      <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit" [disabled]="isSaving">
-        {{ isSaving ? 'Saving…' : 'Save & Update Bill' }}
-      </button>
+      <button (click)="saveBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success ubs-summary-submit" [disabled]="isSaving" [title]="isSaving ? 'Saving…' : 'Save & Update Bill'" [attr.aria-label]="isSaving ? 'Saving…' : 'Save & Update Bill'"><i class="fa-solid" [ngClass]="isSaving ? 'fa-spinner fa-spin' : 'fa-floppy-disk'" aria-hidden="true"></i></button>
     </div>
   </div>
 </div>

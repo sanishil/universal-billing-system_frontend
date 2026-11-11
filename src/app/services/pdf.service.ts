@@ -14,6 +14,71 @@ export class PdfService {
     });
   }
 
+  /**
+   * Saves the on-screen .ubs-invoice-sheet as an A4 PDF, so the download looks exactly like the
+   * website (layout, fonts, ₹ sign and the PAID / UNPAID / OVERDUE watermark).
+   * The sheet is captured at a desktop width so a phone gets the same layout as a laptop.
+   * Rejects when there is no sheet on the page or the capture fails; callers fall back to the API PDF.
+   */
+  async downloadInvoiceSheet(filename: string): Promise<void> {
+    const sheet = document.querySelector('.ubs-invoice-sheet') as HTMLElement | null;
+    if (!sheet) throw new Error('No invoice on the page');
+
+    // Loaded only when someone downloads, so they stay out of the main bundle
+    const [{ default: html2canvas }, { jsPDF }] = await Promise.all([import('html2canvas'), import('jspdf')]);
+    await document.fonts?.ready;
+
+    // Lay out a copy at a fixed A4-like width (behind the page, so nobody sees it) and capture
+    // that, so the PDF is the same on a phone and a laptop and nothing is cut off at the edge
+    const captureWidth = 820;
+    const host = document.createElement('div');
+    host.setAttribute('aria-hidden', 'true');
+    host.style.cssText = `position:fixed;left:0;top:0;width:${captureWidth}px;z-index:-9999;pointer-events:none;`;
+    const copy = sheet.cloneNode(true) as HTMLElement;
+    copy.style.width = `${captureWidth}px`;
+    copy.style.maxWidth = 'none';
+    copy.style.margin = '0';
+    copy.style.boxShadow = 'none';
+    host.appendChild(copy);
+    document.body.appendChild(host);
+
+    let canvas: HTMLCanvasElement;
+    try {
+      canvas = await html2canvas(copy, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        width: captureWidth,
+        windowWidth: 1280 // desktop media queries, whatever the real screen is
+      });
+    } finally {
+      host.remove();
+    }
+
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+    const margin = 8;
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const contentW = pageW - margin * 2;
+    const contentH = pageH - margin * 2;
+    const pxPerMm = canvas.width / contentW;
+    const pageSlicePx = Math.floor(contentH * pxPerMm);
+
+    // Long invoices continue on the next page, sliced from the same image
+    for (let y = 0, page = 0; y < canvas.height; y += pageSlicePx, page++) {
+      const sliceH = Math.min(pageSlicePx, canvas.height - y);
+      const slice = document.createElement('canvas');
+      slice.width = canvas.width;
+      slice.height = sliceH;
+      slice.getContext('2d')!.drawImage(canvas, 0, y, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+      if (page > 0) pdf.addPage();
+      pdf.addImage(slice.toDataURL('image/jpeg', 0.92), 'JPEG', margin, margin, contentW, sliceH / pxPerMm);
+    }
+
+    pdf.save(filename);
+  }
+
   /** Triggers a browser download for a PDF fetched from the API */
   saveBlob(blob: Blob, filename: string): void {
     const url = URL.createObjectURL(blob);
@@ -131,7 +196,7 @@ export class PdfService {
             .ubs-sign-label      { font-size: 0.65rem !important; }
 
             /* Watermark */
-            .ubs-watermark span {
+            .ubs-status-watermark span {
               font-size: 5rem !important;
               -webkit-print-color-adjust: exact;
               print-color-adjust: exact;

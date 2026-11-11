@@ -131,6 +131,68 @@ a {
   transform: translateY(0);
 }
 
+/* Success (green) variant for create / save / update actions.
+   Icon-only: class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" with title + aria-label.
+   With text:  class="ubs-btn-primary ubs-btn-success" */
+.ubs-btn-primary.ubs-btn-success,
+.ubs-icon-btn.ubs-btn-success {
+  background-color: #047857;
+  border-color: #047857;
+  color: var(--ubs-white);
+}
+.ubs-icon-btn.ubs-btn-success {
+  font-size: 16px;
+}
+.ubs-btn-primary.ubs-btn-success:hover:not(:disabled),
+.ubs-icon-btn.ubs-btn-success:hover:not(:disabled) {
+  background-color: #065f46;
+  border-color: #065f46;
+  color: var(--ubs-white);
+  box-shadow: 0 10px 20px -5px rgba(4, 120, 87, 0.3);
+}
+.ubs-btn-primary.ubs-btn-success:focus-visible,
+.ubs-icon-btn.ubs-btn-success:focus-visible {
+  outline: 2px solid #047857;
+  outline-offset: 2px;
+}
+.ubs-icon-btn.ubs-btn-success:disabled,
+.ubs-btn-primary.ubs-btn-success:disabled {
+  background-color: #6ee7b7;
+  border-color: #6ee7b7;
+  color: #064e3b;
+  opacity: 1;
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Danger (red) variant for cancel / delete / remove actions.
+   Icon-only: class="ubs-icon-btn ubs-btn-danger" (+ ubs-icon-btn-lg) with title + aria-label. */
+.ubs-icon-btn.ubs-btn-danger {
+  background-color: #dc2626;
+  border-color: #dc2626;
+  color: var(--ubs-white);
+  font-size: 16px;
+}
+.ubs-icon-btn.ubs-btn-danger:hover:not(:disabled) {
+  background-color: #b91c1c;
+  border-color: #b91c1c;
+  color: var(--ubs-white);
+  box-shadow: 0 10px 20px -5px rgba(220, 38, 38, 0.3);
+}
+.ubs-icon-btn.ubs-btn-danger:focus-visible {
+  outline: 2px solid #dc2626;
+  outline-offset: 2px;
+}
+.ubs-icon-btn.ubs-btn-danger:disabled {
+  background-color: #fca5a5;
+  border-color: #fca5a5;
+  color: #7f1d1d;
+  opacity: 1;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 .ubs-btn-dark {
   display: inline-flex;
   align-items: center;
@@ -540,5 +602,66 @@ a {
   select,
   textarea {
     font-size: 16px !important;
+  }
+}
+
+/* ── Invoice status watermark (bill view, public link, print) ──────────────
+   <div class="ubs-status-watermark ubs-status-watermark--paid"><span>PAID</span></div>
+   placed as the first child of .ubs-invoice-sheet */
+.ubs-invoice-sheet {
+  position: relative;
+  /* lets the watermark size itself to the sheet (cqi units), not the window */
+  container-type: inline-size;
+}
+.ubs-status-watermark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  z-index: 10;
+  border-radius: inherit;
+}
+.ubs-status-watermark span {
+  --wm-color: 92, 24, 110;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(2rem, 14cqi, 7.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(var(--wm-color), 0.13);
+  border: 0.06em solid rgba(var(--wm-color), 0.16);
+  border-radius: 0.12em;
+  padding: 0.12em 0.3em 0.12em 0.42em;
+  transform: rotate(-30deg);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.ubs-status-watermark--paid span {
+  --wm-color: 5, 150, 105;
+}
+/* Paid invoices get the red "PAID / THANK YOU" seal instead of plain text */
+.ubs-status-watermark .ubs-paid-stamp {
+  width: clamp(140px, 46cqi, 380px);
+  /* transparency lives inside the SVG (opacity="0.32") so the PDF capture matches the screen */
+  transform: rotate(-12deg);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.ubs-status-watermark--unpaid span {
+  --wm-color: 217, 119, 6;
+}
+.ubs-status-watermark--overdue span {
+  --wm-color: 220, 38, 38;
+}
+@media print {
+  .ubs-status-watermark span {
+    color: rgba(var(--wm-color), 0.16);
+    border-color: rgba(var(--wm-color), 0.2);
   }
 }

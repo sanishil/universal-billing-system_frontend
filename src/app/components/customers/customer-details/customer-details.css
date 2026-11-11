@@ -1,38 +1,352 @@
-.ubs-profile-card {
-  padding: 28px;
-  margin-bottom: 24px;
+/* Shared page pieces (these are defined per component in this app) */
+.ubs-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.ubs-profile-grid {
+.ubs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--ubs-ash-muted);
+  min-width: 0;
+}
+.ubs-breadcrumb a {
+  color: var(--ubs-blue-600);
+}
+.ubs-breadcrumb .ubs-current {
+  color: var(--ubs-black);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ubs-page-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ubs-page-subtitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--ubs-ash-muted);
+  margin: 4px 0 0;
+}
+
+/* Identity card */
+.cdt-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 24px;
+}
+
+.cdt-identity {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  flex: 1 1 360px;
+  min-width: 0;
+}
+
+.cdt-avatar {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  place-items: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ubs-white);
+  background: linear-gradient(135deg, var(--ubs-blue-500), var(--ubs-blue-800));
+  box-shadow: var(--ubs-shadow-blue);
 }
 
-.ubs-profile-item {
+.cdt-identity-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.cdt-name-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.cdt-dot {
+  color: var(--ubs-ash-border-focus);
+}
+
+.cdt-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.cdt-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ubs-ash-dark);
+  background-color: var(--ubs-ash-subtle);
+  border: 1px solid var(--ubs-ash-border);
+  border-radius: 9999px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.cdt-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cdt-chip i {
+  color: var(--ubs-blue-500);
+}
+.cdt-chip:hover {
+  background-color: var(--ubs-blue-50);
+  color: var(--ubs-blue-700);
+}
+
+.cdt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Summary tiles */
+.cdt-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cdt-stat {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 18px 20px;
 }
 
-.ubs-profile-val {
+.cdt-stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ubs-ash-muted);
+}
+
+.cdt-stat-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ubs-black);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.cdt-accent {
+  color: var(--ubs-blue-600);
+}
+.cdt-warn {
+  color: var(--ubs-warning-text);
+}
+.cdt-danger {
+  color: var(--ubs-danger-text);
+}
+
+/* Panels */
+.cdt-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--ubs-ash-border);
+}
+
+.cdt-panel-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ubs-black);
+  margin: 0;
+}
+
+/* Details */
+.cdt-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px 28px;
+  padding: 22px 24px;
+  margin: 0;
+}
+
+.cdt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cdt-info-wide {
+  grid-column: span 2;
+}
+
+.cdt-info dt {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ubs-ash-muted);
+}
+
+.cdt-info dd {
+  margin: 0;
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--ubs-black);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
 }
 
-.ubs-spent-val {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--ubs-blue-600);
+.cdt-muted {
+  color: var(--ubs-ash-muted);
+  font-weight: 500;
 }
 
-.ubs-customer-invoices-panel {
+.cdt-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Invoices */
+.cdt-invoices {
   overflow: hidden;
 }
 
-@media (max-width: 900px) {
-  .ubs-profile-grid {
-    grid-template-columns: 1fr 1fr;
+.cdt-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+.cdt-table-wrap .ubs-table {
+  min-width: 560px;
+}
+
+.cdt-right {
+  text-align: right !important;
+}
+
+.cdt-bill-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: var(--ubs-blue-600);
+}
+.cdt-bill-link:hover {
+  text-decoration: underline;
+}
+
+.cdt-empty {
+  text-align: center;
+  padding: 40px 24px !important;
+  color: var(--ubs-ash-muted) !important;
+}
+.cdt-empty i {
+  font-size: 1.75rem;
+  color: var(--ubs-ash-border-focus);
+}
+.cdt-empty p {
+  margin: 10px 0 6px;
+}
+.cdt-empty-link {
+  color: var(--ubs-blue-600);
+  font-weight: 600;
+}
+.cdt-empty-link:hover {
+  text-decoration: underline;
+}
+
+/* Loading / not found */
+.cdt-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 64px 16px;
+  text-align: center;
+  color: var(--ubs-ash-muted);
+}
+.cdt-state h2 {
+  margin: 6px 0 0;
+  color: var(--ubs-black);
+  font-size: 1.25rem;
+}
+.cdt-state p {
+  margin: 0 0 8px;
+}
+.cdt-state-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  color: var(--ubs-danger-text);
+  background-color: var(--ubs-danger-bg);
+}
+
+@media (max-width: 1024px) {
+  .cdt-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .cdt-hero {
+    padding: 18px;
+  }
+  .cdt-identity {
+    flex-basis: 100%;
+    gap: 14px;
+  }
+  .cdt-avatar {
+    width: 52px;
+    height: 52px;
+    font-size: 1.1rem;
+  }
+  .cdt-actions {
+    width: 100%;
+  }
+  .cdt-actions > * {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .cdt-info-grid {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+  .cdt-info-wide {
+    grid-column: auto;
+  }
+  .cdt-panel-header {
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .cdt-stats {
+    grid-template-columns: 1fr;
   }
 }

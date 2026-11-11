@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PaidStampComponent } from '../../shared/paid-stamp/paid-stamp';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BillService } from '../../../services/bill.service';
 import { PdfService } from '../../../services/pdf.service';
 import { PublicBillService } from '../../../services/public-bill.service';
 import { CustomerService } from '../../../services/customer.service';
 import { ToastService } from '../../../services/toast.service';
-import { Bill, isGstApplied, isIssuer } from '../../../models/bill';
+import { Bill, isGstApplied, isIssuer, statusWatermark, StatusWatermark } from '../../../models/bill';
 import { SendBillDialogComponent } from '../../shared/send-bill-dialog/send-bill-dialog';
 import { BillEmailHistoryComponent } from '../bill-email-history/bill-email-history';
 
@@ -22,7 +23,7 @@ const FALLBACK_ISSUER = {
   selector: 'app-bill-view',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
-  imports: [CommonModule, RouterLink, SendBillDialogComponent, BillEmailHistoryComponent],
+  imports: [CommonModule, RouterLink, SendBillDialogComponent, BillEmailHistoryComponent, PaidStampComponent],
   templateUrl: './bill-view.html',
   styleUrl: './bill-view.css'
 })
@@ -46,13 +47,11 @@ export class BillViewComponent implements OnInit {
   /** Bumped to reload the email history after a send */
   emailHistoryRefresh = 0;
 
-  // Watermark
-  watermarkActive = false;
-  watermarkOptions = ['PAID', 'CONFIDENTIAL', 'DRAFT', 'COPY'];
-  watermarkIndex = 0;
+  /** Status watermark (PAID / UNPAID / OVERDUE) is shown by default; the stamp button hides it */
+  watermarkActive = true;
 
-  get watermarkText(): string {
-    return this.watermarkOptions[this.watermarkIndex];
+  get watermark(): StatusWatermark {
+    return statusWatermark(this.bill?.status);
   }
 
   get isIssuer(): boolean {
@@ -90,19 +89,11 @@ export class BillViewComponent implements OnInit {
   }
 
   toggleWatermark() {
-    if (!this.watermarkActive) {
-      this.watermarkActive = true;
-    } else {
-      this.watermarkIndex = (this.watermarkIndex + 1) % this.watermarkOptions.length;
-      if (this.watermarkIndex === 0) {
-        this.watermarkActive = false;
-      }
-    }
+    this.watermarkActive = !this.watermarkActive;
   }
 
   get watermarkButtonLabel(): string {
-    if (!this.watermarkActive) return 'Add Watermark';
-    return `Watermark: ${this.watermarkText}`;
+    return this.watermarkActive ? `Hide ${this.watermark.text} watermark` : `Show ${this.watermark.text} watermark`;
   }
 
   ngOnInit() {
@@ -135,14 +126,34 @@ export class BillViewComponent implements OnInit {
     this.pdfService.printInvoice();
   }
 
-  /** Recipients download the same PDF the public link serves */
-  downloadPdf() {
-    if (!this.bill?.publicUrl) return;
-    const token = this.bill.publicUrl.split('/').pop() ?? '';
-    this.publicBillService.getPdf(token).subscribe({
-      next: blob => this.pdfService.saveBlob(blob, `Invoice-${this.bill!.id}.pdf`),
-      error: () => this.toast.error('The PDF could not be downloaded. Please try again.')
-    });
+  isDownloading = false;
+
+  /** Saves the invoice exactly as shown here; falls back to the server PDF if the capture fails */
+  async downloadPdf() {
+    if (!this.bill || this.isDownloading) return;
+    this.isDownloading = true;
+    const filename = `Invoice-${this.bill.id}.pdf`;
+    try {
+      await this.pdfService.downloadInvoiceSheet(filename);
+      this.isDownloading = false;
+    } catch {
+      const token = this.bill.publicUrl?.split('/').pop();
+      if (!token) {
+        this.isDownloading = false;
+        this.toast.error('The PDF could not be created. Use Print and choose "Save as PDF" instead.');
+        return;
+      }
+      this.publicBillService.getPdf(token).subscribe({
+        next: blob => {
+          this.isDownloading = false;
+          this.pdfService.saveBlob(blob, filename);
+        },
+        error: () => {
+          this.isDownloading = false;
+          this.toast.error('The PDF could not be downloaded. Please try again.');
+        }
+      });
+    }
   }
 
   markPaid() {

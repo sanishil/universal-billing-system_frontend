@@ -28,7 +28,7 @@
     </div>
 
     <div class="ubs-dialog-footer">
-      <button type="button" class="ubs-btn-secondary" (click)="closed.emit()">Cancel</button>
+      <button type="button" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" (click)="closed.emit()" title="Cancel" aria-label="Cancel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
       <button type="button" class="ubs-btn-primary" (click)="send()" [disabled]="isSending">
         {{ isSending ? 'Sending…' : 'Send email' }}
       </button>

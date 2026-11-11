@@ -1,98 +1,133 @@
-<div *ngIf="isLoading" class="ubs-loading-state" style="padding: 60px; text-align: center; color: var(--ubs-ash-muted)">
+<div *ngIf="isLoading" class="cdt-state">
   <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-  <p style="margin-top: 12px">Loading customer...</p>
+  <p>Loading customer...</p>
 </div>
 
-<div *ngIf="notFound" class="ubs-not-found-state" style="padding: 60px; text-align: center; color: var(--ubs-ash-muted)">
-  <i class="fa-solid fa-user-slash fa-3x" style="color: #d9534f"></i>
-  <h2 style="margin-top: 16px">Customer not found</h2>
+<div *ngIf="notFound" class="cdt-state">
+  <span class="cdt-state-icon"><i class="fa-solid fa-user-slash"></i></span>
+  <h2>Customer not found</h2>
   <p>This customer record does not exist or has been removed.</p>
-  <a routerLink="/customers" style="margin-top: 16px; display: inline-block" class="ubs-btn-primary">Back to Customers</a>
+  <a routerLink="/customers" class="ubs-btn-primary">Back to Customers</a>
 </div>
 
 <div class="ubs-page-container" *ngIf="customer">
-  <!-- Header -->
-  <div class="ubs-page-header">
-    <div>
-      <div class="ubs-breadcrumb">
-        <a routerLink="/customers">Customers</a>
-        <span>/</span>
-        <span class="ubs-current">{{ customer.name }}</span>
-      </div>
-      <h1 class="ubs-page-title">{{ customer.name }}</h1>
-      <p class="ubs-page-subtitle">
-        {{ customer.company || 'Private Account' }} • Client ID: {{ customer.id }}
-      </p>
-    </div>
-    <div class="ubs-page-actions">
-      <a routerLink="/bills/create" class="ubs-btn-primary"> + Create Invoice for Client </a>
-      <a routerLink="/customers" class="ubs-btn-secondary"> ← Back to Directory </a>
-    </div>
-  </div>
+  <!-- Breadcrumb -->
+  <nav class="ubs-breadcrumb" aria-label="Breadcrumb">
+    <a routerLink="/customers">Customers</a>
+    <span>/</span>
+    <span class="ubs-current">{{ customer.name }}</span>
+  </nav>
 
-  <!-- Profile Card & Details -->
-  <div class="ubs-card ubs-profile-card">
-    <div class="ubs-profile-grid">
-      <div class="ubs-profile-item">
-        <span class="ubs-label">Email Address</span>
-        <span class="ubs-profile-val">{{ customer.email }}</span>
-      </div>
-      <div class="ubs-profile-item">
-        <span class="ubs-label">Phone</span>
-        <span class="ubs-profile-val">{{ customer.phone }}</span>
-      </div>
-      <div class="ubs-profile-item">
-        <span class="ubs-label">Billing Address</span>
-        <span class="ubs-profile-val">{{ customer.address }}</span>
-      </div>
-      <div class="ubs-profile-item" *ngIf="customer.gstin">
-        <span class="ubs-label">GSTIN / Tax ID</span>
-        <span class="ubs-profile-val font-mono">{{ customer.gstin }}</span>
-      </div>
-      <div class="ubs-profile-item" *ngIf="customer.pan">
-        <span class="ubs-label">PAN</span>
-        <span class="ubs-profile-val font-mono">{{ customer.pan }}</span>
-      </div>
-      <div class="ubs-profile-item" *ngIf="customer.state">
-        <span class="ubs-label">State / Region</span>
-        <span class="ubs-profile-val">{{ customer.state }} (Code: {{ customer.stateCode }})</span>
-      </div>
-      <div class="ubs-profile-item">
-        <span class="ubs-label">Lifetime Value (INR)</span>
-        <span class="ubs-profile-val ubs-spent-val"
-          >₹{{ customer.totalSpent || 128500 | number: '1.2-2' }}</span
-        >
+  <!-- Identity -->
+  <section class="ubs-card cdt-hero">
+    <div class="cdt-identity">
+      <div class="cdt-avatar" aria-hidden="true">{{ initials }}</div>
+      <div class="cdt-identity-text">
+        <div class="cdt-name-row">
+          <h1 class="ubs-page-title">{{ customer.name }}</h1>
+          <span *ngIf="customer.status" class="ubs-badge"
+            [ngClass]="customer.status === 'ACTIVE' ? 'ubs-badge-paid' : 'ubs-badge-ash'">
+            {{ customer.status }}
+          </span>
+          <span *ngIf="customer.accountStatus === 'REGISTERED'" class="ubs-badge ubs-badge-blue">Has login</span>
+          <span *ngIf="customer.accountStatus === 'INVITED'" class="ubs-badge ubs-badge-pending">Invited</span>
+        </div>
+        <p class="ubs-page-subtitle">
+          <i class="fa-solid fa-building"></i> {{ customer.company || 'Private account' }}
+          <span class="cdt-dot">•</span>
+          <span class="cdt-mono">ID {{ customer.id }}</span>
+        </p>
+        <div class="cdt-contact">
+          <a *ngIf="customer.email" [href]="'mailto:' + customer.email" class="cdt-chip">
+            <i class="fa-solid fa-envelope"></i><span>{{ customer.email }}</span>
+          </a>
+          <a *ngIf="customer.phone" [href]="'tel:' + customer.phone" class="cdt-chip">
+            <i class="fa-solid fa-phone"></i><span>{{ customer.phone }}</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="ubs-page-actions cdt-actions">
+      <a routerLink="/bills/create" [queryParams]="{ customerId: customer.id }" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" title="Create Invoice" aria-label="Create Invoice"><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i></a>
+      <a routerLink="/customers" class="ubs-btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Back
+      </a>
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <section class="cdt-stats">
+    <div class="ubs-card cdt-stat">
+      <span class="cdt-stat-label">Lifetime value</span>
+      <span class="cdt-stat-value cdt-accent">₹{{ lifetimeValue | number: '1.2-2' }}</span>
+    </div>
+    <div class="ubs-card cdt-stat">
+      <span class="cdt-stat-label">Invoices</span>
+      <span class="cdt-stat-value">{{ customerBills.length }}</span>
+    </div>
+    <div class="ubs-card cdt-stat">
+      <span class="cdt-stat-label">Outstanding</span>
+      <span class="cdt-stat-value" [class.cdt-warn]="outstandingTotal > 0">₹{{ outstandingTotal | number: '1.2-2' }}</span>
+    </div>
+    <div class="ubs-card cdt-stat">
+      <span class="cdt-stat-label">Overdue</span>
+      <span class="cdt-stat-value" [class.cdt-danger]="overdueCount > 0">{{ overdueCount }}</span>
+    </div>
+  </section>
+
+  <!-- Details -->
+  <section class="ubs-card">
+    <div class="cdt-panel-header">
+      <h2 class="cdt-panel-title">Billing details</h2>
+    </div>
+    <dl class="cdt-info-grid">
+      <div class="cdt-info cdt-info-wide">
+        <dt>Billing address</dt>
+        <dd>{{ customer.address || '—' }}</dd>
+      </div>
+      <div class="cdt-info">
+        <dt>State / Region</dt>
+        <dd>
+          {{ customer.state || '—' }}
+          <span *ngIf="customer.stateCode" class="cdt-muted">(Code {{ customer.stateCode }})</span>
+        </dd>
+      </div>
+      <div class="cdt-info">
+        <dt>GSTIN / Tax ID</dt>
+        <dd class="cdt-mono">{{ customer.gstin || '—' }}</dd>
+      </div>
+      <div class="cdt-info">
+        <dt>PAN</dt>
+        <dd class="cdt-mono">{{ customer.pan || '—' }}</dd>
+      </div>
+    </dl>
+  </section>
 
   <!-- Invoices issued to this client -->
-  <div class="ubs-card ubs-customer-invoices-panel">
-    <div class="ubs-panel-header">
-      <h2 class="ubs-panel-title">Invoices Issued to {{ customer.name }}</h2>
-      <span class="ubs-badge ubs-badge-blue">{{ customerBills.length }} Invoices</span>
+  <section class="ubs-card cdt-invoices">
+    <div class="cdt-panel-header">
+      <h2 class="cdt-panel-title">Invoices</h2>
+      <span class="ubs-badge ubs-badge-blue">{{ customerBills.length }} total</span>
     </div>
 
-    <div class="ubs-table-wrap">
+    <div class="cdt-table-wrap">
       <table class="ubs-table">
         <thead>
           <tr>
-            <th>Invoice ID</th>
-            <th>Due Date</th>
-            <th>Amount</th>
+            <th>Invoice</th>
+            <th>Due date</th>
+            <th class="cdt-right">Amount</th>
             <th>Status</th>
-            <th style="text-align: right">Action</th>
+            <th class="cdt-right">Action</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let b of customerBills">
             <td>
-              <a [routerLink]="['/bills/view', b.id]" class="ubs-bill-link"> #{{ b.id }} </a>
+              <a [routerLink]="['/bills/view', b.id]" class="cdt-bill-link">#{{ b.id }}</a>
             </td>
-            <td>{{ b.dueDate }}</td>
-            <td>
-              <strong>₹{{ b.total | number: '1.2-2' }}</strong>
-            </td>
+            <td>{{ b.dueDate ? (b.dueDate | date: 'dd MMM yyyy') : '—' }}</td>
+            <td class="cdt-right"><strong>₹{{ b.total | number: '1.2-2' }}</strong></td>
             <td>
               <span
                 class="ubs-badge"
@@ -105,18 +140,20 @@
                 {{ b.status }}
               </span>
             </td>
-            <td style="text-align: right">
+            <td class="cdt-right">
               <a [routerLink]="['/bills/view', b.id]" class="ubs-icon-btn" title="View invoice" aria-label="View invoice"><i class="fa-solid fa-eye"></i></a>
             </td>
           </tr>
 
           <tr *ngIf="customerBills.length === 0">
-            <td colspan="5" style="text-align: center; padding: 28px; color: var(--ubs-ash-muted)">
-              No invoices generated for this client yet.
+            <td colspan="5" class="cdt-empty">
+              <i class="fa-regular fa-file-lines"></i>
+              <p>No invoices for this customer yet.</p>
+              <a routerLink="/bills/create" [queryParams]="{ customerId: customer.id }" class="cdt-empty-link">Create the first one</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 </div>

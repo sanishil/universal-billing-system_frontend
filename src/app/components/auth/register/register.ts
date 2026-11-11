@@ -6,13 +6,14 @@ import { RecaptchaModule, RecaptchaComponent } from 'ng-recaptcha';
 import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
 import { environment } from '../../../../environments/environment';
+import { MobileInputDirective, MOBILE_ERROR, MOBILE_PATTERN } from '../../../shared/mobile-input.directive';
 import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, RecaptchaModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RecaptchaModule, MobileInputDirective],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnDestroy {
     name:         ['', Validators.required],
     // company:      [''],
     email:        ['', [Validators.required, Validators.email]],
-    phone:     ['', Validators.required],
+    phone:     ['', [Validators.required, Validators.pattern(MOBILE_PATTERN)]],
     captchaToken: [null, Validators.required]
   });
 
@@ -103,7 +104,11 @@ export class RegisterComponent implements OnDestroy {
       return;
     }
     if (!this.phone.value?.trim()) {
-      this.showToast('Please enter your phone number.');
+      this.showToast('Please enter your mobile number.');
+      return;
+    }
+    if (!MOBILE_PATTERN.test(this.phone.value.trim())) {
+      this.showToast(MOBILE_ERROR);
       return;
     }
     if (!this.captchaToken.value) {

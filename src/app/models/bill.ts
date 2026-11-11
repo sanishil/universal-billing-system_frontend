@@ -79,3 +79,21 @@ export function isIssuer(bill: Bill): boolean {
 export function isGstApplied(bill: Pick<Bill, 'gstRate'>): boolean {
   return bill.gstRate !== null;
 }
+
+export interface StatusWatermark {
+  text: 'PAID' | 'UNPAID' | 'OVERDUE';
+  /** CSS modifier: ubs-status-watermark--paid / --unpaid / --overdue */
+  tone: 'paid' | 'unpaid' | 'overdue';
+}
+
+/** Watermark stamped across an invoice: PAID, OVERDUE, or UNPAID for anything not yet paid */
+export function statusWatermark(status: string | null | undefined): StatusWatermark {
+  switch ((status || '').toUpperCase()) {
+    case 'PAID':
+      return { text: 'PAID', tone: 'paid' };
+    case 'OVERDUE':
+      return { text: 'OVERDUE', tone: 'overdue' };
+    default:
+      return { text: 'UNPAID', tone: 'unpaid' };
+  }
+}

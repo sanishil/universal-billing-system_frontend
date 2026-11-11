@@ -10,13 +10,8 @@
       <h1 class="ubs-form-title">Add New Customer</h1>
     </div>
     <div class="ubs-form-actions">
-      <a routerLink="/customers" class="ubs-btn-secondary">Cancel</a>
-      <button type="button" (click)="saveCustomer()" class="ubs-btn-primary" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Save Customer</span>
-        <span *ngIf="isLoading" class="ubs-saving-spinner">
-          <span class="ubs-spinner"></span> Saving...
-        </span>
-      </button>
+      <a routerLink="/customers" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" title="Cancel" aria-label="Cancel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></a>
+      <button type="button" (click)="saveCustomer()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" [disabled]="isLoading" [title]="isLoading ? 'Saving…' : 'Save Customer'" [attr.aria-label]="isLoading ? 'Saving…' : 'Save Customer'"><i class="fa-solid" [ngClass]="isLoading ? 'fa-spinner fa-spin' : 'fa-floppy-disk'" aria-hidden="true"></i></button>
     </div>
   </div>
 
@@ -44,22 +39,28 @@
             />
             <small *ngIf="error('email')" class="ubs-field-error">{{ error('email') }}</small>
             <small *ngIf="checkingEmail" class="ubs-field-hint">Checking this email…</small>
+            <small *ngIf="restoringName && !checkingEmail" class="ubs-field-hint">
+              <strong>{{ restoringName }}</strong> was removed from your customers earlier.
+              Saving brings them back, with their earlier bills.
+            </small>
 
             <!-- Already one of your customers -->
             <div *ngIf="lookup?.status === 'MINE'" class="ubs-lookup-box ubs-lookup-warn" role="alert">
-              <strong>{{ lookup?.name }}</strong> is already in your customers.
+              <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+              Customer already present: <strong>{{ lookup?.name }}</strong> is already in your account.
               <a [routerLink]="['/customers', lookup?.customerId]">Open their profile</a>
             </div>
 
             <!-- Known in the system: ask before adding -->
             <div *ngIf="lookup?.status === 'EXISTS' && !addExisting" class="ubs-lookup-box" role="alert">
               <p>
-                <strong>{{ lookup?.name || 'This customer' }}</strong> is already registered in the system.
-                Do you want to add this customer to your customers?
+                <strong>{{ lookup?.name || 'This customer' }}</strong> is already registered in the system,
+                but not in your account. Are you sure you want to add this customer?
+                We'll email them to let them know which business added them.
               </p>
               <div class="ubs-lookup-actions">
-                <button type="button" class="ubs-btn-primary" (click)="confirmAddExisting()">Yes, add to my customers</button>
-                <button type="button" class="ubs-btn-secondary" (click)="declineAddExisting()">No</button>
+                <button type="button" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" (click)="confirmAddExisting()" title="Yes, add to my customers" aria-label="Yes, add to my customers"><i class="fa-solid fa-user-check" aria-hidden="true"></i></button>
+                <button type="button" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" (click)="declineAddExisting()" title="No, don't add" aria-label="No, don't add"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
               </div>
             </div>
             <small *ngIf="lookup?.status === 'EXISTS' && addExisting" class="ubs-field-hint">
@@ -113,13 +114,11 @@
             <label class="ubs-label" for="cust-phone">Mobile Number{{ giveLogin ? ' *' : '' }}</label>
             <input
               id="cust-phone"
-              type="tel"
+              appMobileInput
               [(ngModel)]="customer.phone"
               name="phone"
               [required]="giveLogin"
               autocomplete="off"
-              inputmode="tel"
-              maxlength="16"
               class="ubs-input"
               [class.ubs-input-invalid]="error('phone')"
             />
@@ -205,10 +204,8 @@
       </label>
 
       <div class="ubs-submit-row">
-        <a routerLink="/customers" class="ubs-btn-secondary">Cancel</a>
-        <button type="submit" class="ubs-btn-primary" [disabled]="isLoading">
-          {{ isLoading ? 'Saving…' : 'Save Customer' }}
-        </button>
+        <a routerLink="/customers" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" title="Cancel" aria-label="Cancel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></a>
+        <button type="submit" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" [disabled]="isLoading" [title]="isLoading ? 'Saving…' : 'Save Customer'" [attr.aria-label]="isLoading ? 'Saving…' : 'Save Customer'"><i class="fa-solid" [ngClass]="isLoading ? 'fa-spinner fa-spin' : 'fa-floppy-disk'" aria-hidden="true"></i></button>
       </div>
     </form>
   </div>

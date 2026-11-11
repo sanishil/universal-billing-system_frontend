@@ -10,20 +10,8 @@
       <h1 class="ubs-form-title">Create New Invoice</h1>
     </div>
     <div class="ubs-form-actions">
-      <a routerLink="/bills" class="ubs-btn-secondary">Cancel</a>
-      <button (click)="saveBill()" class="ubs-btn-primary" [disabled]="profileIncomplete || isSaving">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-        >
-          <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        <span>Generate & Issue Invoice</span>
-      </button>
+      <a routerLink="/bills" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-danger" title="Cancel" aria-label="Cancel"><i class="fa-solid fa-xmark" aria-hidden="true"></i></a>
+      <button (click)="saveBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success" [disabled]="profileIncomplete || isSaving" title="Generate & Issue Invoice" aria-label="Generate & Issue Invoice"><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i></button>
     </div>
   </div>
 
@@ -179,12 +167,10 @@
                   <button
                     type="button"
                     (click)="removeItem(i)"
-                    class="ubs-remove-item-btn"
+                    class="ubs-icon-btn ubs-btn-danger"
                     title="Remove item"
                     [disabled]="items.length <= 1"
-                  >
-                    ✕
-                  </button>
+                   aria-label="Remove item"><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -259,9 +245,7 @@
         </p>
       </div>
 
-      <button (click)="saveBill()" class="ubs-btn-primary ubs-summary-submit" [disabled]="profileIncomplete || isSaving">
-        {{ isSaving ? 'Saving…' : 'Save & Issue Invoice' }}
-      </button>
+      <button (click)="saveBill()" class="ubs-icon-btn ubs-icon-btn-lg ubs-btn-success ubs-summary-submit" [disabled]="profileIncomplete || isSaving" [title]="isSaving ? 'Saving…' : 'Save & Issue Invoice'" [attr.aria-label]="isSaving ? 'Saving…' : 'Save & Issue Invoice'"><i class="fa-solid" [ngClass]="isSaving ? 'fa-spinner fa-spin' : 'fa-floppy-disk'" aria-hidden="true"></i></button>
     </div>
   </div>
 </div>

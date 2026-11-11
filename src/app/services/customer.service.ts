@@ -15,6 +15,8 @@ export interface CustomerLookup {
   name?: string | null;
   /** They already have their own login; the new customer is linked to it */
   hasAccount?: boolean;
+  /** NEW only: you removed this customer earlier; saving restores that record and its bills */
+  removedCustomerId?: string;
 }
 
 // Keys the backend may use to wrap a list of customers
@@ -27,7 +29,8 @@ export class CustomerService {
   private http = inject(HttpClient);
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<unknown>(`${API_BASE_URL}/customers`).pipe(
+    // The API pages 10 at a time by default; 100 is its maximum. Removed customers are left out.
+    return this.http.get<unknown>(`${API_BASE_URL}/customers`, { params: { size: 100 } }).pipe(
       map(response => {
         const list = this.unwrapList(response);
         const normalized = list.map(c => this.normalize(c));
